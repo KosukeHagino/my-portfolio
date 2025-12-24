@@ -6,11 +6,11 @@
 
 // クラスをトグルするターゲット要素を取得
 const menuBtn = document.querySelector('#menu');
-const globalNav = document.querySelector('#global_nav');
+const globalNav = document.querySelector('#global-nav');
 const mask = document.querySelector('#mask');
 
 // クリックのトリガーとなる全ての要素を取得
-const triggers = document.querySelectorAll('#menu, #global_nav_item a, #mask');
+const triggers = document.querySelectorAll('#menu, #global-nav-item a, #mask');
 
 // 共通の処理を関数として定義
 const toggleMenu = () => {

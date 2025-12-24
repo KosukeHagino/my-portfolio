@@ -75,14 +75,14 @@ header {
     z-index: 7000;
 }
 
-.site_title {
+.site-title {
     position: absolute;
     top: 30px;
     left: 30px;
     margin: 0;
 }
 
-.site_title a {
+.site-title a {
     font-family:  "pt-sans", sans-serif;
     font-size: 1.6rem;
     line-height: 1.6rem;
@@ -91,7 +91,7 @@ header {
 
 
 /*** グローバルナビ（メニュー） ***/
-.global_nav {
+.global-nav {
     position: absolute;
     top: 0;
     right: 0;
@@ -105,17 +105,17 @@ header {
     transition: all .3s;
 }
 
-.global_nav_list {
+.global-nav-list {
     padding: 100px 0;
 }
 
-.global_nav_item a {
+.global-nav-item a {
     display: block;
     padding: 16px 54px;
     font-size: 1.6rem;
 }
 
-.global_nav_item a:hover {
+.global-nav-item a:hover {
     background: var(--blue);
     color: var(--white);
 }
@@ -163,7 +163,7 @@ header {
 
 
 /*** メニュー表示 ***/
-.global_nav.show {
+.global-nav.show {
     transform: translateX(0);
 }
 
@@ -193,7 +193,7 @@ footer {
     font-size: 1rem;
 }
 
-.github_link {
+.github-link {
     position: absolute;
     bottom: 30px;
     left: 30px;
@@ -201,7 +201,7 @@ footer {
     color: var(--blue);
 }
 
-.copy_right {
+.copy-right {
     position: absolute;
     bottom: 30px;
     right: 30px;
