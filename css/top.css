@@ -1,1 +1,154 @@
 @charset "utf-8";
+
+
+
+/**************************************************
+キーフレーム
+**************************************************/
+
+/*** スクロールバー ***/
+@keyframes scroll-bar {
+    0% {
+        transform: scaleX(0);
+        transform-origin: left;     /* 左端を固定して右へ伸ばす */
+    }
+    50% {
+        transform: scaleX(1);
+        transform-origin: left;
+    }
+    50.1% {
+        transform: scaleX(1);
+        transform-origin: right;    /* 右端を固定して左へ縮ませる */
+    }
+    100% {
+        transform: scaleX(0);
+        transform-origin: right;
+    }
+}
+
+
+
+/**************************************************
+制作物スライド
+**************************************************/
+
+/*** 制作物のタイトル・説明 ***/
+.work-title-area {
+    position: fixed;
+    left: 25%;
+    width: 50%;
+    height: 90px;   
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    pointer-events: none;
+}
+
+.work-title-block {
+    display: flex;
+    align-items: center;
+}
+
+.work-type-label {
+    font-weight: 400;
+    padding: 1px 12px;
+    background: var(--blue);
+    color: var(--white);
+    border-radius: 12px;
+}
+
+.work-title {
+    font-size: 1.3rem;
+    font-weight: 400;
+    padding: 1px 0;
+    margin-left: 16px;
+    color: var(--blue);
+}
+
+.work-description {
+    color: var(--blue);
+    padding: 1px 0;
+}
+
+
+/*** 制作物の画像エリア ***/
+.works-list {
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    overflow-x: auto;           /* 横スクロールを有効 */
+    overflow-y: clip;           /* 縦スクロールを無効 */
+    scroll-snap-type: x mandatory;  /* 横方向にスナップ */
+    -ms-overflow-style: none;   /* スクロールバーを非表示（IE / 旧Edge用） */
+    scrollbar-width: none;      /* スクロールバーを非表示（Firefox用） */
+    scroll-behavior: smooth;    /* JSの移動を滑らかにする */
+    -webkit-overflow-scrolling: touch;  /* 指での操作を滑らかにする */
+}
+
+.works-list::-webkit-scrollbar {
+    display: none;              /* スクロールバーを非表示（Chrome / Safari / 新Edge用） */
+}
+
+.work-item {
+    flex-shrink: 0;
+    width: 100%; 
+    flex-basis: 100%;           /* 1枚の領域を画面幅いっぱいに確保 */
+    scroll-snap-align: center;  /* エリアの中央にスナップ */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.work-item a {
+    display: block;
+    width: 50%;
+}
+
+.work-item a img {
+    width: 100%;
+    height: auto;
+    border: .5px solid var(--blue);
+}
+
+
+
+/**************************************************
+スクロールバー
+**************************************************/
+
+.scroll {
+    position: fixed;
+    left: 35%;
+    bottom: 0;
+    width: 30%;
+    height: 90px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    pointer-events: none;
+}
+
+.scroll-txt {
+    display: flex;
+    justify-content: center;
+    padding: 0 16px;
+    font-size: 1rem;
+    line-height: 2rem;
+    letter-spacing: .6em;
+    color: var(--black);
+    background: var(--gray);
+}
+
+.scroll-txt::after {
+    content: "";
+    position: absolute;
+    z-index: -1;
+    bottom: 45px;
+    left: 25%;
+    right: 25%;
+    height: .5px;
+    margin: 0 auto;
+    background: var(--black);
+    animation: scroll-bar 1.2s infinite ease-out;
+}

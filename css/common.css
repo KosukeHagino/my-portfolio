@@ -8,7 +8,7 @@
 
 :root {
     --white: #faffff;
-    --gray: #e9efef;
+    --gray: #e6ecec;
     --green: #558890;
     --blue: #070638;
     --black: #1C1C1C;
@@ -41,7 +41,7 @@ body {
     letter-spacing: .12em;
     color: var(--black);
     margin: 0 auto;
-    background: var(--white);
+    background: var(--gray);
 }
 
 img {
@@ -66,7 +66,11 @@ span {
 }
 
 
-/*** ヘッダー ***/
+
+/**************************************************
+共通セレクタ　ヘッダー
+**************************************************/
+
 header {
     position: fixed;
     top: 0;
@@ -184,11 +188,27 @@ header {
 }
 
 
-/*** フッター ***/
+
+/**************************************************
+共通セレクタ　メイン
+**************************************************/
+
+main {
+    position: relative;
+    z-index: 1000;
+    width: 100%;
+}
+
+
+
+/**************************************************
+共通セレクタ　フッター
+**************************************************/
+
 footer {
     position: fixed;
     bottom: 0;
-    z-index: 100;
+    z-index: 2000;
     width: 100%;
     font-size: 1rem;
 }
@@ -205,5 +225,5 @@ footer {
     position: absolute;
     bottom: 30px;
     right: 30px;
-    letter-spacing: .2em;
+    letter-spacing: .15em;
 }
