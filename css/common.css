@@ -65,6 +65,7 @@ span {
     display: inline-block;
 }
 
+
 /*** ヘッダー ***/
 header {
     position: fixed;
@@ -87,6 +88,7 @@ header {
     line-height: 1.6rem;
     letter-spacing: .6em;
 }
+
 
 /*** グローバルナビ（メニュー） ***/
 .global_nav {
@@ -117,6 +119,7 @@ header {
     background: var(--blue);
     color: var(--white);
 }
+
 
 /*** メニューボタン ***/
 .menu {
@@ -158,6 +161,7 @@ header {
     opacity: .8;
 }
 
+
 /*** メニュー表示 ***/
 .global_nav.show {
     transform: translateX(0);
@@ -179,3 +183,27 @@ header {
     visibility: visible;
 }
 
+
+/*** フッター ***/
+footer {
+    position: fixed;
+    bottom: 0;
+    z-index: 100;
+    width: 100%;
+    font-size: 1rem;
+}
+
+.github_link {
+    position: absolute;
+    bottom: 30px;
+    left: 30px;
+    letter-spacing: .2em;
+    color: var(--blue);
+}
+
+.copy_right {
+    position: absolute;
+    bottom: 30px;
+    right: 30px;
+    letter-spacing: .2em;
+}
