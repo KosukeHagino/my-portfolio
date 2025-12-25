@@ -26,6 +26,65 @@
     }
 }
 
+/*** ローディング画面 ***/
+@keyframes hidden {
+    to {
+        opacity: 0;
+    }
+}
+
+
+/**************************************************
+ローディング画面
+**************************************************/
+
+.loading {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background-color: var(--black);
+    z-index: 9999;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    opacity: 1;
+    visibility: visible;
+    transition: opacity .5s ease-out, visibility 0s .5s;
+}
+
+.loading.loading-complete {
+    display: none;
+}
+
+.loading-hidden {
+    opacity: 0;
+    visibility: hidden;
+}
+
+.loading-text {
+    font-size: 2.4rem;
+    letter-spacing: .15em;
+    color: var(--white);
+    opacity: 0;
+}
+
+.loading-text.show-text {
+    opacity: 1;
+    transition: opacity .1s ease-in;
+}
+
+.loading-text span {
+    display: inline-block;
+    opacity: 0;
+    transition: opacity .2s ease-in-out; 
+}
+
+.loading-text span.animate-text {
+    opacity: 1;
+}
+
 
 
 /**************************************************

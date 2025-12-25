@@ -1,6 +1,86 @@
 'use strict';
 
 /**************************************************
+関数定義
+**************************************************/
+
+// ローディング画面　タイプライター風アニメーション
+// $spanList - <span>要素のjQueryリスト
+// text - アニメーションさせる元のテキスト
+function typeWriter($spanList, text) {
+    $('#loading-text').addClass('show-text');
+    const textLength = text.length;
+    for(let i = 0; i < textLength; i++){
+        setTimeout(() => {
+            $spanList.eq(i).addClass('animate-text');
+        }, 100 * i);
+    }
+}
+
+
+
+/**************************************************
+ローディング画面（タイプライター風）
+**************************************************/
+
+if (sessionStorage.getItem('has-loaded') !== 'true') {
+    
+    // --- 初回ロード時のアニメーション実行 ---
+
+    // 変数の定義とDOMの準備
+    const $loadingEl = $('#loading-text');
+    const textToAnimate = $loadingEl.text().trim();
+
+    $loadingEl.empty();
+
+    let spansHtml = '';
+    for (let i = 0; i < textToAnimate.length; i++){
+        let char = textToAnimate.substring(i, i + 1);
+        if (char === ' '){
+            char = '&nbsp;';
+        }
+        spansHtml += `<span>${char}</span>`; 
+    }
+
+    $loadingEl.append(spansHtml);
+    const $spanEls = $loadingEl.find('span'); 
+
+    // アニメーションの実行
+    typeWriter($spanEls, textToAnimate);
+
+    const totalDuration = textToAnimate.length * 100 + 1000;
+
+    setTimeout(() => {
+        sessionStorage.setItem('has-loaded', 'true');
+      
+        $('#loading').addClass('loading-hidden');
+        
+        // CSSのtransition時間(0.5s)+アルファの待ち時間(0.01s)
+        setTimeout(() => {
+            $('#loading').addClass('loading-complete');
+
+            // ローディングアニメーション完了後にトップページのcssアニメを開始させるためのトリガー
+            $('body').addClass('content-ready');
+
+            // トップページのスライドアニメーションを開始
+            initializeSlider();
+        }, 510);
+
+    }, totalDuration);
+    
+} else {
+    // --- 2回目以降のスキップ時処理 ---
+
+    // スキップ時は「即座に非表示にするCSSクラス」を適用
+    $('#loading').addClass('loading-hidden loading-complete');
+
+    // スキップ時にもトップページのcssアニメを開始させるためのトリガー
+    $('body').addClass('content-ready');
+}
+
+
+
+/**************************************************
 共通　ハンバーガーメニュー
 **************************************************/
 
