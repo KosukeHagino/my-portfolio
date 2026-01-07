@@ -1,1 +1,127 @@
 @charset "utf-8";
+
+.wrapper {
+    width: 100%;
+    padding: 60px 0;
+}
+
+.profile-section {
+    width: 84%;
+    margin: 0 auto 120px;
+}
+
+.profile-title {
+    font-family: "pt-sans", sans-serif;
+    font-size: 3.2rem;
+    font-weight: 400;
+    line-height: 8rem;
+    letter-spacing: .6em;
+    text-align: center;
+    border-bottom: .5px solid var(--green);
+    margin: 0 auto 100px;
+}
+
+.profile-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0 40px;
+    gap: 80px;
+}
+
+.profile-container img {
+    width: 45%;
+    max-width: 480px;
+    border: .5px solid var(--green);
+    object-fit: cover;
+}
+
+.profile-inner {
+    max-width: 700px;
+}
+
+.profile-name {
+    display: flex;
+    align-items: baseline;
+    margin-bottom: 32px;
+    font-weight: 400;
+}
+
+.profile-name-jp {
+    display: block;
+    font-size: 2.4rem;
+    letter-spacing: .2em;
+    margin-right: 24px;
+}
+
+.profile-name-en {
+    display: block;
+    font-size: 1rem;
+    letter-spacing: .2em;
+    color: var(--green);
+}
+
+.profile-description {
+    max-width: 600px;
+    text-align: justify;    /* 両端揃え */
+    text-justify: inter-character;  /* 日本語の調整を最適化 */
+    word-break: break-all;  /* 単語の途中で変な改行が起きないようにする */
+    line-height: 1.8;
+}
+
+.skill-section .profile-container {
+    width: 100%;
+    max-width: 1260px;
+    align-items: stretch;
+    gap: 60px;
+    margin: 0 auto 60px;
+}
+
+.skill-item {
+    height: auto;
+    padding: 60px;
+    border: .5px solid var(--green);
+    border-radius: 20px;
+    background: var(--white);
+}
+
+.skill-item .profile-description {
+    max-width: 100%;
+    margin-bottom: 40px;
+}
+
+.skill-label span {
+    padding: 1px 12px;
+    background: var(--blue);
+    color: var(--white);
+    border-radius: 12px;
+    margin: 5px;
+}
+
+.skill-development-environment {
+    width: calc(100% - 80px);
+    max-width: 1180px;
+    margin: 0 auto;
+    padding: 60px;
+    border: .5px solid var(--green);
+    border-radius: 20px;
+    background: var(--white);
+}
+
+.skill-development-environment .profile-description {
+    width: 100%;
+    margin-bottom: 40px;
+}
+
+.strength-section .profile-container {
+    flex-direction: column;
+    gap: 40px;
+}
+
+.strength-section .profile-name {
+    font-size: 2.4rem;
+}
+
+.strength-section .profile-description {
+    max-width: 100%;
+}
