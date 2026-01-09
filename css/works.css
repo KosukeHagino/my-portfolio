@@ -1,1 +1,71 @@
 @charset "utf-8";
+
+
+
+.works-filter {
+    margin-bottom: 40px;
+    padding: 0 40px;
+}
+
+.works-filter-title {
+    font-family: "pt-sans", sans-serif;
+    font-size: 1.6rem;
+    font-weight: 400;
+    line-height: 2rem;
+    letter-spacing: .4em;
+    margin-bottom: 16px;
+    display: flex;        /* 中身を並べる */
+    align-items: center;  /* 垂直方向の真ん中で揃える */
+    gap: 10px;
+}
+
+.works-filter-title::before {
+    content: "";
+    display: inline-block;
+    position: relative;
+    width: 1px;
+    height: 2rem;
+    background: var(--blue);
+}
+
+.works-filter-label {
+    padding: 0 0 48px 24px;
+}
+
+.works-area {
+    margin-bottom: 72px;
+}
+
+.works-list {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-start;
+    justify-content: flex-start;
+    gap: 3.5%;
+}
+
+.works-item {
+    width: 31%;   
+}
+
+.works-area .work-type-label {
+    margin-bottom: 12px;
+}
+
+.works-item img {
+    width: 100%;
+    border: 1px solid var(--green);
+    border-radius: 8px;
+    margin-bottom: 24px;
+}
+
+.works-item-title {
+    font-weight: 400;
+    font-size: 1.4rem;
+    border-bottom: dotted 1px var(--blue);
+    margin-bottom: 16px;
+}
+
+.work-description {
+    margin-bottom: 16px;
+}
