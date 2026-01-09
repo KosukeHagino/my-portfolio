@@ -58,7 +58,7 @@
     display: none;
 }
 
-.loading-hidden {
+.loading.loading-hidden {
     opacity: 0;
     visibility: hidden;
 }
@@ -106,14 +106,6 @@
 .work-title-block {
     display: flex;
     align-items: center;
-}
-
-.work-type-label {
-    font-weight: 400;
-    padding: 1px 12px;
-    background: var(--blue);
-    color: var(--white);
-    border-radius: 12px;
 }
 
 .work-title {

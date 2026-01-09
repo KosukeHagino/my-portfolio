@@ -199,6 +199,45 @@ main {
     width: 100%;
 }
 
+.wrapper {
+    width: 100%;
+    padding: 60px 0;
+}
+
+.section {
+    width: 84%;
+    margin: 0 auto 120px;
+}
+
+.section-title {
+    font-family: "pt-sans", sans-serif;
+    font-size: 3.2rem;
+    font-weight: 400;
+    line-height: 8rem;
+    letter-spacing: .6em;
+    text-align: center;
+    border-bottom: .5px solid var(--green);
+    margin: 0 auto 100px;
+}
+
+.label {
+    font-weight: 400;
+    border: 1px solid var(--blue);
+    border-radius: 12px;
+    padding: 1px 12px;
+    margin: 5px;
+}
+
+.work-type-label {
+    background: var(--blue);
+    color: var(--white);
+}
+
+.work-skill-label {
+    background: var(--white);
+    color: var(--blue);
+}
+
 
 
 /**************************************************
