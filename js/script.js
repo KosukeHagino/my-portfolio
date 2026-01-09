@@ -136,28 +136,49 @@ if (scrollList) {
 
 
 /**************************************************
-トップページ　スクロールで表示された制作物の画像に合わせてテキスト変更
+トップページ　スクロールに合わせてテキストを切り替える
 **************************************************/
 
-// 書き換えたいターゲット要素を取得
+const scrollText = document.querySelector('.works-list');
 const typeLabel = document.querySelector('.work-type-label');
 const workTitle = document.querySelector('.work-title');
 const workDesc = document.querySelector('.work-description');
+const workTitleArea = document.querySelector('.work-title-area');
 
-// リスト内のすべてのリンクを取得
-const workLinks = document.querySelectorAll('.work-item a');
+if (scrollText && workTitleArea) {
+    const observerOptions = {
+        root: scrollList,
+        rootMargin: '0px',
+        threshold: 0.6 // 60%以上表示されたら切り替え
+    };
 
-// 各リンクに「マウスが乗ったとき」の処理を設定
-workLinks.forEach(link => {
-    link.addEventListener('mouseenter', () => {
-        // aタグに書いた data- 属性の中身を取得
-        const newType = link.getAttribute('data-type');
-        const newTitle = link.getAttribute('data-title');
-        const newDesc = link.getAttribute('data-desc');
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                const link = entry.target.querySelector('a');
+                
+                // 1. 一度アニメーションクラスを外してリセット
+                workTitleArea.classList.remove('is-change');
+                
+                // 2. ブラウザに再描画を強制（これがないと連続で動かない）
+                void workTitleArea.offsetWidth; 
+                
+                // 3. アニメーション開始
+                workTitleArea.classList.add('is-change');
 
-        // 上のエリアのテキストを書き換える
-        typeLabel.textContent = newType;
-        workTitle.textContent = newTitle;
-        workDesc.textContent = newDesc;
+                // 4. 文字が上に消えきったタイミング（0.6sの半分）で中身を書き換える
+                setTimeout(() => {
+                    typeLabel.textContent = link.getAttribute('data-type');
+                    workTitle.textContent = link.getAttribute('data-title');
+                    workDesc.textContent = link.getAttribute('data-desc');
+                }, 300); 
+            }
+        });
+    }, observerOptions);
+
+    // 全ての作品アイテムを監視対象にする
+    const workItems = document.querySelectorAll('.work-item');
+    workItems.forEach(item => {
+        observer.observe(item);
     });
-});
+}

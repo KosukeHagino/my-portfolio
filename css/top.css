@@ -33,6 +33,31 @@
     }
 }
 
+/*** テキストをくるっと上に回転して切り替え ***/
+@keyframes textSlideChange {
+    0% {
+        transform: translateY(0);
+        opacity: 1;
+        filter: blur(0);                /* 少しボカす */
+    }
+    50% {
+        transform: translateY(-16px);   /* 上に少しだけ動く */
+        opacity: 0;
+        filter: blur(2px);
+    }
+    50.1% {
+        transform: translateY(16px);    /* 下の近い位置で待機 */
+        opacity: 0;
+        filter: blur(4px);              /* 少しボカす */
+    }
+    100% {
+        transform: translateY(0);       /* 元の位置に戻る */
+        opacity: 1;
+        filter: blur(0);
+    }
+}
+
+
 
 /**************************************************
 ローディング画面
@@ -96,11 +121,12 @@
     position: fixed;
     left: 25%;
     width: 50%;
-    height: 90px;   
+    height: 90px;
     display: flex;
     justify-content: space-between;
     align-items: center;
     pointer-events: none;
+    overflow: hidden;   /* はみ出た文字を隠して文字が上にくるっと切り替わるのを表現 */
 }
 
 .work-title-block {
@@ -121,6 +147,10 @@
     padding: 1px 0;
 }
 
+/* テキストをくるっと上に回転して切り替えるアニメーション用のクラス */
+.is-change {
+    animation: textSlideChange .8s cubic-bezier(0.16, 1, 0.3, 1);
+}
 
 /*** 制作物の画像エリア ***/
 .works-list {
