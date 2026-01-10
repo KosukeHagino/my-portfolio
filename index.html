@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="css/normalize.css">
+    <link rel="stylesheet" href="./css/normalize.css">
 
     <!-- Adobe Fontsの指定 -->
     <script>
@@ -17,29 +17,32 @@
         })(document);
     </script> <!-- Adobe Fontsの指定 end -->
 
-    <link rel="stylesheet" href="css/common.css">
-    <link rel="stylesheet" href="css/top.css">
+    <link rel="stylesheet" href="./css/common.css">
+    <link rel="stylesheet" href="./css/top.css">
     <!-- 後でファビコン作成 -->
-    <link rel="icon" href="img/svg/favicon.svg" type="image/svg">
-    <script src="js/jquery-3.7.1.min.js"></script>    
-    <script src="js/script.js" defer></script>
+    <link rel="icon" href="./img/svg/favicon.svg" type="image/svg">
+    <script src="./js/jquery-3.7.1.min.js"></script>    
+    <script src="./js/script.js" defer></script>
     <title>萩野弘祐のポートフォリオ</title>
 </head>
 <body>
+    <!-- cursor -->
+    <div id="cursor"></div> <!-- cursor end -->
+
     <!-- loading -->
     <div id="loading" class="loading">
         <p id="loading-text" class="loading-text">Welcome to my portfolio !!</p>
     </div>  <!-- loading end -->
 
     <header>
-        <h1 class="site-title"><a href="index.html">HAGISUKE</a></h1>
+        <h1 class="site-title"><a href="./index.html">HAGISUKE</a></h1>
 
         <!-- global-nav -->
         <nav id="global-nav" class="global-nav">
             <ul class="global-nav-list">
-                <li class="global-nav-item"><a href="index.html">top</a></li>
-                <li class="global-nav-item"><a href="profile.html">profile</a></li>
-                <li class="global-nav-item"><a href="works.html">works</a></li>
+                <li class="global-nav-item"><a href="./index.html">top</a></li>
+                <li class="global-nav-item"><a href="./profile.html">profile</a></li>
+                <li class="global-nav-item"><a href="./works.html">works</a></li>
             </ul>
         </nav> <!-- global-nav end -->
 
@@ -54,29 +57,35 @@
         <!-- work-title-area -->
         <div class="work-title-area">
             <div class="work-title-block">
-                <p><span class="label work-type-label">website</span></p>
-                <h2 class="work-title">portfolio</h2>
+                <p><span class="label work-type-label"></span></p>
+                <h2 class="work-title"></h2>
             </div>
-            <p class="work-description">萩野弘祐（はぎのこうすけ）のポートフォリオです。</p>
+            <p class="work-description"></p>
         </div> <!-- work-title-area -->
 
         <!-- works-list -->
         <ul class="works-list">
             <li class="work-item">
-                <a href="index.html" data-type="website" data-title="my portfolio" data-desc="萩野弘祐（はぎのこうすけ）のポートフォリオです。">
-                    <img src="img/svg/portfolio.svg" alt="萩野弘祐(はぎのこうすけ)のポートフォリオ">
+                <a href="./index.html" data-type="website" data-title="Portfolio" data-desc="萩野弘祐（はぎのこうすけ）のポートフォリオです。">
+                    <img src="./img/screenshot/portfolio.png" alt="萩野弘祐(はぎのこうすけ)のポートフォリオ">
                 </a>
             </li>
 
             <li class="work-item">
-                <a href="../cafe/index.html" data-type="website" data-title="cafe site" data-desc="架空のカフェのＷｅｂサイト制作例です。">
-                    <img src="img/svg/cafe.svg" alt="架空のカフェ">
+                <a href="../cafe/index.html" data-type="website" data-title="Cafe site" data-desc="架空のカフェのＷｅｂサイト制作例です。">
+                    <img src="./img/screenshot/cafe.png" alt="架空のカフェのＷｅｂサイト">
                 </a>
             </li>
 
             <li class="work-item">
-                <a href="index.html" data-type="banner" data-title="my portfolio" data-desc="萩野弘祐（はぎのこうすけ）のポートフォリオです。">
-                    <img src="img/svg/portfolio.svg" alt="萩野弘祐(はぎのこうすけ)のポートフォリオ">
+                <a href="#" data-type="banner" data-title="English school banner" data-desc="架空の英会話スクールのバナー制作例です。">
+                    <img src="./img/screenshot/english_school_banner.png" alt="架空の英会話スクールのバナー">
+                </a>
+            </li>
+
+            <li class="work-item">
+                <a href="#" data-type="banner" data-title="Job change site banner" data-desc="架空の転職サイトのバナー制作例です。">
+                    <img src="./img/screenshot/jobchange_site_banner.png" alt="架空の転職サイトのバナー">
                 </a>
             </li>
         </ul>

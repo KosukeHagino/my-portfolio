@@ -62,8 +62,6 @@ if (sessionStorage.getItem('has-loaded') !== 'true') {
             // ローディングアニメーション完了後にトップページのcssアニメを開始させるためのトリガー
             $('body').addClass('content-ready');
 
-            // トップページのスライドアニメーションを開始
-            initializeSlider();
         }, 510);
 
     }, totalDuration);
@@ -77,6 +75,27 @@ if (sessionStorage.getItem('has-loaded') !== 'true') {
     // スキップ時にもトップページのcssアニメを開始させるためのトリガー
     $('body').addClass('content-ready');
 }
+
+
+
+/**************************************************
+共通　追尾カーソル
+**************************************************/
+
+const cursor = document.querySelector('#cursor');
+
+// マウス座標をCSS変数 (--x, --y) に更新し続けるだけ
+document.addEventListener('mousemove', (e) => {
+    cursor.style.setProperty('--x', `${e.clientX}px`);
+    cursor.style.setProperty('--y', `${e.clientY}px`);
+});
+
+// クラスの付け外しだけ（見た目の指定は一切なし）
+const hoverElements = document.querySelectorAll('a, .menu, .work-item');
+hoverElements.forEach((el) => {
+    el.addEventListener('mouseenter', () => cursor.classList.add('cursor-large'));
+    el.addEventListener('mouseleave', () => cursor.classList.remove('cursor-large'));
+});
 
 
 
@@ -126,7 +145,7 @@ if (scrollList) {
             // scrollLeftを直接書き換えるのではなく、scrollBy を使う
             // behaviorを'smooth'にすると、CSSのsnapと喧嘩せずに「スライド」します
             scrollList.scrollBy({
-                left: e.deltaY * 2, // 動きが遅ければ数字を大きくしてください
+                left: e.deltaY * 3, // 動きが遅ければ数字を大きくしてください
                 behavior: 'auto'
             });
         }
@@ -155,23 +174,22 @@ if (scrollText && workTitleArea) {
     const observer = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
+                // --- 中央に来た時の処理 ---
+                entry.target.classList.add('is-active'); // クラス付与（拡大）
+
                 const link = entry.target.querySelector('a');
-                
-                // 1. 一度アニメーションクラスを外してリセット
                 workTitleArea.classList.remove('is-change');
-                
-                // 2. ブラウザに再描画を強制（これがないと連続で動かない）
                 void workTitleArea.offsetWidth; 
-                
-                // 3. アニメーション開始
                 workTitleArea.classList.add('is-change');
 
-                // 4. 文字が上に消えきったタイミング（0.6sの半分）で中身を書き換える
                 setTimeout(() => {
                     typeLabel.textContent = link.getAttribute('data-type');
                     workTitle.textContent = link.getAttribute('data-title');
                     workDesc.textContent = link.getAttribute('data-desc');
                 }, 300); 
+            } else {
+                // --- 中央から外れた時の処理 ---
+                entry.target.classList.remove('is-active'); // クラス除去（縮小）
             }
         });
     }, observerOptions);

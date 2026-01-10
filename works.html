@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="css/normalize.css">
+    <link rel="stylesheet" href="./css/normalize.css">
 
     <!-- Adobe Fontsの指定 -->
     <script>
@@ -17,24 +17,27 @@
         })(document);
     </script> <!-- Adobe Fontsの指定 end -->
     
-    <link rel="stylesheet" href="css/common.css">
-    <link rel="stylesheet" href="css/works.css">
+    <link rel="stylesheet" href="./css/common.css">
+    <link rel="stylesheet" href="./css/works.css">
     <!-- 後でファビコン作成 -->
-    <link rel="icon" href="img/svg/favicon.svg" type="image/svg">
-    <script src="js/jquery-3.7.1.min.js"></script>    
-    <script src="js/script.js" defer></script>
+    <link rel="icon" href="./img/svg/favicon.svg" type="image/svg">
+    <script src="./js/jquery-3.7.1.min.js"></script>    
+    <script src="./js/script.js" defer></script>
     <title>萩野弘祐のポートフォリオ</title>
 </head>
 <body>
+    <!-- cursor -->
+    <div id="cursor"></div> <!-- cursor end -->
+
     <header>
-        <h1 class="site-title"><a href="index.html">HAGISUKE</a></h1>
+        <h1 class="site-title"><a href="./index.html">HAGISUKE</a></h1>
 
         <!-- global-nav -->
         <nav id="global-nav" class="global-nav">
             <ul class="global-nav-list">
-                <li class="global-nav-item"><a href="index.html">top</a></li>
-                <li class="global-nav-item"><a href="profile.html">profile</a></li>
-                <li class="global-nav-item"><a href="works.html">works</a></li>
+                <li class="global-nav-item"><a href="./index.html">top</a></li>
+                <li class="global-nav-item"><a href="./profile.html">profile</a></li>
+                <li class="global-nav-item"><a href="./works.html">works</a></li>
             </ul>
         </nav> <!-- global-nav end -->
 
@@ -58,26 +61,26 @@
                     <h3 class="works-filter-title">Filter-products</h3>
                     <p class="works-filter-label">
                         <span class="label work-type-label">ALL</span>
-                        <span class="label work-type-label">website (0)</span>
+                        <span class="label work-type-label">website (2)</span>
                         <span class="label work-type-label">webapp (0)</span>
                         <span class="label work-type-label">LP (0)</span>
-                        <span class="label work-type-label">banner (0)</span>
+                        <span class="label work-type-label">banner (2)</span>
                     </p>
                     <h3 class="works-filter-title">Filter-skills</h3>
                     <p class="works-filter-label">
                         <span class="label work-skill-label">ALL</span>
-                        <span class="label work-skill-label">HTML (0)</span>
-                        <span class="label work-skill-label">CSS (0)</span>
+                        <span class="label work-skill-label">HTML (2)</span>
+                        <span class="label work-skill-label">CSS (2)</span>
                         <span class="label work-skill-label">SCSS (0)</span>
-                        <span class="label work-skill-label">JavaScript (0)</span>
-                        <span class="label work-skill-label">jQuery (0)</span>
+                        <span class="label work-skill-label">JavaScript (2)</span>
+                        <span class="label work-skill-label">jQuery (1)</span>
                         <span class="label work-skill-label">PHP (0)</span>
                         <span class="label work-skill-label">WordPress (0)</span>
                         <span class="label work-skill-label">SQL (0)</span>
-                        <span class="label work-skill-label">Figma (0)</span>
+                        <span class="label work-skill-label">Figma (2)</span>
                         <span class="label work-skill-label">Photoshop (0)</span>
                         <span class="label work-skill-label">Illustrator (0)</span>
-                        <span class="label work-skill-label">Git/Github (0)</span>
+                        <span class="label work-skill-label">Git/Github (2)</span>
                     </p>
                 </div> <!-- works-filter end -->
 
@@ -86,73 +89,50 @@
                     <ul class="works-list">
                         <li class="works-item">
                             <p><span class="label work-type-label">website</span></p>
-                            <img src="./img/svg/portfolio.svg" alt="">
-                            <h4 class="works-item-title">萩野弘祐のポートフォリオ</h4>
+                            <img src="./img/screenshot/portfolio.png" alt="萩野弘祐(はぎのこうすけ)のポートフォリオ">
+                            <h4 class="works-item-title">Portfolio</h4>
                             <p class="work-description">萩野弘祐（はぎのこうすけ）のポートフォリオです。</p>
                             <p class="works-filter-label">
-                                <span class="label work-skill-label">ALL</span>
                                 <span class="label work-skill-label">HTML</span>
                                 <span class="label work-skill-label">CSS</span>
-                                <span class="label work-skill-label">SCSS</span>
                                 <span class="label work-skill-label">JavaScript</span>
+                                <span class="label work-skill-label">Figma</span>
+                                <span class="label work-skill-label">Git/Github</span>
                             </p>
                         </li>
 
                         <li class="works-item">
                             <p><span class="label work-type-label">website</span></p>
-                            <img src="./img/svg/portfolio.svg" alt="">
-                            <h4 class="works-item-title">萩野弘祐のポートフォリオ</h4>
-                            <p class="work-description">萩野弘祐（はぎのこうすけ）のポートフォリオです。</p>
+                            <img src="./img/screenshot/cafe.png" alt="架空のカフェのＷｅｂサイト">
+                            <h4 class="works-item-title">Cafe site</h4>
+                            <p class="work-description">架空のカフェのＷｅｂサイト制作例です。</p>
                             <p class="works-filter-label">
-                                <span class="label work-skill-label">ALL</span>
                                 <span class="label work-skill-label">HTML</span>
                                 <span class="label work-skill-label">CSS</span>
-                                <span class="label work-skill-label">SCSS</span>
-                                <span class="label work-skill-label">JavaScript</span>
-                            </p>
-                        </li>
-
-                        <li class="works-item">
-                            <p><span class="label work-type-label">website</span></p>
-                            <img src="./img/svg/portfolio.svg" alt="">
-                            <h4 class="works-item-title">萩野弘祐のポートフォリオ</h4>
-                            <p class="work-description">萩野弘祐（はぎのこうすけ）のポートフォリオです。</p>
-                            <p class="works-filter-label">
-                                <span class="label work-skill-label">ALL</span>
-                                <span class="label work-skill-label">HTML</span>
-                                <span class="label work-skill-label">CSS</span>
-                                <span class="label work-skill-label">SCSS</span>
                                 <span class="label work-skill-label">JavaScript</span>
                                 <span class="label work-skill-label">jQuery</span>
+                                <span class="label work-skill-label">Figma</span>
+                                <span class="label work-skill-label">Git/Github</span>
                             </p>
                         </li>
 
                         <li class="works-item">
-                            <p><span class="label work-type-label">website</span></p>
-                            <img src="./img/svg/portfolio.svg" alt="">
-                            <h4 class="works-item-title">萩野弘祐のポートフォリオ</h4>
-                            <p class="work-description">萩野弘祐（はぎのこうすけ）のポートフォリオです。</p>
+                            <p><span class="label work-type-label">banner</span></p>
+                            <img src="./img/screenshot/english_school_banner.png" alt="架空の英会話スクールのバナー">
+                            <h4 class="works-item-title">English school banner</h4>
+                            <p class="work-description">架空の英会話スクールのバナー制作例です。</p>
                             <p class="works-filter-label">
-                                <span class="label work-skill-label">ALL</span>
-                                <span class="label work-skill-label">HTML</span>
-                                <span class="label work-skill-label">CSS</span>
-                                <span class="label work-skill-label">SCSS</span>
-                                <span class="label work-skill-label">JavaScript</span>
-                                <span class="label work-skill-label">jQuery</span>
+                                <span class="label work-skill-label">Photoshop</span>
                             </p>
                         </li>
 
                         <li class="works-item">
-                            <p><span class="label work-type-label">website</span></p>
-                            <img src="./img/svg/portfolio.svg" alt="">
-                            <h4 class="works-item-title">萩野弘祐のポートフォリオ</h4>
-                            <p class="work-description">萩野弘祐（はぎのこうすけ）のポートフォリオです。</p>
+                            <p><span class="label work-type-label">banner</span></p>
+                            <img src="./img/screenshot/jobchange_site_banner.png" alt="架空の転職サイトのバナー">
+                            <h4 class="works-item-title">Job change site banner</h4>
+                            <p class="work-description">架空の転職サイトのバナー制作例です。</p>
                             <p class="works-filter-label">
-                                <span class="label work-skill-label">ALL</span>
-                                <span class="label work-skill-label">HTML</span>
-                                <span class="label work-skill-label">CSS</span>
-                                <span class="label work-skill-label">SCSS</span>
-                                <span class="label work-skill-label">JavaScript</span>
+                                <span class="label work-skill-label">Photoshop</span>
                             </p>
                         </li>
                     </ul>

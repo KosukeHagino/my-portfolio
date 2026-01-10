@@ -55,7 +55,6 @@
 .works-item img {
     width: 100%;
     border: 1px solid var(--green);
-    border-radius: 8px;
     margin-bottom: 24px;
 }
 

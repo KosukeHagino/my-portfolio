@@ -165,6 +165,8 @@
     scrollbar-width: none;      /* スクロールバーを非表示（Firefox用） */
     scroll-behavior: smooth;    /* JSの移動を滑らかにする */
     -webkit-overflow-scrolling: touch;  /* 指での操作を滑らかにする */
+    padding: 0 25%; 
+    gap: 10%;
 }
 
 .works-list::-webkit-scrollbar {
@@ -173,8 +175,8 @@
 
 .work-item {
     flex-shrink: 0;
-    width: 100%; 
-    flex-basis: 100%;           /* 1枚の領域を画面幅いっぱいに確保 */
+    width: 50%; 
+    flex-basis: 100%;
     scroll-snap-align: center;  /* エリアの中央にスナップ */
     display: flex;
     justify-content: center;
@@ -183,13 +185,23 @@
 
 .work-item a {
     display: block;
-    width: 50%;
+    width: 100%;
 }
 
 .work-item a img {
     width: 100%;
     height: auto;
-    border: .5px solid var(--blue);
+    border-radius: 10px;
+    filter: drop-shadow(0 0 3px #ccc);
+    transform: scale(0.8); 
+    opacity: 0.5;
+    transition: transform 0.5s ease, opacity 0.5s ease; /* スムーズに動かす */
+}
+
+/* 中央に来た時のスタイル */
+.work-item.is-active img {
+    transform: scale(1);
+    opacity: 1;
 }
 
 
