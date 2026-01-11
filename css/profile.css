@@ -13,7 +13,7 @@
 .profile-container img {
     width: 45%;
     max-width: 480px;
-    border: .5px solid var(--green);
+    border: 0.5px solid var(--green);
     object-fit: cover;
 }
 
@@ -31,14 +31,14 @@
 .profile-name-jp {
     display: block;
     font-size: 2.4rem;
-    letter-spacing: .2em;
+    letter-spacing: 0.2em;
     margin-right: 24px;
 }
 
 .profile-name-en {
     display: block;
     font-size: 1rem;
-    letter-spacing: .2em;
+    letter-spacing: 0.2em;
     color: var(--green);
 }
 
@@ -61,7 +61,7 @@
 .skill-item {
     height: auto;
     padding: 60px;
-    border: .5px solid var(--green);
+    border: 0.5px solid var(--green);
     border-radius: 20px;
     background: var(--white);
 }
@@ -76,7 +76,7 @@
     max-width: 1180px;
     margin: 0 auto;
     padding: 60px;
-    border: .5px solid var(--green);
+    border: 0.5px solid var(--green);
     border-radius: 20px;
     background: var(--white);
 }

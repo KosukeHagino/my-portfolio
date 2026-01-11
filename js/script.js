@@ -19,6 +19,20 @@ function typeWriter($spanList, text) {
 
 
 
+// 
+function scrollToFirstWork() {
+    const worksList = document.querySelector('.works-list');
+    const firstWork = document.querySelector('.first-work'); // HTMLでクラスをつけておいてください
+
+    if (worksList && firstWork) {
+        // centerにスナップさせるための計算
+        const offset = firstWork.offsetLeft - (worksList.clientWidth / 2) + (firstWork.clientWidth / 2);
+        worksList.scrollLeft = offset;
+    }
+}
+
+
+
 /**************************************************
 ローディング画面（タイプライター風）
 **************************************************/
@@ -183,6 +197,9 @@ if (scrollText && workTitleArea) {
                 workTitleArea.classList.add('is-change');
 
                 setTimeout(() => {
+                    $('#loading').addClass('loading-complete');
+                    $('body').addClass('content-ready');
+                    scrollToFirstWork(); 
                     typeLabel.textContent = link.getAttribute('data-type');
                     workTitle.textContent = link.getAttribute('data-title');
                     workDesc.textContent = link.getAttribute('data-desc');
@@ -193,6 +210,8 @@ if (scrollText && workTitleArea) {
             }
         });
     }, observerOptions);
+
+    
 
     // 全ての作品アイテムを監視対象にする
     const workItems = document.querySelectorAll('.work-item');

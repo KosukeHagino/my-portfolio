@@ -12,7 +12,7 @@
     font-size: 1.6rem;
     font-weight: 400;
     line-height: 2rem;
-    letter-spacing: .4em;
+    letter-spacing: 0.4em;
     margin-bottom: 16px;
     display: flex;        /* 中身を並べる */
     align-items: center;  /* 垂直方向の真ん中で揃える */

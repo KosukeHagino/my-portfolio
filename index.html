@@ -27,7 +27,7 @@
 </head>
 <body>
     <!-- cursor -->
-    <div id="cursor"></div> <!-- cursor end -->
+    <div id="cursor" class="cursor"></div> <!-- cursor end -->
 
     <!-- loading -->
     <div id="loading" class="loading">
@@ -40,9 +40,9 @@
         <!-- global-nav -->
         <nav id="global-nav" class="global-nav">
             <ul class="global-nav-list">
-                <li class="global-nav-item"><a href="./index.html">top</a></li>
-                <li class="global-nav-item"><a href="./profile.html">profile</a></li>
-                <li class="global-nav-item"><a href="./works.html">works</a></li>
+                <li class="global-nav-item"><a href="./index.html" target="_blank">top</a></li>
+                <li class="global-nav-item"><a href="./profile.html" target="_blank">profile</a></li>
+                <li class="global-nav-item"><a href="./works.html" target="_blank">works</a></li>
             </ul>
         </nav> <!-- global-nav end -->
 
@@ -58,13 +58,19 @@
         <div class="work-title-area">
             <div class="work-title-block">
                 <p><span class="label work-type-label"></span></p>
-                <h2 class="work-title"></h2>
+                <h3 class="work-title"></h3>
             </div>
             <p class="work-description"></p>
         </div> <!-- work-title-area -->
 
         <!-- works-list -->
         <ul class="works-list">
+            <li class="work-item catch-item">
+                <h2 class="catch-copy" data-type="website" data-title="Portfolio" data-desc="">
+                    <span class="copy-jp"><span class="copy-jp-en">Web</span>で新しい価値を!</span>
+                    <span class="copy-en">Create new value on the web!</span>
+                </h2>
+            </li>
             <li class="work-item">
                 <a href="./index.html" data-type="website" data-title="Portfolio" data-desc="萩野弘祐（はぎのこうすけ）のポートフォリオです。">
                     <img src="./img/screenshot/portfolio.png" alt="萩野弘祐(はぎのこうすけ)のポートフォリオ">
@@ -99,7 +105,7 @@
     </main>
     
     <footer>
-        <p class="copy-right">&copy;2025 KOSUKE HAGINO</p>
+        <p class="copy-right">&copy;2026 KOSUKE HAGINO</p>
         <p class="github-link"><a href="https://github.com/KosukeHagino/my-portfolio" target="_blank">my github</a></p>
     </footer>
 

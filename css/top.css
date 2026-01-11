@@ -76,7 +76,7 @@
     align-items: center;
     opacity: 1;
     visibility: visible;
-    transition: opacity .5s ease-out, visibility 0s .5s;
+    transition: opacity 0.5s ease-out, visibility 0s 0.5s;
 }
 
 .loading.loading-complete {
@@ -90,20 +90,20 @@
 
 .loading-text {
     font-size: 2.4rem;
-    letter-spacing: .15em;
+    letter-spacing: 0.15em;
     color: var(--white);
     opacity: 0;
 }
 
 .loading-text.show-text {
     opacity: 1;
-    transition: opacity .1s ease-in;
+    transition: opacity 0.1s ease-in;
 }
 
 .loading-text span {
     display: inline-block;
     opacity: 0;
-    transition: opacity .2s ease-in-out; 
+    transition: opacity 0.2s ease-in-out; 
 }
 
 .loading-text span.animate-text {
@@ -149,7 +149,7 @@
 
 /* テキストをくるっと上に回転して切り替えるアニメーション用のクラス */
 .is-change {
-    animation: textSlideChange .8s cubic-bezier(0.16, 1, 0.3, 1);
+    animation: textSlideChange 0.8s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 /*** 制作物の画像エリア ***/
@@ -183,19 +183,49 @@
     align-items: center;
 }
 
+/* キャッチコピー */
+.catch-copy {
+    text-align: center;
+    font-weight: 400;
+}
+
+.copy-jp {
+    display: block;
+    font-size: 2.4rem;
+    line-height: 6rem;
+    letter-spacing: 0.3em;
+}
+
+.copy-jp-en {
+    font-size: 2.6rem;
+    font-family:  "pt-sans", sans-serif;
+}
+
+.copy-en {
+    font-size: 1.2rem;
+    letter-spacing: 0.3em;
+    color: var(--green);
+    font-family:  "pt-sans", sans-serif;
+}
+
 .work-item a {
     display: block;
     width: 100%;
+    overflow: hidden;
+    border-radius: 10px;
+    filter: drop-shadow(0 0 3px #ccc);
 }
 
 .work-item a img {
     width: 100%;
     height: auto;
-    border-radius: 10px;
-    filter: drop-shadow(0 0 3px #ccc);
     transform: scale(0.8); 
     opacity: 0.5;
     transition: transform 0.5s ease, opacity 0.5s ease; /* スムーズに動かす */
+}
+
+.work-item a:hover img {
+    transform: scale(1.1);
 }
 
 /* 中央に来た時のスタイル */
@@ -228,7 +258,7 @@
     padding: 0 16px;
     font-size: 1rem;
     line-height: 2rem;
-    letter-spacing: .6em;
+    letter-spacing: 0.6em;
     color: var(--black);
     background: var(--gray);
 }
