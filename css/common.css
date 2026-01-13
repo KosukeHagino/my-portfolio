@@ -23,7 +23,7 @@
 html {
     font-size: 62.5%;   /* default 16px * 62.5% = 10px を基準とする */
     width: 100%;
-    scrollbar-gutter: stable;   /* スクロールバーの幅を常に確保するが、バー自体は重ねて表示 */ 
+    scrollbar-gutter: stable;   /* スクロールバーの幅を常に確保し、重ねて表示 */ 
 }
 
 *, *::before, *::after {
@@ -72,34 +72,38 @@ span {
 追尾カーソル
 **************************************************/
 
-/* カーソル本体 */
 .cursor {
     position: fixed;
     top: 0;
     left: 0;
     width: 10px;
     height: 10px;
-    /* JSから受け取る座標を適用。初期値は画面外(0,0) */
-    translate: var(--x, 0px) var(--y, 0px);
+    translate: var(--x, 0px) var(--y, 0px); /* JSから受け取る座標。初期値は画面外(0,0) */
     margin: -5px 0 0 -5px;
-    background: var(--blue);
+    background-color: var(--blue);
     border-radius: 50%;
-    opacity: 1;
-    pointer-events: none;
-    z-index: 10000;
-    /* transformではなくtranslateに対してtransitionをかける */
+    opacity: 0;             /* 最初は透明にする */
+    visibility: hidden;
+    pointer-events: none;   /* ポインターイベントの対象から外す */
+    z-index: 9999;
     transition: 
         translate 0.1s ease-out,
         opacity 0.3s ease,
+        visibility 0.5s,
         scale 0.3s ease, 
-        background 0.3s ease;
+        background-color 0.3s ease;
 }
 
-/* ホバー時の変化はCSSだけで完結 */
+body.content-ready .cursor {
+    opacity: 0.5;
+    visibility: visible;
+}
+
+/* ホバー時 */
 .cursor.cursor-large {
     opacity: 0.5;
     scale: 4;
-    background: var(--green);
+    background-color: var(--green);
 }
 
 /* PC以外ではカーソルを隠す（スマホ対応） */

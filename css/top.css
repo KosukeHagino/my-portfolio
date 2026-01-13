@@ -48,7 +48,7 @@
     50.1% {
         transform: translateY(16px);    /* 下の近い位置で待機 */
         opacity: 0;
-        filter: blur(4px);              /* 少しボカす */
+        filter: blur(2px);              /* 少しボカす */
     }
     100% {
         transform: translateY(0);       /* 元の位置に戻る */
@@ -70,22 +70,35 @@
     left: 0;
     right: 0;
     background-color: var(--black);
-    z-index: 9999;
+    z-index: 10000;
     display: flex;
     justify-content: center;
     align-items: center;
+
+    /* 初期状態は「透明」かつ「クリック不可」 */
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.5s, visibility 0.5s;
+}
+
+/* --- 初回訪問時のみ表示させる --- */
+/* bodyにこのクラスがある時だけ、上の設定を上書き */
+body.is-first-visit .loading {
     opacity: 1;
     visibility: visible;
-    transition: opacity 0.5s ease-out, visibility 0s 0.5s;
 }
 
-.loading.loading-complete {
-    display: none;
-}
-
+/* --- アニメーション終了後に消すためのクラス --- */
+/* opacityを0に戻してフェードアウト */
 .loading.loading-hidden {
     opacity: 0;
     visibility: hidden;
+    transition: opacity 0.5s ease, visibility 0.5s ease;
+}
+
+/* 完全に消えた後の処理（クリック判定などを完全になくす） */
+.loading.loading-complete {
+    display: none;
 }
 
 .loading-text {
@@ -160,6 +173,7 @@
     align-items: center;
     overflow-x: auto;           /* 横スクロールを有効 */
     overflow-y: clip;           /* 縦スクロールを無効 */
+    overscroll-behavior-x: contain; /* スクロールが端で止まるように */
     scroll-snap-type: x mandatory;  /* 横方向にスナップ */
     -ms-overflow-style: none;   /* スクロールバーを非表示（IE / 旧Edge用） */
     scrollbar-width: none;      /* スクロールバーを非表示（Firefox用） */
@@ -220,7 +234,7 @@
     width: 100%;
     height: auto;
     transform: scale(0.8); 
-    opacity: 0.5;
+    opacity: 0.3;
     transition: transform 0.5s ease, opacity 0.5s ease; /* スムーズに動かす */
 }
 

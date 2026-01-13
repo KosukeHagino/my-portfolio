@@ -1,93 +1,101 @@
 'use strict';
 
+
+
 /**************************************************
 関数定義
 **************************************************/
 
-// ローディング画面　タイプライター風アニメーション
-// $spanList - <span>要素のjQueryリスト
-// text - アニメーションさせる元のテキスト
-function typeWriter($spanList, text) {
-    $('#loading-text').addClass('show-text');
-    const textLength = text.length;
-    for(let i = 0; i < textLength; i++){
-        setTimeout(() => {
-            $spanList.eq(i).addClass('animate-text');
-        }, 100 * i);
-    }
-}
-
-
-
-// 
+/*** トップページのロード時に2枚目（最初の作品）へ自動スクロール ***/
+/*** 左側にキャッチコピー、中央に作品を配置するためにス位置を調整 ***/
 function scrollToFirstWork() {
-    const worksList = document.querySelector('.works-list');
-    const firstWork = document.querySelector('.first-work'); // HTMLでクラスをつけておいてください
 
+    // DOM要素を取得し、変数に代入
+    const worksList = document.querySelector('.works-list');
+    const firstWork = document.querySelector('.first-work');
+
+    // 両方の要素が画面に存在する場合のみ実行（エラー防止）
     if (worksList && firstWork) {
-        // centerにスナップさせるための計算
+
+        // 作品が画面の真ん中に来るための計算式：
+        // (作品の左端の距離) - (画面幅の半分) + (作品自体の幅の半分)
         const offset = firstWork.offsetLeft - (worksList.clientWidth / 2) + (firstWork.clientWidth / 2);
-        worksList.scrollLeft = offset;
+
+        // 計算した位置へ2秒後にスライド
+        setTimeout(() => {
+            worksList.scrollLeft = offset;
+        }, 2000);
     }
 }
 
 
 
 /**************************************************
-ローディング画面（タイプライター風）
+トップページ：初回訪問時のみローディング画面（タイプライター風）
 **************************************************/
 
-if (sessionStorage.getItem('has-loaded') !== 'true') {
-    
-    // --- 初回ロード時のアニメーション実行 ---
+// DOM要素の取得
+const loadingEl = document.getElementById('loading');
+const loadingTextEl = document.getElementById('loading-text');
 
-    // 変数の定義とDOMの準備
-    const $loadingEl = $('#loading-text');
-    const textToAnimate = $loadingEl.text().trim();
-
-    $loadingEl.empty();
-
-    let spansHtml = '';
-    for (let i = 0; i < textToAnimate.length; i++){
-        let char = textToAnimate.substring(i, i + 1);
-        if (char === ' '){
-            char = '&nbsp;';
-        }
-        spansHtml += `<span>${char}</span>`; 
-    }
-
-    $loadingEl.append(spansHtml);
-    const $spanEls = $loadingEl.find('span'); 
-
-    // アニメーションの実行
-    typeWriter($spanEls, textToAnimate);
-
-    const totalDuration = textToAnimate.length * 100 + 1000;
-
-    setTimeout(() => {
-        sessionStorage.setItem('has-loaded', 'true');
-      
-        $('#loading').addClass('loading-hidden');
+// ローディング画面の制御
+if (loadingEl && loadingTextEl) {
+    // A: 初回訪問（sessionStorageにデータがない）場合
+    if (sessionStorage.getItem('has-loaded') !== 'true') {
         
-        // CSSのtransition時間(0.5s)+アルファの待ち時間(0.01s)
+        // CSSの表示フラグ（クラス）を即座に付与
+        document.body.classList.add('is-first-visit');
+
+        // テキストを1文字ずつ<span>に分割する処理
+        const textToAnimate = loadingTextEl.textContent.trim();
+        loadingTextEl.textContent = '';
+        let spansHtml = '';
+        for (let char of textToAnimate) {
+            spansHtml += `<span>${char === ' ' ? '&nbsp;' : char}</span>`;
+        }
+        loadingTextEl.innerHTML = spansHtml;
+        const spanEls = loadingTextEl.querySelectorAll('span');
+
+        // タイプライターアニメーションの実行
+        loadingTextEl.classList.add('show-text');
+        spanEls.forEach((span, i) => {
+            setTimeout(() => {
+                span.classList.add('animate-text');
+            }, 100 * i);
+        });
+
+        // 終了処理の予約
+        const totalDuration = textToAnimate.length * 100 + 1000;
         setTimeout(() => {
-            $('#loading').addClass('loading-complete');
+            sessionStorage.setItem('has-loaded', 'true');
+            loadingEl.classList.add('loading-hidden'); // フェードアウト開始
+            
+            setTimeout(() => {
+                sessionStorage.setItem('has-loaded', 'true');
+                
+                // フェードアウト開始
+                loadingEl.classList.add('loading-hidden'); 
+                
+                // CSSの transition (0.5s) が終わった後に完全に消す
+                setTimeout(() => {
+                    loadingEl.classList.add('loading-complete'); 
+                    document.body.classList.add('content-ready');
+                    scrollToFirstWork(); 
+                }, 550); // CSSの0.5秒より少しだけ長く設定
+            }, 510);
+        }, totalDuration);
 
-            // ローディングアニメーション完了後にトップページのcssアニメを開始させるためのトリガー
-            $('body').addClass('content-ready');
-
-        }, 510);
-
-    }, totalDuration);
-    
+    } else {
+        // B: 2回目以降（すでにロード済み）の場合
+        // 準備完了クラスをつけ、ローディング画面を表示させない
+        document.body.classList.add('content-ready');
+        
+        // 画像などの読み込み完了後にスクロール位置だけ調整
+        window.addEventListener('load', scrollToFirstWork);
+    }
 } else {
-    // --- 2回目以降のスキップ時処理 ---
-
-    // スキップ時は「即座に非表示にするCSSクラス」を適用
-    $('#loading').addClass('loading-hidden loading-complete');
-
-    // スキップ時にもトップページのcssアニメを開始させるためのトリガー
-    $('body').addClass('content-ready');
+    // ローディング要素がないページ（Profileなど）
+    document.body.classList.add('content-ready');
 }
 
 
@@ -96,20 +104,33 @@ if (sessionStorage.getItem('has-loaded') !== 'true') {
 共通　追尾カーソル
 **************************************************/
 
+/*** マウスの動きに合わせて動く丸いカーソルの制御 ***/
+// DOM要素を取得し、変数に代入
 const cursor = document.querySelector('#cursor');
 
-// マウス座標をCSS変数 (--x, --y) に更新し続けるだけ
-document.addEventListener('mousemove', (e) => {
-    cursor.style.setProperty('--x', `${e.clientX}px`);
-    cursor.style.setProperty('--y', `${e.clientY}px`);
-});
+// ページにカーソル要素がある場合のみ実行
+if (cursor) {
 
-// クラスの付け外しだけ（見た目の指定は一切なし）
-const hoverElements = document.querySelectorAll('a, .menu, .work-item');
-hoverElements.forEach((el) => {
-    el.addEventListener('mouseenter', () => cursor.classList.add('cursor-large'));
-    el.addEventListener('mouseleave', () => cursor.classList.remove('cursor-large'));
-});
+    // マウスが動くたびに実行
+    document.addEventListener('mousemove', (e) => {
+
+        // CSS変数 (--x, --y) にマウスの座標を渡す
+        // これによりCSS側で translate: var(--x) var(--y) が動く
+        cursor.style.setProperty('--x', `${e.clientX}px`);
+        cursor.style.setProperty('--y', `${e.clientY}px`);
+    });
+
+    // リンクやボタンに乗った時にカーソルを大きくする設定
+    const hoverElements = document.querySelectorAll('a, #menu, .work-item');
+    hoverElements.forEach((el) => {
+
+        // 乗ったとき
+        el.addEventListener('mouseenter', () => cursor.classList.add('cursor-large'));
+
+        // 離れたとき
+        el.addEventListener('mouseleave', () => cursor.classList.remove('cursor-large'));
+    });
+}
 
 
 
@@ -117,105 +138,104 @@ hoverElements.forEach((el) => {
 共通　ハンバーガーメニュー
 **************************************************/
 
-// クラスをトグルするターゲット要素を取得
+/*** メニューボタン、ナビ、背景マスクの3つを同時に切り替え ***/
+// DOM要素を取得し、変数に代入
 const menuBtn = document.querySelector('#menu');
 const globalNav = document.querySelector('#global-nav');
 const mask = document.querySelector('#mask');
 
-// クリックのトリガーとなる全ての要素を取得
-const triggers = document.querySelectorAll('#menu, #global-nav-item a, #mask');
+// メニュー関連の要素がすべて揃っている場合のみ実行
+if (menuBtn && globalNav && mask) {
 
-// 共通の処理を関数として定義
-const toggleMenu = () => {
+    // クリックに反応させる要素をまとめて取得
+    const triggers = document.querySelectorAll('#menu, .global-nav-item a, #mask');
 
-    // 3つのターゲット要素のクラスを同時にトグル
-    menuBtn.classList.toggle('show');
-    globalNav.classList.toggle('show');
-    mask.classList.toggle('show');  
+    // クラスを付け外しする共通の命令
+    const toggleMenu = () => {
+        menuBtn.classList.toggle('show');
+        globalNav.classList.toggle('show');
+        mask.classList.toggle('show');
+    };
+
+    // すべてのトリガーに「クリックしたらtoggleMenuを実行」と教える
+    triggers.forEach(trigger => {
+        trigger.addEventListener('click', toggleMenu);
+    });
 }
-
-// 全てのトリガー要素をループ処理
-triggers.forEach(trigger => {
-    trigger.addEventListener('click', toggleMenu)
-})
 
 
 
 /**************************************************
-トップページ　制作物の画像を横スクロール
+トップページ　制作物の横スクロール・制作物のテキスト情報の切り替え
 **************************************************/
 
+// DOM要素を取得し、変数に代入
 const scrollList = document.querySelector('.works-list');
-
-if (scrollList) {
-    scrollList.addEventListener('wheel', (e) => {
-        // Ctrlキー（拡大縮小）のときは何もしない
-        if (e.ctrlKey) return;
-
-        // 縦の回転（deltaY）がある場合
-        if (e.deltaY !== 0) {
-            e.preventDefault();
-            
-            // scrollLeftを直接書き換えるのではなく、scrollBy を使う
-            // behaviorを'smooth'にすると、CSSのsnapと喧嘩せずに「スライド」します
-            scrollList.scrollBy({
-                left: e.deltaY * 3, // 動きが遅ければ数字を大きくしてください
-                behavior: 'auto'
-            });
-        }
-    }, { passive: false });
-}
-
-
-
-/**************************************************
-トップページ　スクロールに合わせてテキストを切り替える
-**************************************************/
-
-const scrollText = document.querySelector('.works-list');
-const typeLabel = document.querySelector('.work-type-label');
-const workTitle = document.querySelector('.work-title');
-const workDesc = document.querySelector('.work-description');
 const workTitleArea = document.querySelector('.work-title-area');
 
-if (scrollText && workTitleArea) {
+if (scrollList && workTitleArea) {
+    // 【ホイール変換】マウスの縦回転を横スクロールに変える
+    scrollList.addEventListener('wheel', (e) => {
+        if (e.ctrlKey) return;      // 拡大操作中は邪魔しない
+        if (e.deltaY !== 0) {
+            e.preventDefault();     // 画面全体のスクロールを止める
+            scrollList.scrollBy({
+                left: e.deltaY * 2.5,   // 2.5倍の速さで横に移動
+                behavior: 'auto'        // スナップ機能と相性が良い'auto'を選択
+            });
+        }
+    }, { passive: false });         // preventDefaultを使うために必要
+
+    // 【監視】どの作品が中央にあるかチェックする
+    // DOM要素を取得し、変数に代入
+    const typeLabel = document.querySelector('.work-type-label');
+    const workTitle = document.querySelector('.work-title');
+    const workDesc = document.querySelector('.work-description');
+
     const observerOptions = {
         root: scrollList,
-        rootMargin: '0px',
-        threshold: 0.6 // 60%以上表示されたら切り替え
+        threshold: 0.6          // 60%以上見えたら「中央に来た」とみなす
     };
 
     const observer = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
-                // --- 中央に来た時の処理 ---
-                entry.target.classList.add('is-active'); // クラス付与（拡大）
 
+                // 中央に来た要素にクラスを付けて大きくする
+                entry.target.classList.add('is-active');
+
+                // 要素内のリンクからデータ（タイトルなど）を取得
                 const link = entry.target.querySelector('a');
-                workTitleArea.classList.remove('is-change');
-                void workTitleArea.offsetWidth; 
-                workTitleArea.classList.add('is-change');
 
-                setTimeout(() => {
-                    $('#loading').addClass('loading-complete');
-                    $('body').addClass('content-ready');
-                    scrollToFirstWork(); 
-                    typeLabel.textContent = link.getAttribute('data-type');
-                    workTitle.textContent = link.getAttribute('data-title');
-                    workDesc.textContent = link.getAttribute('data-desc');
-                }, 300); 
+                if (link) {
+                    workTitleArea.style.opacity = "1";      // 文字エリアを表示
+
+                    // アニメーションを一度リセットして再実行
+                    workTitleArea.classList.remove('is-change');
+                    void workTitleArea.offsetWidth;         // 再描画を強制
+                    workTitleArea.classList.add('is-change');
+
+                    // アニメーションの途中で文字を書き換える
+                    setTimeout(() => {
+                        typeLabel.textContent = link.getAttribute('data-type');
+                        workTitle.textContent = link.getAttribute('data-title');
+                        workDesc.textContent = link.getAttribute('data-desc');
+                    }, 300);
+
+                } else {
+
+                    // リンクがない（キャッチコピーの）時は文字エリアを消す
+                    workTitleArea.style.opacity = "0";
+                }
             } else {
-                // --- 中央から外れた時の処理 ---
-                entry.target.classList.remove('is-active'); // クラス除去（縮小）
+
+                // 中央から外れたらクラスを取る
+                entry.target.classList.remove('is-active');
             }
         });
     }, observerOptions);
 
-    
-
-    // 全ての作品アイテムを監視対象にする
+    // すべての作品アイテムの監視を開始
     const workItems = document.querySelectorAll('.work-item');
-    workItems.forEach(item => {
-        observer.observe(item);
-    });
+    workItems.forEach(item => observer.observe(item));
 }
