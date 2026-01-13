@@ -3,6 +3,22 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- ローディング画面表示前のちらつき防止 -->
+    <script>
+        (function() {
+            // 初回訪問かチェック
+            const isFirstVisit = sessionStorage.getItem('has-loaded') !== 'true';
+            
+            if (isFirstVisit) {
+                // 初回なら html にクラスをつける（CSSでそのまま表示される）
+                document.documentElement.classList.add('is-first-visit');
+            } else {
+                // 2回目以降なら、何もせずCSSのデフォルト（非表示）に任せる
+            }
+        })();
+    </script> <!-- ローディング画面表示前のちらつき防止 end -->
+
     <link rel="stylesheet" href="./css/normalize.css">
 
     <!-- Adobe Fontsの指定 -->
@@ -30,7 +46,7 @@
 
     <!-- loading -->
     <div id="loading" class="loading">
-        <p id="loading-text" class="loading-text">Welcome to my portfolio !!</p>
+        <div id="loading-counter" class="loading-counter">0%</div>
     </div> <!-- loading end -->
 
     <header>

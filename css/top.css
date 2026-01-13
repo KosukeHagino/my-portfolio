@@ -65,62 +65,61 @@
 
 .loading {
     position: fixed;
-    top: 0;
-    bottom: 0;
-    left: 0;
-    right: 0;
+    inset: 0;
     background-color: var(--black);
     z-index: 10000;
     display: flex;
     justify-content: center;
     align-items: center;
 
-    /* 初期状態は「透明」かつ「クリック不可」 */
+    /* ローディング画面を非表示（2回目以降の訪問時） */
     opacity: 0;
     visibility: hidden;
-    transition: opacity 0.5s, visibility 0.5s;
+    pointer-events: none;   /* マウス操作を無効化 */
+
+    /* 消える時の設定：0.8秒かけてふわっと消す */
+    transition: opacity 0.8s ease, visibility 0.8s ease;
 }
 
-/* --- 初回訪問時のみ表示させる --- */
-/* bodyにこのクラスがある時だけ、上の設定を上書き */
-body.is-first-visit .loading {
+/* ローディング画面を表示（初回訪問時） */
+.is-first-visit .loading {
     opacity: 1;
     visibility: visible;
+    pointer-events: auto;   /* マウス操作を有効化 */
+
+    /* 現れる時の設定：transitionを上書きして現れる時のチラつき防止 */
+    transition: none;
 }
 
-/* --- アニメーション終了後に消すためのクラス --- */
-/* opacityを0に戻してフェードアウト */
-.loading.loading-hidden {
+/* カウントアップ数字のスタイル */
+.loading-counter {
+    font-family: Montserrat, "pt-sans", sans-serif;
+    font-size: 2.4rem;
+    font-weight: 400;
+    font-style: italic;
+    color: var(--white);
+    letter-spacing: 0.3em;
+    transform: translateY(-5%);
+    opacity: 0;
+    filter: blur(10px); /* 最初は少しボカす */
+    transition: 
+        opacity 0.8s ease-out, 
+        filter 0.8s ease-out, 
+        transform 0.8s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* htmlにis-first-visitがついたら、本来の姿に戻る */
+.is-first-visit .loading-counter {
+    opacity: 1;
+    filter: blur(0);
+    transform: translateY(0);
+}
+
+/* フェードアウト用の設定（JSでis-first-visitを外すとこれが効く） */
+html:not(.is-first-visit) .loading {
     opacity: 0;
     visibility: hidden;
-    transition: opacity 0.5s ease, visibility 0.5s ease;
-}
-
-/* 完全に消えた後の処理（クリック判定などを完全になくす） */
-.loading.loading-complete {
-    display: none;
-}
-
-.loading-text {
-    font-size: 2.4rem;
-    letter-spacing: 0.15em;
-    color: var(--white);
-    opacity: 0;
-}
-
-.loading-text.show-text {
-    opacity: 1;
-    transition: opacity 0.1s ease-in;
-}
-
-.loading-text span {
-    display: inline-block;
-    opacity: 0;
-    transition: opacity 0.2s ease-in-out; 
-}
-
-.loading-text span.animate-text {
-    opacity: 1;
+    transition: opacity 0.8s ease, visibility 0.8s ease;
 }
 
 

@@ -31,71 +31,69 @@ function scrollToFirstWork() {
 
 
 /**************************************************
-トップページ：初回訪問時のみローディング画面（タイプライター風）
+トップページ：初回訪問時のみローディング画面（カウントアップ）
 **************************************************/
 
-// DOM要素の取得
+// DOM要素を取得し、変数に代入
 const loadingEl = document.getElementById('loading');
-const loadingTextEl = document.getElementById('loading-text');
+const counterEl = document.getElementById('loading-counter');
 
-// ローディング画面の制御
-if (loadingEl && loadingTextEl) {
-    // A: 初回訪問（sessionStorageにデータがない）場合
-    if (sessionStorage.getItem('has-loaded') !== 'true') {
+// 要素が存在する場合のみ実行
+if (loadingEl && counterEl) {
+
+    // 【判定】htmlタグに「is-first-visit」クラスがついているか確認
+    // （head内のスクリプトによって、初回訪問時のみ付与されている）
+    if (document.documentElement.classList.contains('is-first-visit')) {
         
-        // CSSの表示フラグ（クラス）を即座に付与
-        document.body.classList.add('is-first-visit');
+        let count = 0; // カウントアップ用の変数
 
-        // テキストを1文字ずつ<span>に分割する処理
-        const textToAnimate = loadingTextEl.textContent.trim();
-        loadingTextEl.textContent = '';
-        let spansHtml = '';
-        for (let char of textToAnimate) {
-            spansHtml += `<span>${char === ' ' ? '&nbsp;' : char}</span>`;
-        }
-        loadingTextEl.innerHTML = spansHtml;
-        const spanEls = loadingTextEl.querySelectorAll('span');
-
-        // タイプライターアニメーションの実行
-        loadingTextEl.classList.add('show-text');
-        spanEls.forEach((span, i) => {
-            setTimeout(() => {
-                span.classList.add('animate-text');
-            }, 100 * i);
-        });
-
-        // 終了処理の予約
-        const totalDuration = textToAnimate.length * 100 + 1000;
-        setTimeout(() => {
-            sessionStorage.setItem('has-loaded', 'true');
-            loadingEl.classList.add('loading-hidden'); // フェードアウト開始
+        // --- 数字を更新する関数 ---
+        const updateCount = () => {
             
+            // 1〜5のランダムな数値を加算して「読み込み感」を出す
+            count += Math.floor(Math.random() * 5) + 1; 
+
+            if (count >= 100) {
+                count = 100;
+                counterEl.textContent = count + "%";
+                
+                // 100%に達してから「1秒」待って終了（完了を見せるためのタメ）
+                setTimeout(endLoading, 1000);
+            } else {
+                counterEl.textContent = count + "%";
+                // 40ミリ秒ごとに自分を呼び出してカウントアップを継続
+                setTimeout(updateCount, 40); 
+            }
+        };
+
+        // --- ローディング画面を消す関数 ---
+        const endLoading = () => {
+            // 2回目以降の訪問ではスキップするためにフラグを保存
+            sessionStorage.setItem('has-loaded', 'true');
+            
+            /* 重要：htmlタグからクラスを削除。
+               CSS側で「html:not(.is-first-visit)」に対して transition が設定されているため、
+               この一行を実行した瞬間に、0.8秒かけたフェードアウトが始まる。
+            */
+            document.documentElement.classList.remove('is-first-visit');
+
+            // 画面が完全に消えるのを待ってからメインの演出を開始
             setTimeout(() => {
-                sessionStorage.setItem('has-loaded', 'true');
-                
-                // フェードアウト開始
-                loadingEl.classList.add('loading-hidden'); 
-                
-                // CSSの transition (0.5s) が終わった後に完全に消す
-                setTimeout(() => {
-                    loadingEl.classList.add('loading-complete'); 
-                    document.body.classList.add('content-ready');
-                    scrollToFirstWork(); 
-                }, 550); // CSSの0.5秒より少しだけ長く設定
-            }, 510);
-        }, totalDuration);
+                // コンテンツ表示準備完了の印（カーソル表示など）
+                document.body.classList.add('content-ready');
+                // 最初の作品へ自動スクロール
+                scrollToFirstWork();
+            }, 900); // CSSのtransition(0.8s)より少し長く設定
+        };
+
+        // ページが表示されてから「1秒」待ってカウントアップ開始（開始前のタメ）
+        setTimeout(updateCount, 1000);
 
     } else {
-        // B: 2回目以降（すでにロード済み）の場合
-        // 準備完了クラスをつけ、ローディング画面を表示させない
+        // --- 2回目以降の訪問（即座にメイン表示） ---
         document.body.classList.add('content-ready');
-        
-        // 画像などの読み込み完了後にスクロール位置だけ調整
         window.addEventListener('load', scrollToFirstWork);
     }
-} else {
-    // ローディング要素がないページ（Profileなど）
-    document.body.classList.add('content-ready');
 }
 
 
