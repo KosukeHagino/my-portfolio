@@ -98,7 +98,10 @@
     font-weight: 400;
     font-style: italic;
     color: var(--white);
-    letter-spacing: 0.3em;
+    letter-spacing: 0.1em;
+    display: flex;         /* 数字と%を横並びに固定 */
+    align-items: baseline;
+
     transform: translateY(-5%);
     opacity: 0;
     filter: blur(10px); /* 最初は少しボカす */
@@ -106,6 +109,14 @@
         opacity 0.8s ease-out, 
         filter 0.8s ease-out, 
         transform 0.8s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* 数字が入る箱を固定幅にする */
+#loading-num {
+    display: inline-block;
+    width: 2.5em;           /* 3桁の数字が入るくらいの幅を確保（フォントサイズに依存） */
+    text-align: right;      /* 右寄せにすることで、%との距離を常に一定に保つ */
+    margin-right: 0.2em;    /* 数字と%の間の余白 */
 }
 
 /* htmlにis-first-visitがついたら、本来の姿に戻る */
