@@ -136,7 +136,7 @@ const scrollToFirstWork = () => {
                 left: offset,
                 behavior: 'smooth'
             });
-        }, 2000);       // 2秒後に実行
+        }, 3000);       // 3秒後に実行
 
         // ユーザーが自らホイール操作をした瞬間、自動スライドを中止する
         const cancelAutoScroll = () => {

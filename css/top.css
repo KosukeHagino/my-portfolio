@@ -239,6 +239,19 @@ html:not(.is-first-visit) .loading {
 .catch-copy {
     text-align: center;
     font-weight: 400;
+    opacity: 0;
+    transform: translateY(20px);
+    filter: blur(10px);
+
+    /* ページが表示されてから少し遅れて開始 */
+    transition: opacity 1.2s ease, transform 1.2s cubic-bezier(0.22, 1, 0.36, 1), filter 1.2s ease;
+}
+
+/* 表示準備が整ったら（content-readyクラスがbodyについたら）動かす */
+.content-ready .catch-copy {
+    opacity: 1;
+    transform: translateY(0);
+    filter: blur(0);
 }
 
 .copy-jp {
@@ -258,6 +271,15 @@ html:not(.is-first-visit) .loading {
     letter-spacing: 0.3em;
     color: var(--green);
     font-family:  "pt-sans", sans-serif;
+    display: block;
+    opacity: 0;
+    transform: translateY(10px);
+    transition: opacity 0.8s ease 0.4s, transform 0.8s cubic-bezier(0.22, 1, 0.36, 1) 0.4s;
+}
+
+.content-ready .copy-en {
+    opacity: 1;
+    transform: translateY(0);
 }
 
 .work-item a {
