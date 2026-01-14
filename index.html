@@ -7,14 +7,10 @@
     <!-- ローディング画面表示前のちらつき防止 -->
     <script>
         (function() {
-            // 初回訪問かチェック
-            const isFirstVisit = sessionStorage.getItem('has-loaded') !== 'true';
-            
-            if (isFirstVisit) {
-                // 初回なら html にクラスをつける（CSSでそのまま表示される）
+            // 初回訪問であれば html要素にクラスを付与
+            if (sessionStorage.getItem('has-loaded') !== 'true') {
+                /* body要素作成前の為、html(documentElement)にクラスを付与 */
                 document.documentElement.classList.add('is-first-visit');
-            } else {
-                // 2回目以降なら、何もせずCSSのデフォルト（非表示）に任せる
             }
         })();
     </script> <!-- ローディング画面表示前のちらつき防止 end -->
@@ -23,13 +19,14 @@
 
     <!-- Adobe Fontsの指定 -->
     <script>
-        (function() {
-            // 初回訪問であれば html要素にクラスを付与
-            if (sessionStorage.getItem('has-loaded') !== 'true') {
-                /* body要素作成前の為、html(documentElement)にクラスを付与 */
-                document.documentElement.classList.add('is-first-visit');
-            }
-        })();
+        (function(d) {
+            var config = {
+            kitId: 'fav6ghg',
+            scriptTimeout: 3000,
+            async: true
+            },
+            h=d.documentElement,t=setTimeout(function(){h.className=h.className.replace(/\bwf-loading\b/g,"")+" wf-inactive";},config.scriptTimeout),tk=d.createElement("script"),f=false,s=d.getElementsByTagName("script")[0],a;h.className+=" wf-loading";tk.src='https://use.typekit.net/'+config.kitId+'.js';tk.async=true;tk.onload=tk.onreadystatechange=function(){a=this.readyState;if(f||a&&a!="complete"&&a!="loaded")return;f=true;clearTimeout(t);try{Typekit.load(config)}catch(e){}};s.parentNode.insertBefore(tk,s)
+        })(document);
     </script> <!-- Adobe Fontsの指定 end -->
 
     <link rel="stylesheet" href="./css/common.css">
@@ -45,9 +42,9 @@
 
     <!-- loading -->
     <div id="loading" class="loading">
-        <div class="loading-counter">
-            <span id="loading-num">0</span>%
-        </div>
+        <p class="loading-counter">
+            <span id="loading-num" class="loading-num">0</span>%
+        </p>
     </div> <!-- loading end -->
 
     <header>
@@ -72,10 +69,10 @@
     <main>
         <!-- work-title-area -->
         <div class="work-title-area">
-            <div class="work-title-block">
-                <p><span class="label work-type-label"></span></p>
-                <h3 class="work-title"></h3>
-            </div>
+            <p class="work-title-block">
+                <span class="label work-type-label"></span>
+                <span class="work-title"></span>
+            </p>
             <p class="work-description"></p>
         </div> <!-- work-title-area -->
 
@@ -110,13 +107,20 @@
                     <img src="./img/screenshot/jobchange_site_banner.png" alt="架空の転職サイトのバナー">
                 </a>
             </li>
+
+            <li class="work-item contact-item"> 
+                <a href="mailto:kosukehagino.web@gmail.com">
+                <div class="contact-image-wrap">
+                    <img src="./img/btn/contactme.png" alt="Contact me" class="rotating-text">
+                </div>
+                <span class="arrow">→</span> </a>
+            </li>
         </ul> <!-- works-list end -->
 
         <!-- scroll -->
         <div class="scroll">
             <p class="scroll-txt">scroll</p>
-        </div>
-        <!-- scroll end -->
+        </div> <!-- scroll end -->
     </main>
     
     <footer>

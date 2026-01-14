@@ -7,6 +7,7 @@ z-index管理表
 **************************************************/
 
 /* 10000: ローディング画面（最優先・全てを隠す）
+     500: 制作物のテキスト情報（タイトル・種類・説明）、スクロール
       -1: 制作物スライド用のスクロールバー
 */
 
@@ -67,6 +68,12 @@ z-index管理表
     }
 }
 
+/*** お問い合わせメールへのリンクの回転テキスト ***/
+@keyframes rotate-anim {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
 
 
 /**************************************************
@@ -122,11 +129,11 @@ z-index管理表
 }
 
 /* 数字が入る箱を固定幅にする */
-#loading-num {
+.loading-num {
     display: inline-block;
     width: 2.5em;           /* 3桁の数字が入るくらいの幅を確保（フォントサイズに依存） */
     text-align: right;      /* 右寄せにすることで、%との距離を常に一定に保つ */
-    margin-right: 0.2em;    /* 数字と%の間の余白 */
+    margin-right: 0.1em;    /* 数字と%の間の余白 */
 }
 
 /* htmlにis-first-visitがついたら、本来の姿に戻る */
@@ -160,6 +167,7 @@ html:not(.is-first-visit) .loading {
     align-items: center;
     pointer-events: none;
     overflow: hidden;   /* はみ出た文字を隠して文字が上にくるっと切り替わるのを表現 */
+    z-index: 500;
 }
 
 .work-title-block {
@@ -197,7 +205,7 @@ html:not(.is-first-visit) .loading {
     scroll-snap-type: x mandatory;  /* 横方向にスナップ */
     -ms-overflow-style: none;   /* スクロールバーを非表示（IE / 旧Edge用） */
     scrollbar-width: none;      /* スクロールバーを非表示（Firefox用） */
-    scroll-behavior: smooth;    /* JSの移動を滑らかにする */
+    scroll-behavior: auto;      /* JSによる強制スクロールと喧嘩しないようにauto */
     -webkit-overflow-scrolling: touch;  /* 指での操作を滑らかにする */
     padding: 0 25%; 
     gap: 10%;
@@ -268,6 +276,53 @@ html:not(.is-first-visit) .loading {
     opacity: 1;
 }
 
+/* お問い合わせメールへのリンク（リストの最後の要素） */
+.contact-item {
+    flex-shrink: 0;
+    width: 200px; 
+    flex-basis: auto; 
+    scroll-snap-align: none;    /* 中央にスナップしないようにする */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-left: 50px; 
+}
+
+.contact-item a {
+    display: block;
+    width: 120px;       /* 画像のサイズ */
+    height: 120px;
+    position: relative;
+    text-decoration: none;
+    filter: none;       /* work-item aに設定されている影などをリセット */
+}
+
+/* テキスト画像を回転させる */
+.rotating-text {
+    width: 100%;
+    height: 100%;
+    display: block; 
+    animation: rotate-anim 10s linear infinite;
+}
+
+/* 真ん中の矢印 */
+.arrow {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 20px;
+    color: var(--black);
+    pointer-events: none;   /* 矢印がクリックの邪魔をしないように */
+}
+
+/* ホバー演出：回転を速くし、少しだけ大きくする */
+.contact-item a:hover .rotating-text {
+    animation-duration: 5s;
+    transform: scale(1.1);
+    transition: transform 0.3s ease;
+}
+
 
 
 /**************************************************
@@ -284,6 +339,7 @@ html:not(.is-first-visit) .loading {
     justify-content: center;
     align-items: center;
     pointer-events: none;
+    z-index: 500;
 }
 
 .scroll-txt {
