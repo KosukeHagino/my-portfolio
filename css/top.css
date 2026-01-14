@@ -44,31 +44,7 @@ z-index管理表
     }
 }
 
-/*** テキストをくるっと上に回転して切り替え ***/
-@keyframes textSlideChange {
-    0% {
-        transform: translateY(0);
-        opacity: 1;
-        filter: blur(0);                /* 少しボカす */
-    }
-    50% {
-        transform: translateY(-16px);   /* 上に少しだけ動く */
-        opacity: 0;
-        filter: blur(2px);
-    }
-    50.1% {
-        transform: translateY(16px);    /* 下の近い位置で待機 */
-        opacity: 0;
-        filter: blur(2px);              /* 少しボカす */
-    }
-    100% {
-        transform: translateY(0);       /* 元の位置に戻る */
-        opacity: 1;
-        filter: blur(0);
-    }
-}
-
-/*** お問い合わせメールへのリンクの回転テキスト ***/
+/*** お問い合わせリンクの回転テキスト ***/
 @keyframes rotate-anim {
     0% { transform: rotate(0deg); }
     100% { transform: rotate(360deg); }
@@ -156,31 +132,69 @@ html:not(.is-first-visit) .loading {
 制作物スライド
 **************************************************/
 
-/*** 制作物のタイトル・説明 ***/
-.work-title-area {
+/*** 制作物用のテキストエリア ***/
+.work-text-area {
     position: fixed;
+    top: 25px;
     left: 25%;
     width: 50%;
-    height: 90px;
+    height: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    pointer-events: none;
+    z-index: 500;
+    opacity: 1;         /* JSで管理するので初期値は1 */
+    transition: opacity 0.5s ease; /* ふわっと出すための設定 */
+}
+
+.work-text-container {
+    width: 100%;
+    height: 40px;
+    overflow: hidden;
+    position: relative;
+    /* 上下をふわっと消して高級感を出す演出 */
+    -webkit-mask-image: linear-gradient(to bottom, transparent, black 20%, black 80%, transparent);
+}
+
+.work-text-list {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    /* JSから動かすための設定。滑らかな動きにします */
+    transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.work-text-item {
+    height: 40px;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    pointer-events: none;
-    overflow: hidden;   /* はみ出た文字を隠して文字が上にくるっと切り替わるのを表現 */
-    z-index: 500;
+    text-align: center;
+    opacity: 0;         /* アクティブになるまでは隠す */
+    filter: blur(8px);  /* 移動中はボカす */
+    transition: opacity 0.5s, filter 0.5s;
+}
+
+/* 中央（アクティブ）に来た時のスタイル */
+.work-text-item.is-active {
+    opacity: 1;
+    filter: blur(0);
 }
 
 .work-title-block {
     display: flex;
     align-items: center;
+    justify-content: center;
 }
 
 .work-title {
-    font-size: 1.3rem;
-    font-weight: 400;
     padding: 1px 0;
     margin-left: 16px;
     color: var(--blue);
+    border-bottom: 1px dotted var(--black);
 }
 
 .work-description {
@@ -188,10 +202,6 @@ html:not(.is-first-visit) .loading {
     padding: 1px 0;
 }
 
-/* テキストをくるっと上に回転して切り替えるアニメーション用のクラス */
-.is-change {
-    animation: textSlideChange 0.8s cubic-bezier(0.16, 1, 0.3, 1);
-}
 
 /*** 制作物の画像エリア ***/
 .works-list {
@@ -205,7 +215,7 @@ html:not(.is-first-visit) .loading {
     scroll-snap-type: x mandatory;  /* 横方向にスナップ */
     -ms-overflow-style: none;   /* スクロールバーを非表示（IE / 旧Edge用） */
     scrollbar-width: none;      /* スクロールバーを非表示（Firefox用） */
-    scroll-behavior: auto;      /* JSによる強制スクロールと喧嘩しないようにauto */
+    scroll-behavior: smooth;    /* 滑らかにスクロール */
     -webkit-overflow-scrolling: touch;  /* 指での操作を滑らかにする */
     padding: 0 25%; 
     gap: 10%;
@@ -225,7 +235,7 @@ html:not(.is-first-visit) .loading {
     align-items: center;
 }
 
-/* キャッチコピー */
+/* キャッチコピー（制作物の画像リストの先頭） */
 .catch-copy {
     text-align: center;
     font-weight: 400;
@@ -276,7 +286,11 @@ html:not(.is-first-visit) .loading {
     opacity: 1;
 }
 
-/* お問い合わせメールへのリンク（リストの最後の要素） */
+.space-item {
+    scroll-snap-align: none;    /* 中央にスナップしないようにする */
+}
+
+/* お問い合わせメールへのリンク（制作物の画像リストの先頭） */
 .contact-item {
     flex-shrink: 0;
     width: 200px; 
@@ -295,6 +309,10 @@ html:not(.is-first-visit) .loading {
     position: relative;
     text-decoration: none;
     filter: none;       /* work-item aに設定されている影などをリセット */
+}
+
+.contact-item a img {
+    opacity: 1;
 }
 
 /* テキスト画像を回転させる */
@@ -316,11 +334,9 @@ html:not(.is-first-visit) .loading {
     pointer-events: none;   /* 矢印がクリックの邪魔をしないように */
 }
 
-/* ホバー演出：回転を速くし、少しだけ大きくする */
+/* ホバー時 */
 .contact-item a:hover .rotating-text {
-    animation-duration: 5s;
-    transform: scale(1.1);
-    transition: transform 0.3s ease;
+    animation-duration: 3s;     /* 回転を速くする（3s/周) */
 }
 
 
