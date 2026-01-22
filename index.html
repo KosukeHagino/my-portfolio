@@ -4,16 +4,15 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <!-- ローディング画面表示前のちらつき防止 -->
+    <!-- ローディング表示のちらつき防止 -->
     <script>
         (function() {
-            // 初回訪問であれば html要素にクラスを付与
             if (sessionStorage.getItem('has-loaded') !== 'true') {
-                /* body要素作成前の為、html(documentElement)にクラスを付与 */
+                // 描画前の初回判定：ローディング表示のちらつきを防止
                 document.documentElement.classList.add('is-first-visit');
             }
         })();
-    </script> <!-- ローディング画面表示前のちらつき防止 end -->
+    </script> <!-- ローディング表示のちらつき防止 end -->
 
     <link rel="stylesheet" href="./css/normalize.css">
 
@@ -48,7 +47,7 @@
     </div> <!-- loading end -->
 
     <header>
-        <h1 class="site-title"><a href="./index.html">HAGISUKE</a></h1>
+        <h1 class="site-title"><a href="./index.html">HAGINO</a></h1>
 
         <!-- global-nav -->
         <nav id="global-nav" class="global-nav">
@@ -164,7 +163,7 @@
     
     <footer>
         <p class="copy-right">&copy;2026 KOSUKE HAGINO</p>
-        <p class="github-link"><a href="https://github.com/KosukeHagino/my-portfolio" target="_blank">my github</a></p>
+        <p class="github-link"><a href="https://github.com/KosukeHagino/my-portfolio" target="_blank">My GitHub</a></p>
     </footer>
 
     <!-- mask -->

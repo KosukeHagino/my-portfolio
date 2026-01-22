@@ -1,18 +1,5 @@
 @charset "utf-8";
 
-
-
-/**************************************************
-z-index管理表
-**************************************************/
-
-/* 10000: ローディング画面（最優先・全てを隠す）
-     500: 制作物のテキスト情報（タイトル・種類・説明）、スクロール
-      -1: 制作物スライド用のスクロールバー
-*/
-
-
-
 /**************************************************
 キーフレーム
 **************************************************/
@@ -60,7 +47,6 @@ z-index管理表
     position: fixed;
     inset: 0;
     background-color: var(--black);
-    z-index: 10000;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -86,7 +72,7 @@ z-index管理表
 
 /* カウントアップ数字のスタイル */
 .loading-counter {
-    font-family: Montserrat, "pt-sans", sans-serif;
+    font-family: var(--accent-font);
     font-size: 2.4rem;
     font-weight: 400;
     font-style: italic;
@@ -106,7 +92,6 @@ z-index管理表
 
 /* 数字が入る箱を固定幅にする */
 .loading-num {
-    display: inline-block;
     width: 2.5em;           /* 3桁の数字が入るくらいの幅を確保（フォントサイズに依存） */
     text-align: right;      /* 右寄せにすることで、%との距離を常に一定に保つ */
     margin-right: 0.1em;    /* 数字と%の間の余白 */
@@ -143,7 +128,6 @@ html:not(.is-first-visit) .loading {
     justify-content: center;
     align-items: center;
     pointer-events: none;
-    z-index: 500;
     opacity: 1;         /* JSで管理するので初期値は1 */
     transition: opacity 0.5s ease; /* ふわっと出すための設定 */
 }
@@ -158,8 +142,6 @@ html:not(.is-first-visit) .loading {
 }
 
 .work-text-list {
-    margin: 0;
-    padding: 0;
     list-style: none;
     display: flex;
     flex-direction: column;
@@ -263,14 +245,14 @@ html:not(.is-first-visit) .loading {
 
 .copy-jp-en {
     font-size: 2.6rem;
-    font-family:  "pt-sans", sans-serif;
+    font-family: var(--accent-font);
 }
 
 .copy-en {
     font-size: 1.2rem;
     letter-spacing: 0.3em;
     color: var(--green);
-    font-family:  "pt-sans", sans-serif;
+    font-family: var(--accent-font);
     display: block;
     opacity: 0;
     transform: translateY(10px);
@@ -377,7 +359,6 @@ html:not(.is-first-visit) .loading {
     justify-content: center;
     align-items: center;
     pointer-events: none;
-    z-index: 500;
 }
 
 .scroll-txt {
@@ -394,11 +375,11 @@ html:not(.is-first-visit) .loading {
 .scroll-txt::after {
     content: "";
     position: absolute;
-    z-index: -1;
     bottom: 45px;
     left: 25%;
     right: 25%;
     height: .5px;
+    z-index: -1;
     margin: 0 auto;
     background: var(--black);
     animation: scroll-bar 1.2s infinite ease-out;

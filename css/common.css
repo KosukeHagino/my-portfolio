@@ -1,56 +1,60 @@
 @charset "utf-8";
 
+/**************************************************
+z-index 管理（全ページ分）
+**************************************************/
+/* 10000: ローディング（全てを隠す） */
+.loading { z-index: 10000; }
+
+/*  9000: カスタムカーソル */
+.cursor { z-index: 9000; }
+
+/*  3000: ヘッダー・フッター */
+header { z-index: 3000; }
+    .menu { z-index: 200; }         /* 200: メニューボタン（ヘッダー内の順番） */
+    .global-nav { z-index: 100; }   /* 100: メニュー（ヘッダー内の順番） */
+
+footer { z-index: 3000; }
+
+/*  2000: メニュー表示時の背景マスク */
+.mask { z-index: 2000; }
+
+/* 0 (auto): メイン */
+main { z-index: 1; }
+    
+
 
 
 /**************************************************
-z-index管理表
+共通　Colors / Fonts (Adobe Fonts)
 **************************************************/
-
-/*  9999: カスタムカーソル（ローディング画面以外では常に最前面）
-    9000: メニューボタン
-    8000: ナビゲーションメニュー（開いた時）
-    7000: ヘッダー（ロゴ・メニューボタン）
-    6000: 背景マスク（メニューを開いた時）
-    2000: フッター（github・コピーライト）
-    1000: メイン
-*/
-
-
-
-/**************************************************
-共通カラー
-**************************************************/
-
 :root {
+    /* Colors */
     --white: #faffff;
     --gray: #e6ecec;
     --green: #558890;
     --blue: #070638;
     --black: #1C1C1C;
+
+    /* Fonts */
+    --base-font: dnp-shuei-gothic-gin-std, Montserrat, Corbel, source-sans-pro, sans-serif;
+    --accent-font: "pt-sans", sans-serif;
 }
 
-
-
-/**************************************************
-共通 Adobe Fonts
-**************************************************/
-
-/* 読み込みが完了するか、タイムアウト（inactive）するまで隠す */
 .wf-loading body {
-    color: transparent;     /* テキストのみ透明にする */
+    color: transparent;     /* 読み込み中はテキストを隠す（ちらつき防止） */
 }
 
 .wf-active body,
 .wf-inactive body {
-    color: inherit;         /* 元の色に戻す */
+    color: inherit;         /* 読み込み完了、または失敗時は表示する */
 }
 
 
 
 /**************************************************
-共通セレクタ
+共通　Selectors
 **************************************************/
-
 html {
     font-size: 62.5%;   /* default 16px * 62.5% = 10px を基準とする */
     width: 100%;
@@ -65,7 +69,7 @@ html {
 
 body {
     width: 100%;
-    font-family: dnp-shuei-gothic-gin-std, Montserrat, Corbel, source-sans-pro, sans-serif;
+    font-family: var(--base-font);
     font-weight: 400;
     font-style: normal;
     font-size: 1.2rem;      /* 10px * 1.2 = 12px */
@@ -116,7 +120,6 @@ span {
     opacity: 0;             /* 最初は透明にする */
     visibility: hidden;
     pointer-events: none;   /* ポインターイベントの対象から外す */
-    z-index: 9999;
     transition: 
         translate 0.1s ease-out,
         opacity 0.3s ease,
@@ -155,7 +158,6 @@ header {
     top: 0;
     left: 0;
     right: 0;
-    z-index: 7000;
 }
 
 .site-title {
@@ -166,7 +168,7 @@ header {
 }
 
 .site-title a {
-    font-family:  "pt-sans", sans-serif;
+    font-family: var(--accent-font);
     font-size: 1.6rem;
     line-height: 1.6rem;
     letter-spacing: 0.6em;
@@ -179,7 +181,6 @@ header {
     position: absolute;
     top: 0;
     right: 0;
-    z-index: 8000;
     width: 200px;
     height: 320px;
     background: var(--green);
@@ -213,7 +214,6 @@ header {
     right: 40px;
     width: 24px;
     height: 24px;
-    z-index: 9000;
     cursor: pointer;
 }
 
@@ -240,7 +240,6 @@ header {
     bottom: 0;
     right: 0;
     left: 0;
-    z-index: 6000;
     background: var(--black);
     visibility: hidden;
     opacity: 0.8;
@@ -276,7 +275,6 @@ header {
 
 main {
     position: relative;
-    z-index: 1000;
     width: 100%;
 }
 
@@ -291,7 +289,7 @@ main {
 }
 
 .section-title {
-    font-family: "pt-sans", sans-serif;
+    font-family: var(--accent-font);
     font-size: 3.2rem;
     font-weight: 400;
     line-height: 8rem;
@@ -328,7 +326,6 @@ main {
 footer {
     position: fixed;
     bottom: 0;
-    z-index: 2000;
     width: 100%;
     font-size: 1rem;
 }
