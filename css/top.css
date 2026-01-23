@@ -1,9 +1,8 @@
 @charset "utf-8";
 
 /**************************************************
-キーフレーム
+   Keyframes
 **************************************************/
-
 /*** スクロールバー ***/
 @keyframes scroll-bar {
     0% {
@@ -24,100 +23,80 @@
     }
 }
 
-/*** ローディング画面 ***/
-@keyframes hidden {
-    to {
-        opacity: 0;
-    }
-}
 
-/*** お問い合わせリンクの回転テキスト ***/
+/*** お問い合わせリンクのテキストを回転 ***/
 @keyframes rotate-anim {
-    0% { transform: rotate(0deg); }
-    100% { transform: rotate(360deg); }
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
 }
 
 
 
 /**************************************************
-ローディング画面
+   Loading
 **************************************************/
-
 .loading {
     position: fixed;
-    inset: 0;
+    inset: 0;               /* 画面全体を覆う */
     background-color: var(--black);
     display: flex;
     justify-content: center;
     align-items: center;
-
-    /* ローディング画面を非表示（2回目以降の訪問時） */
-    opacity: 0;
-    visibility: hidden;
-    pointer-events: none;   /* マウス操作を無効化 */
-
-    /* 消える時の設定：0.8秒かけてふわっと消す */
-    transition: opacity 0.8s ease, visibility 0.8s ease;
+    opacity: 0;             /* 2回目以降の訪問時やローディング画面終了後の設定：透明 */
+    visibility: hidden;     /* 2回目以降の訪問時やローディング画面終了後の設定：非表示 */
+    pointer-events: none;   /* 2回目以降の訪問時やローディング画面終了後の設定：下のコンテンツが触れるようにすり抜け許可 */
+    transition:
+        opacity 2s ease,        /* ローディング画面が消える時の設定：2秒かけて透明にする */
+        visibility 2s ease;     /* ローディング画面が消える時の設定：2秒（透明になる時間）待って非表示 */
 }
 
-/* ローディング画面を表示（初回訪問時） */
 .is-first-visit .loading {
-    opacity: 1;
-    visibility: visible;
-    pointer-events: auto;   /* マウス操作を有効化 */
-
-    /* 現れる時の設定：transitionを上書きして現れる時のチラつき防止 */
-    transition: none;
+    opacity: 1;             /* 初回訪問時のみの設定：不透明 */
+    visibility: visible;    /* 初回訪問時のみの設定：表示 */
+    pointer-events: auto;   /* 初回訪問時のみの設定：ローディング中は下の画面を触らせない */
+    transition: none;       /* ローディング画面が現れる時の設定：transitionを上書きして現れる時のチラつき防止 */
 }
 
-/* カウントアップ数字のスタイル */
+
+/*** 進捗カウンター ***/
 .loading-counter {
     font-family: var(--accent-font);
     font-size: 2.4rem;
-    font-weight: 400;
     font-style: italic;
     color: var(--white);
-    letter-spacing: 0.1em;
-    display: flex;         /* 数字と%を横並びに固定 */
+    letter-spacing: 0.2em;
+    display: flex;          /* 数字と%を横並びに固定 */
     align-items: baseline;
-
-    transform: translateY(-5%);
-    opacity: 0;
-    filter: blur(10px); /* 最初は少しボカす */
-    transition: 
-        opacity 0.8s ease-out, 
-        filter 0.8s ease-out, 
-        transform 0.8s cubic-bezier(0.22, 1, 0.36, 1);
+    opacity: 0;             /* 初回訪問時でカウンター表示前・2回目以降訪問時の設定：透明 */
+    filter: blur(15px);     /* 初回訪問時でカウンター表示前・2回目以降訪問時の設定：少しボカす */
+    transform: scale(1.1);  /* 初回訪問時でカウンター表示前・2回目以降訪問時の設定：少し大きくする */
+    transition:
+        opacity 1.2s cubic-bezier(0.22, 1, 0.36, 1),    /* カウンター表示の設定：1.2秒かけて表示 */
+        filter 1.2s cubic-bezier(0.22, 1, 0.36, 1),     /* カウンター表示の設定：1.2秒かけてボカしをなくす */
+        transform 1.2s cubic-bezier(0.22, 1, 0.36, 1);  /* カウンター表示の設定：1.2秒かけて元の大きさに戻す（小さくなる） */
 }
 
-/* 数字が入る箱を固定幅にする */
+.is-first-visit .loading-counter.is-active {
+    opacity: 1;             /* 初回訪問時でカウンター表示後の設定：不透明（表示） */
+    filter: blur(0);        /* 初回訪問時でカウンター表示後の設定：ボカしなし（クリアになる） */
+    transform: scale(1);    /* 初回訪問時でカウンター表示後の設定：元の大きさに戻す（小さくなる） */
+}
+
 .loading-num {
-    width: 2.5em;           /* 3桁の数字が入るくらいの幅を確保（フォントサイズに依存） */
-    text-align: right;      /* 右寄せにすることで、%との距離を常に一定に保つ */
-    margin-right: 0.1em;    /* 数字と%の間の余白 */
-}
-
-/* htmlにis-first-visitがついたら、本来の姿に戻る */
-.is-first-visit .loading-counter {
-    opacity: 1;
-    filter: blur(0);
-    transform: translateY(0);
-}
-
-/* フェードアウト用の設定（JSでis-first-visitを外すとこれが効く） */
-html:not(.is-first-visit) .loading {
-    opacity: 0;
-    visibility: hidden;
-    transition: opacity 0.8s ease, visibility 0.8s ease;
+    width: 2.5em;           /* 3桁の数字が入る幅を確保（フォントサイズに依存） */
+    text-align: right;      /* 右寄せにし、%との距離を常に一定に保つ */
+    margin-right: 0.05em;   /* 数字と%の間の余白 */
 }
 
 
 
 /**************************************************
-制作物スライド
+   Work-text-area
 **************************************************/
-
-/*** 制作物用のテキストエリア ***/
 .work-text-area {
     position: fixed;
     top: 25px;
@@ -185,7 +164,10 @@ html:not(.is-first-visit) .loading {
 }
 
 
-/*** 制作物の画像エリア ***/
+
+/**************************************************
+   Works-list
+**************************************************/
 .works-list {
     width: 100%;
     height: 100vh;
@@ -239,24 +221,19 @@ html:not(.is-first-visit) .loading {
 .copy-jp {
     display: block;
     font-size: 2.4rem;
-    line-height: 6rem;
+    line-height: 8rem;
     letter-spacing: 0.3em;
 }
 
-.copy-jp-en {
-    font-size: 2.6rem;
-    font-family: var(--accent-font);
-}
-
 .copy-en {
-    font-size: 1.2rem;
+    font-size: 1.6rem;
     letter-spacing: 0.3em;
     color: var(--green);
     font-family: var(--accent-font);
     display: block;
     opacity: 0;
     transform: translateY(10px);
-    transition: opacity 0.8s ease 0.4s, transform 0.8s cubic-bezier(0.22, 1, 0.36, 1) 0.4s;
+    transition: opacity 0.8s ease 0.6s, transform 0.8s cubic-bezier(0.22, 1, 0.36, 1) 0.6s;
 }
 
 .content-ready .copy-en {
@@ -346,9 +323,8 @@ html:not(.is-first-visit) .loading {
 
 
 /**************************************************
-スクロールバー
+   Scroll bar
 **************************************************/
-
 .scroll {
     position: fixed;
     left: 35%;
@@ -369,7 +345,7 @@ html:not(.is-first-visit) .loading {
     line-height: 2rem;
     letter-spacing: 0.6em;
     color: var(--black);
-    background: var(--gray);
+    background-color: var(--gray);
 }
 
 .scroll-txt::after {
@@ -379,8 +355,7 @@ html:not(.is-first-visit) .loading {
     left: 25%;
     right: 25%;
     height: .5px;
-    z-index: -1;
     margin: 0 auto;
-    background: var(--black);
+    background-color: var(--black);
     animation: scroll-bar 1.2s infinite ease-out;
 }

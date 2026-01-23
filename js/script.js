@@ -1,7 +1,5 @@
 'use strict';
 
-
-
 /**************************************************
    変数・定数エリア
 **************************************************/
@@ -12,19 +10,198 @@ let autoScrollTimer; // 自動スライドの予約を覚えておくための�
 
 
 /**************************************************
+   実行エリア（目次）
+**************************************************/
+// サイト全体の初期化と演出の開始をまとめる
+const initSite = () => {
+
+    // 1. 各パーツの準備（表示前に必要な設定）
+    initScrollPosition();       // [トップページ]スクロール位置のリセット
+    initCustomCursor();         // [共通]追尾カーソル
+    initHamburgerMenu();        // [共通]ハンバーガーメニュー
+    initWorksScrollObserver();  // [トップページ]制作物スライドの監視
+
+    // 2. 演出の開始（初回/2回目の判定を行い、画面を表示させる）
+    initLoading();              // [ローディング]初回判定と開始
+};
+
+// 全てのリソース（画像など）が読み込まれたら実行
+window.addEventListener('load', initSite);
+
+
+
+/**************************************************
    関数定義エリア
 **************************************************/
+/*** [トップページ] ページ読み込み時にスクロール位置をリセット（左端に戻す） ***/
+const initScrollPosition = () => {
+    const scrollList = document.querySelector('.works-list');
+    if (scrollList) {
 
-/**
- * [ローディング] 数字を1〜100までカウントアップする
- * @param {HTMLElement} el - 数字を書き換える対象の要素
- * @param {number} current - 現在の数値
- */
+        // スクロールバーの位置を0（左端）にする
+        scrollList.scrollLeft = 0;
+    }
+};
+
+
+
+/*** [共通] 追尾カーソルの制御 ***/
+const initCustomCursor = () => {
+    const cursor = document.querySelector('#cursor');
+    if (!cursor) return;
+
+    // マウスの現在地をCSS変数(--x, --y)に送り込み、位置を更新する
+    document.addEventListener('mousemove', (e) => {
+        cursor.style.setProperty('--x', `${e.clientX}px`);
+        cursor.style.setProperty('--y', `${e.clientY}px`);
+    });
+
+    // 特定の要素に乗った時、専用のクラス(.cursor-large)を付けて見た目を変える
+    const hoverElements = document.querySelectorAll('a, #menu, .work-item');
+    hoverElements.forEach((el) => {
+        el.addEventListener('mouseenter', () => cursor.classList.add('cursor-large'));
+        el.addEventListener('mouseleave', () => cursor.classList.remove('cursor-large'));
+    });
+};
+
+
+
+/*** [共通] ハンバーガーメニューの開閉制御 ***/
+const initHamburgerMenu = () => {
+    const menuBtn = document.querySelector('#menu');
+    const globalNav = document.querySelector('#global-nav');
+    const mask = document.querySelector('#mask');
+
+    // 必要な要素が揃っていない場合はエラー防止のため中断
+    if (!menuBtn || !globalNav || !mask) return;
+
+    // クリックに反応させるトリガー要素をまとめる（ボタン本体、メニュー内のリンク、背景マスク）
+    const triggers = document.querySelectorAll('#menu, .global-nav-item a, #mask');
+    
+    // クラスを付け替える（表示されていれば隠し、隠れていれば表示する）
+    const toggleMenu = () => {
+        menuBtn.classList.toggle('show');
+        globalNav.classList.toggle('show');
+        mask.classList.toggle('show');
+    };
+
+    // 全てのトリガー要素に対して、クリックされたらtoggleMenuを実行するように命令
+    triggers.forEach(trigger => trigger.addEventListener('click', toggleMenu));
+};
+
+
+
+/*** [トップページ] 制作物スライドの監視と連動 ***/
+/*** 1. 画面中央に来た作品を検知してアクティブ化する ***/
+/*** 2. 画像の動きに合わせて、作品タイトル（テキスト）を自動でスライドさせる ***/
+/*** 3. マウスホイールの縦回転を横スクロールに変換する ***/
+const initWorksScrollObserver = () => {
+
+    // 必要な要素をすべて取得
+    const scrollList = document.querySelector('.works-list');
+    const textList = document.querySelector('.work-text-list');
+    const workItems = document.querySelectorAll('.work-item');
+    const textItems = document.querySelectorAll('.work-text-item');
+
+    if (!scrollList || !textList) return;
+
+    // --- 1. 中央検知の設定 ---
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+
+                // 中央に入った要素の番号（インデックス）を調べる
+                const index = Array.from(workItems).indexOf(entry.target);
+                
+                if (index !== -1) {
+
+                    // 全体のクラスをリセットし、今中央にあるものだけに「is-active」をつける
+                    workItems.forEach(item => item.classList.remove('is-active'));
+                    textItems.forEach(item => item.classList.remove('is-active'));
+                    entry.target.classList.add('is-active');
+
+                    // 対応するタイトルテキストを縦にスライド移動させる
+                    if (textItems[index]) {
+                        const itemHeight = 40; // 1行の高さ
+                        textList.style.transform = `translateY(-${index * itemHeight}px)`;
+                        textItems[index].classList.add('is-active');
+                    }
+                }
+            }
+        });
+    }, { 
+        root: scrollList,
+        threshold: 0.1, // 少しでもエリアに入ったら反応
+        rootMargin: "0px -45% 0px -45%" // 左右45%を削り、中央の「10%の隙間」を判定基準にする
+    });
+
+    // 全ての作品画像を監視対象に登録
+    workItems.forEach(item => observer.observe(item));
+
+    // --- 2. 操作の変換 ---
+    // マウスの「縦スクロール」を「横スクロール」の動きに変換して操作しやすくする
+    scrollList.addEventListener('wheel', (e) => {
+        if (e.ctrlKey) return;
+        if (e.deltaY !== 0) {
+            e.preventDefault();
+            scrollList.scrollBy({ left: e.deltaY * 2.5, behavior: 'auto' });
+        }
+    }, { passive: false });
+};
+
+
+
+/*** [ローディング] ローディング画面の判定と実行 ***/
+const initLoading = () => {
+
+    // --- 演出のタイミング設定 ---
+    const BLANK_TIME = 300;      // ページを開いてから黒い画面で待つ時間：0.3秒
+    const START_DELAY = 1500;    // カウンター出現開始から数字が動き始めるまでの時間：1.5秒＝2のCSSアニメ1.2秒＋3の待機0.3秒
+    // --------------------------
+
+    const numEl = document.getElementById('loading-num');
+    
+    // ページにローディング要素がない場合は何もしない
+    if (!numEl) return;
+
+    if (document.documentElement.classList.contains('is-first-visit')) {
+           
+        /* A. 初回訪問時（ローディング演出あり） */
+        // 1. ページを開いてから黒い画面で0.3秒待つ
+        setTimeout(() => {
+
+            // 2. カウンター出現（CSSで1.2秒かけて表示される）
+            const counterContainer = numEl.closest('.loading-counter');
+            if (counterContainer) {
+                counterContainer.classList.add('is-active');
+            }
+
+            // 3. カウンター出現してから0.3秒待ってカウントアップ開始
+            setTimeout(() => {
+                updateCount(numEl, 0); // カウントアップは0から開始
+            }, START_DELAY);
+
+        }, BLANK_TIME);
+
+    } else {
+
+        /* B. 2回目以降の処理（ローディング演出をなくして即座にトップページを表示） */
+        // ローディングを飛ばして中身を表示する関数
+        showContentDirectly();
+    }
+};
+
+
+
+/*** [ローディング] ローディング画面の数字を0から100までカウントアップする ***/
+/*** el - 数字を書き換える対象の要素 ***/
+/*** current - 現在の数値 ***/
 const updateCount = (el, current) => {
 
     // 1〜5のランダムな数値を加算して「読み込み感」を演出
     let nextCount = current + (Math.floor(Math.random() * 5) + 1);
 
+    // 100%を超えたときは100%にする
     if (nextCount >= 100) {
         nextCount = 100;
         el.textContent = nextCount;
@@ -35,81 +212,43 @@ const updateCount = (el, current) => {
     } else {
         el.textContent = nextCount;
 
-        // 40ミリ秒ごとに再帰的に呼び出して滑らかに動かす
-        setTimeout(() => updateCount(el, nextCount), 40);
+        // 50ミリ秒ごとに再帰的に呼び出して滑らかに動かす
+        setTimeout(() => updateCount(el, nextCount), 50);
     }
 };
 
 
 
-/**
- * [ローディング] 画面をフェードアウトさせて終了する
- */
+/*** [ローディング] ローディング画面をフェードアウトさせて終了する ***/
 const endLoading = () => {
 
-    // 次回訪問時にスキップするためのフラグを保存
+    // 1. 次回訪問時にスキップするためのフラグを保存
     sessionStorage.setItem('has-loaded', 'true');
     
-    // htmlタグからクラスを削除。CSS側で0.8秒のフェードアウトが開始される
+    // 2. CSSのフェードアウトを開始（クラスを外す）
     document.documentElement.classList.remove('is-first-visit');
 
-    // 画面が完全に消えるタイミング（0.8s + 余裕0.1s）で後続処理を実行
+    // 3. 画面が完全に消えるタイミングで「表示処理（ゴール）」を呼び出す
     setTimeout(() => {
-        document.body.classList.add('content-ready');
-        scrollToFirstWork();
-    }, 900);
+        showContentDirectly(); // ← 重複を削って、共通関数を呼ぶ！
+    }, 2100); 
 };
 
 
 
-/**
- * [共通] 追尾カーソルの動きを制御する
- */
-const initCustomCursor = () => {
-    const cursor = document.querySelector('#cursor');
-    if (!cursor) return;
+/*** [トップページ] コンテンツを表示して初期演出を実行する（共通のゴール） ***/
+const showContentDirectly = () => {
 
-    // マウス移動に追従
-    document.addEventListener('mousemove', (e) => {
-        cursor.style.setProperty('--x', `${e.clientX}px`);
-        cursor.style.setProperty('--y', `${e.clientY}px`);
-    });
-
-    // 特定の要素に乗った時にカーソルを大きくする
-    const hoverElements = document.querySelectorAll('a, #menu, .work-item');
-    hoverElements.forEach((el) => {
-        el.addEventListener('mouseenter', () => cursor.classList.add('cursor-large'));
-        el.addEventListener('mouseleave', () => cursor.classList.remove('cursor-large'));
-    });
+    // サイトの中身をふわっと出す
+    document.body.classList.add('content-ready');
+    
+    // 最初の作品へスクロールさせる
+    scrollToFirstWork();
 };
 
 
 
-/**
- * [共通] ハンバーガーメニューの開閉を制御する
- */
-const initHamburgerMenu = () => {
-    const menuBtn = document.querySelector('#menu');
-    const globalNav = document.querySelector('#global-nav');
-    const mask = document.querySelector('#mask');
-
-    if (!menuBtn || !globalNav || !mask) return;
-
-    const triggers = document.querySelectorAll('#menu, .global-nav-item a, #mask');
-    const toggleMenu = () => {
-        menuBtn.classList.toggle('show');
-        globalNav.classList.toggle('show');
-        mask.classList.toggle('show');
-    };
-
-    triggers.forEach(trigger => trigger.addEventListener('click', toggleMenu));
-};
-
-
-
-/**
- * [トップページ] 最初の作品へ自動スクロールする
- */
+/*** [トップページ] 最初の作品へ自動スクロールする ***/
 const scrollToFirstWork = () => {
     const worksList = document.querySelector('.works-list');
     const firstWork = document.querySelector('.first-work');
@@ -151,101 +290,3 @@ const scrollToFirstWork = () => {
         worksList.addEventListener('touchstart', cancelAutoScroll); // スマホ用
     }
 };
-
-
-
-/**
- * [トップページ] 制作物スライドのホイール変換とテキストリストの同期
- */
-const initWorksScrollObserver = () => {
-    const scrollList = document.querySelector('.works-list');
-    const textList = document.querySelector('.work-text-list');
-    const workItems = document.querySelectorAll('.work-item');
-    const textItems = document.querySelectorAll('.work-text-item');
-
-    if (!scrollList || !textList) return;
-
-    const itemHeight = 40; // 1行の高さ
-
-    const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            // 【変更】少しでも「判定エリア」に入ったら即座に実行
-            if (entry.isIntersecting) {
-                
-                const index = Array.from(workItems).indexOf(entry.target);
-                
-                if (index !== -1) {
-                    // 全体のクラスを一旦リセット（重複防止）
-                    workItems.forEach(item => item.classList.remove('is-active'));
-                    textItems.forEach(item => item.classList.remove('is-active'));
-
-                    // 現在の要素をアクティブにする
-                    entry.target.classList.add('is-active');
-
-                    if (textItems[index]) {
-                        // テキストをスライド
-                        textList.style.transform = `translateY(-${index * itemHeight}px)`;
-                        textItems[index].classList.add('is-active');
-                    }
-                }
-            }
-        });
-    }, { 
-        root: scrollList,
-        // 【重要】0.1（10%）でも入れば検知。これで検知漏れを防ぎます
-        threshold: 0.1,
-        // 【重要】画面の左右45%を「無効」にし、中央の10%幅だけで判定する
-        // これにより、中央を通る瞬間を確実に、かつ1つずつ捕まえます
-        rootMargin: "0px -45% 0px -45%" 
-    });
-
-    workItems.forEach(item => observer.observe(item));
-
-    // ホイール変換
-    scrollList.addEventListener('wheel', (e) => {
-        if (e.ctrlKey) return;
-        if (e.deltaY !== 0) {
-            e.preventDefault();
-            scrollList.scrollBy({ left: e.deltaY * 2.5, behavior: 'auto' });
-        }
-    }, { passive: false });
-};
-
-
-
-/**************************************************
-  実行エリア
-**************************************************/
-
-window.addEventListener('load', () => {
-    // ページ読み込み完了時にスクロール位置を強制的に左端(0)に戻す
-    const scrollList = document.querySelector('.works-list');
-    if (scrollList) {
-        scrollList.scrollLeft = 0;
-    }
-
-    // [共通] 追尾カーソルの有効化
-    initCustomCursor();
-
-    // [共通] ハンバーガーメニューの有効化
-    initHamburgerMenu();
-
-    // [トップページ] 制作物リストの演出を有効化
-    initWorksScrollObserver();
-
-    // [トップページ] ローディング画面の判定と実行
-    const numEl = document.getElementById('loading-num');
-    if (numEl) {
-        if (document.documentElement.classList.contains('is-first-visit')) {
-            
-            // 初回訪問：1秒待ってカウントアップ開始
-            setTimeout(() => updateCount(numEl, 0), 1000);
-
-        } else {
-            
-            // 2回目以降：即座に表示して自動スライド
-            document.body.classList.add('content-ready');
-            scrollToFirstWork();
-        }
-    }
-});
