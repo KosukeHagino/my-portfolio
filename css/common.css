@@ -7,7 +7,7 @@
 .loading  { z-index: 10000; }       /* 最前面：ローディング */
 .cursor   { z-index: 9000; }        /* カスタムカーソル */
 
-header    { z-index: 3000; }        /* ヘッダー */
+header    { z-index: 4000; }        /* ヘッダー */
     .menu       { z-index: 200; }       /* メニューボタン（ヘッダー内） */
     .global-nav { z-index: 100; }       /* ナビゲーション（ヘッダー内） */
 
@@ -165,12 +165,12 @@ header {
     position: absolute;
     top: 0;
     right: 0;
-    width: 200px;
-    height: 320px;
+    width: 240px;
+    height: 420px;
     background-color: var(--green);
     color: var(--white);
     border-radius: 20px 0 0 20px;
-    transform: translateX(200px);       /* メニュー閉：非表示（画面外にずらす） */
+    transform: translateX(240px);       /* メニュー閉：非表示（画面外にずらす） */
     transition: transform 0.3s ease;    /* メニュー開閉：0.3秒かけてメニューをスライドして表示・非表示 */
 }
 
@@ -179,13 +179,27 @@ header {
 }
 
 .global-nav-list {
-    padding: 100px 0;
+    padding: 80px 0;
 }
 
 .global-nav-item a {
+    position: relative;
     display: block;
-    padding: 16px 54px;
-    font-size: 1.6rem;
+    padding: 25px 65px;
+    font-size: 1.4rem;
+}
+
+.global-nav-item a.active::before {
+    content: "";
+    display: inline-block;
+    position: absolute;
+    top: 50%;
+    left: 40px;
+    transform: translatey(-50%);
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background-color: var(--white);
 }
 
 .global-nav-item a:hover {
@@ -328,8 +342,50 @@ footer {
 /**************************************************
    共通　Media Queries
 **************************************************/
+/* --- 画面サイズで判定（～768pxのスマホ・タブレットを想定） --- */
+@media screen and (max-width:768px) {
+    html {
+        scrollbar-gutter: auto;     /* スクロールバーのための隙間をなくす */
+    }
+
+    .cursor {
+        display: none;              /* カーソルを隠す */
+    }
+
+    .global-nav {
+        width: 100%;
+        height: 100dvh;
+        border-radius: 0;
+        transform: translateY(-100dvh);     /* メニュー閉：非表示（画面外にずらす） */
+        transition: transform 0.6s ease;
+    }
+
+    .global-nav.show {
+        transform: translateY(0);           /* メニュー開：表示（画面内に戻す） */
+    }
+
+    .global-nav-list {
+        padding: 120px 0;
+    }
+
+    .global-nav-item a {
+        display: block;
+        padding: 40px 100px;
+        font-size: 2.4rem;
+    }
+
+    .global-nav-item a.active::before {
+        left: 60px;
+        width: 12px;
+        height: 12px;
+    }
+
+    /* メニューから先がまだ */
+}
+
+/* --- 操作方法で判定（iPad + マウスなどの特殊ケースをカバー） --- */
 @media (hover: none), (pointer: coarse) {
-    #cursor {
-        display: none;              /* PC以外：カーソルを隠す（スマホ対応） */
+    .cursor {
+        display: none;              /* カーソルを隠す */
     }
 }

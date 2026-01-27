@@ -52,9 +52,10 @@
         <!-- global-nav -->
         <nav id="global-nav" class="global-nav">
             <ul class="global-nav-list">
-                <li class="global-nav-item"><a href="./profile.html">profile</a></li>
-                <li class="global-nav-item"><a href="./skills.html">skills</a></li>
-                <li class="global-nav-item"><a href="./works.html">works</a></li>
+                <li class="global-nav-item"><a class="active" href="./index.html">Top</a></li>
+                <li class="global-nav-item"><a href="./profile.html">Profile</a></li>
+                <li class="global-nav-item"><a href="./skills.html">Skills</a></li>
+                <li class="global-nav-item"><a href="./works.html">Works</a></li>
             </ul>
         </nav> <!-- global-nav end -->
 
@@ -76,7 +77,7 @@
                         <span class="label work-type-label">website</span>
                         <h3 class="work-title">Portfolio</h3>
                     </div>
-                    <p class="work-description">萩野弘祐（はぎのこうすけ）のポートフォリオです。</p>
+                    <p class="work-description">萩野弘祐のポートフォリオです。</p>
                 </li>
 
                 <li class="work-text-item">
@@ -102,6 +103,10 @@
                     </div>
                     <p class="work-description">架空の転職サイトのバナー制作例です。</p>
                 </li>
+
+                <li class="work-text-item">
+                    <p class="work-description contact-description">お問い合わせはこちらからメールしてください</p>
+                </li>
             </ul> <!-- work-text-list end -->
 
         </div> <!-- work-text-area -->
@@ -110,7 +115,7 @@
         <ul class="work-list">
             <li class="work-item catch-item">
                 <h2 class="catch-copy">
-                    <span class="copy-jp">萩野弘祐のポートフォリオ</span>
+                    <span class="copy-jp">萩野弘祐の<wbr>ポートフォリオ</span>
                     <span class="copy-en">Welcome to my portfolio !</span>
                 </h2>
             </li>
@@ -127,7 +132,7 @@
             <li class="work-item">
                 <a href="../cafe/index.html" target="_blank">
                     <picture>
-                        <source srcset="./img/screenshot/cafe-sp.png" media="(max-width: 768px)">
+                        <source srcset="./img/screenshot/portfolio-sp.png" media="(max-width: 768px)">
                         <img class="work-img" src="./img/screenshot/cafe-pc.png" alt="架空のカフェのＷｅｂサイト">
                     </picture>
                 </a>
@@ -157,6 +162,8 @@
         <div class="scroll">
             <p class="scroll-txt">scroll</p>
         </div> <!-- scroll end -->
+
+        <div id="indicator" class="indicator"></div>
     </main>
     
     <footer>

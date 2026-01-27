@@ -16,10 +16,11 @@ let autoScrollTimer; // 自動スライドの予約を覚えておくための�
 const initSite = () => {
 
     // 1. 各パーツの準備（表示前に必要な設定）
-    initScrollPosition();       // [トップページ]スクロール位置のリセット
+    initScrollPosition();       // [トップページ]スクロール位置の初期化
     initCustomCursor();         // [共通]追尾カーソル
     initHamburgerMenu();        // [共通]ハンバーガーメニュー
     initWorksScrollObserver();  // [トップページ]制作物スライドの監視
+    initIndicator();            // [トップページ]インジケーターの初期化
 
     // 2. 演出の開始（初回/2回目の判定を行い、画面を表示させる）
     initLoading();              // [ローディング]初回判定と開始
@@ -33,7 +34,7 @@ window.addEventListener('load', initSite);
 /**************************************************
    関数定義エリア
 **************************************************/
-/*** [トップページ] ページ読み込み時にスクロール位置をリセット（左端に戻す） ***/
+/*** [トップページ] ページ読み込み時にスクロール位置を初期化（左端に戻す） ***/
 const initScrollPosition = () => {
     const scrollList = document.querySelector('.work-list');
     if (scrollList) {
@@ -123,7 +124,7 @@ const initWorksScrollObserver = () => {
         // 2. テキストが存在する範囲ならスライドさせる
         if (textIndex >= 0 && textIndex < textItems.length) {
             const isMobile = window.innerWidth <= 768;
-            const itemHeight = isMobile ? 45 : 30;
+            const itemHeight = isMobile ? 60 : 30;
             textList.style.transform = `translateY(-${textIndex * itemHeight}px)`;
         } else if (textIndex >= textItems.length) {
             //　Contactに到達したらactiveを全部外して消す
@@ -149,6 +150,7 @@ const initWorksScrollObserver = () => {
 
                     // テキストを連動させる
                     updateTextPosition(index);
+                    updateIndicator(index);
                 }
             }
         });
@@ -322,3 +324,34 @@ const scrollToFirstWork = () => {
         workList.addEventListener('touchstart', cancelAutoScroll); // スマホ用
     }
 };
+
+
+
+/*** [トップページ] スマホ用インジケーターの自動生成 ***/
+const initIndicator = () => {
+    const workItems = document.querySelectorAll('.work-item');
+    const indicator = document.getElementById('indicator');
+
+    if (!indicator || workItems.length === 0) return;
+
+    //　作品の数だけドットを生成して流し込む
+    workItems.forEach((_, index) => {
+        const dot = document.createElement('span');
+        dot.classList.add('indicator-dot');
+        if (index === 0) dot.classList.add('is-active');    //　最初だけ点灯
+        indicator.appendChild(dot);
+    });
+};
+
+
+
+/*** [トップページ] インジケーターのアクティブ状態を更新する（監視と連動） ***/
+const updateIndicator = (index) => {
+    const dots = document.querySelectorAll('.indicator-dot');
+    if (dots.length === 0) return;
+
+    dots.forEach((dot, i) => {
+        dot.classList.toggle('is-active', i === index);
+    })
+}
+

@@ -185,29 +185,12 @@
 
 
 
-/* --- Media Queries - モバイル対応 --- */
-@media screen and (max-width: 768px) {
-    .work-text-area {
-        height: 60px;       /* スマホ用：1行の高さ */
-    }
-
-    .work-text-item {
-        height: 60px;       /* スマホ用：1行の高さ */
-        flex-direction: column;     /* 上下に並べる */
-        align-items: flex-start;    /* 左寄せにする */
-        justify-content: center;
-        gap: 10px;           /* タイトルと説明の間隔 */
-    }
-}
-
-
-
 /**************************************************
    Work List
 **************************************************/
 .work-list {
     width: 100%;
-    height: 100vh;
+    height: 100dvh;
     display: flex;
     align-items: center;
     overflow-x: auto;           /* 横スクロールを有効 */
@@ -217,7 +200,6 @@
     -ms-overflow-style: none;   /* スクロールバーを非表示（IE / 旧Edge用） */
     scrollbar-width: none;      /* スクロールバーを非表示（Firefox用） */
     scroll-behavior: smooth;    /* 滑らかにスクロール */
-    -webkit-overflow-scrolling: touch;  /* 指での操作を滑らかにする */
     padding: 0 25%;             /* 左右に余白を設けて、前後の画像を少し画面に入れ込む */
     gap: 10%;                   /* 前後の画像との隙間 */
 }
@@ -397,4 +379,123 @@
     height: 0.5px;
     background-color: var(--black);
     animation: scroll-bar 1.2s infinite ease-out;   /* スクロールバー：1.2秒かけて左から右に線が通過する動きを無限に繰り返す */
+}
+
+
+
+/**************************************************
+   Indicator
+**************************************************/
+.indicator {
+    display: none;      /* PC：非表示 */
+}
+
+
+
+/**************************************************
+   Media Queries
+**************************************************/
+@media screen and (max-width:768px) {
+    html, body {
+        overflow-y: clip;           /* 縦スクロールを無効 */
+    }
+
+    .work-text-area {
+        left: 10%;
+        top: 15vh;
+        width: 80%;
+        height: 60px;               /* スマホ用：1行の高さ */
+    }
+
+    .work-text-item {
+        height: 60px;               /* スマホ用：1行の高さ */
+        flex-direction: column;     /* 上下に並べる */
+        align-items: stretch;       /* 親要素いっぱいに並べる */
+        justify-content: center;
+        gap: 15px;                  /* 上段（種類・タイトル）と下段（説明）の間隔 */
+    }
+
+    .work-info-upper {
+        justify-content: space-between;
+        gap: 10px;
+    }
+
+    .work-description {
+        align-self: flex-end;
+    }
+
+    .contact-description {
+        align-self: center;
+    }
+
+    .work-list {
+        padding-top: 10vh;
+        -webkit-overflow-scrolling: touch;      /* 指での操作を滑らかにする */
+    }
+
+    .catch-copy {
+        line-height: 1.8;
+        padding-bottom: 7.5vh;
+    }
+
+    .copy-jp {
+        font-size: 2.4rem;
+        word-break: keep-all;       /* <wbr>のある場所で改行 */
+        overflow-wrap: break-word;  /* 入り切らない時は強制改行 */
+        text-align: justify;        /* 両端揃え */
+    }
+
+    .copy-en {
+        font-size: 1.1rem;
+        letter-spacing: 0.2em;
+    }
+
+    .contact-item {
+        width: 100%;
+        margin-left: 50vw;          /* 余白をリセット */
+        scroll-snap-align: center;  /* スマホでは中央にスナップさせる */
+        flex: 0 0 100%;             /* 他の作品と同じ幅にする */
+    }
+    
+    .contact-item a {
+        width: 120px;
+        height: 120px;
+    }
+
+    .scroll {
+        display: none;
+    }
+
+    .indicator {
+        display: flex;
+        position: fixed;
+        left: 50%;
+        bottom: 12.5vh;
+        transform: translateX(-50%);
+        gap: 12px;          /* ドット同士の間隔 */
+    }
+
+    .indicator-dot {
+        position: relative;
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        background-color: var(--green);
+        transition: all 0.3s ease;
+    }
+
+    .indicator-dot.is-active {
+        background-color: var(--blue);
+        transform: scale(1.3);
+    }
+
+    .indicator-dot::before {
+        content: "";
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 24px;    /* 指で触れるサイズ */
+        height: 24px;
+    }
 }
