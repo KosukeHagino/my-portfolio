@@ -52,8 +52,8 @@
         <!-- global-nav -->
         <nav id="global-nav" class="global-nav">
             <ul class="global-nav-list">
-                <li class="global-nav-item"><a href="./index.html">top</a></li>
                 <li class="global-nav-item"><a href="./profile.html">profile</a></li>
+                <li class="global-nav-item"><a href="./skills.html">skills</a></li>
                 <li class="global-nav-item"><a href="./works.html">works</a></li>
             </ul>
         </nav> <!-- global-nav end -->
@@ -68,51 +68,46 @@
     <main>
         <!-- work-text-area -->
         <div class="work-text-area">
-            <div class="work-text-container">
-                <ul class="work-text-list">
-                    <li class="work-text-item"></li>
 
-                    <li class="work-text-item"></li>
+            <!-- work-text-list -->
+            <ul class="work-text-list">
+                <li class="work-text-item">
+                    <div class="work-info-upper">
+                        <span class="label work-type-label">website</span>
+                        <h3 class="work-title">Portfolio</h3>
+                    </div>
+                    <p class="work-description">萩野弘祐（はぎのこうすけ）のポートフォリオです。</p>
+                </li>
 
-                    <li class="work-text-item">
-                        <p class="work-title-block">
-                            <span class="label work-type-label">website</span>
-                            <span class="work-title">Portfolio</span>
-                        </p>
-                        <p class="work-description">萩野弘祐（はぎのこうすけ）のポートフォリオです。</p>
-                    </li>
+                <li class="work-text-item">
+                    <div class="work-info-upper">
+                        <span class="label work-type-label">website</span>
+                        <h3 class="work-title">Cafe site</h3>
+                    </div>
+                    <p class="work-description">架空のカフェのＷｅｂサイト制作例です。</p>
+                </li>
 
-                    <li class="work-text-item">
-                        <p class="work-title-block">
-                            <span class="label work-type-label">website</span>
-                            <span class="work-title">Cafe site</span>
-                        </p>
-                        <p class="work-description">架空のカフェのＷｅｂサイト制作例です。</p>
-                    </li>
+                <li class="work-text-item">
+                    <div class="work-info-upper">
+                        <span class="label work-type-label">banner</span>
+                        <h3 class="work-title">English school banner</h3>
+                    </div>
+                    <p class="work-description">架空の英会話スクールのバナー制作例です。</p>
+                </li>
 
-                    <li class="work-text-item">
-                        <p class="work-title-block">
-                            <span class="label work-type-label">banner</span>
-                            <span class="work-title">English school banner</span>
-                        </p>
-                        <p class="work-description">架空の英会話スクールのバナー制作例です。</p>
-                    </li>
+                <li class="work-text-item">
+                    <div class="work-info-upper">
+                        <span class="label work-type-label">banner</span>
+                        <h3 class="work-title">Job change site banner</h3>
+                    </div>
+                    <p class="work-description">架空の転職サイトのバナー制作例です。</p>
+                </li>
+            </ul> <!-- work-text-list end -->
 
-                    <li class="work-text-item">
-                        <p class="work-title-block">
-                            <span class="label work-type-label">banner</span>
-                            <span class="work-title">Job change site banner</span>
-                        </p>
-                        <p class="work-description">架空の転職サイトのバナー制作例です。</p>
-                    </li>
-
-                    <li class="work-text-item"></li>
-                </ul>
-            </div>
         </div> <!-- work-text-area -->
 
-        <!-- works-list -->
-        <ul class="works-list">
+        <!-- work-list -->
+        <ul class="work-list">
             <li class="work-item catch-item">
                 <h2 class="catch-copy">
                     <span class="copy-jp">萩野弘祐のポートフォリオ</span>
@@ -120,40 +115,43 @@
                 </h2>
             </li>
 
-            <li class="work-item space-item"></li>
-
             <li class="work-item first-work">
                 <a href="./index.html" target="_blank">
-                    <img src="./img/screenshot/portfolio.png" alt="萩野弘祐(はぎのこうすけ)のポートフォリオ">
+                    <picture>
+                        <source srcset="./img/screenshot/portfolio-sp.png" media="(max-width: 768px)">
+                        <img class="work-img" src="./img/screenshot/portfolio-pc.webp" alt="萩野弘祐(はぎのこうすけ)のポートフォリオ">
+                    </picture>
                 </a>
             </li>
 
             <li class="work-item">
                 <a href="../cafe/index.html" target="_blank">
-                    <img src="./img/screenshot/cafe.png" alt="架空のカフェのＷｅｂサイト">
+                    <picture>
+                        <source srcset="./img/screenshot/cafe-sp.png" media="(max-width: 768px)">
+                        <img class="work-img" src="./img/screenshot/cafe-pc.png" alt="架空のカフェのＷｅｂサイト">
+                    </picture>
                 </a>
             </li>
 
             <li class="work-item">
                 <a href="#" data-type="banner" target="_blank">
-                    <img src="./img/screenshot/english_school_banner.png" alt="架空の英会話スクールのバナー">
+                    <img class="work-img" src="./img/screenshot/english_school_banner.png" alt="架空の英会話スクールのバナー">
                 </a>
             </li>
 
             <li class="work-item">
                 <a href="#" data-type="banner" target="_blank">
-                    <img src="./img/screenshot/jobchange_site_banner.png" alt="架空の転職サイトのバナー">
+                    <img class="work-img" src="./img/screenshot/jobchange_site_banner.png" alt="架空の転職サイトのバナー">
                 </a>
             </li>
 
             <li class="work-item contact-item"> 
                 <a href="mailto:kosukehagino.web@gmail.com">
-                <div class="contact-image-wrap">
-                    <img src="./img/btn/contactme.png" alt="Contact me" class="rotating-text">
-                </div>
-                <span class="arrow">→</span> </a>
+                    <img class="rotating-text" src="./img/btn/contactme.png" alt="Contact me">
+                    <span class="arrow">→</span>
+                </a>
             </li>
-        </ul> <!-- works-list end -->
+        </ul> <!-- work-list end -->
 
         <!-- scroll -->
         <div class="scroll">

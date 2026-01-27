@@ -1,58 +1,52 @@
 @charset "utf-8";
 
 /**************************************************
-   z-index 管理（全ページ分）
+   z-index 管理（重なりの順番）
 **************************************************/
-/* 全ページ共通 */
-/* 10000: ローディング（全てを隠す） */
-.loading { z-index: 10000; }
+/* --- 全ページ共通 --- */
+.loading  { z-index: 10000; }       /* 最前面：ローディング */
+.cursor   { z-index: 9000; }        /* カスタムカーソル */
 
-/*  9000: カスタムカーソル */
-.cursor { z-index: 9000; }
+header    { z-index: 3000; }        /* ヘッダー */
+    .menu       { z-index: 200; }       /* メニューボタン（ヘッダー内） */
+    .global-nav { z-index: 100; }       /* ナビゲーション（ヘッダー内） */
 
-/*  3000: ヘッダー・フッター */
-header { z-index: 3000; }
-    .menu { z-index: 200; }         /* 200: メニューボタン（ヘッダー内の順番） */
-    .global-nav { z-index: 100; }   /* 100: メニュー（ヘッダー内の順番） */
+footer    { z-index: 3000; }        /* フッター */
+.mask     { z-index: 2000; }        /* メニュー表示時の背景マスク */
 
-footer { z-index: 3000; }
-
-/*  2000: メニュー表示時の背景マスク */
-.mask { z-index: 2000; }
-
-/* 0 (auto): メイン */
-main { z-index: 1; }
+main      { z-index: 1; }           /* メインコンテンツ */
 
 
-/* トップページ */
-.scroll-txt::after { z-index: -1; }     /* -1: スクロールバー（メイン内の順番） */
+/* --- トップページ固有 --- */
+.scroll-txt::after { z-index: -1; }     /* スクロールバー：テキストの下を通過させるため */
 
 
 
 /**************************************************
-   共通　Colors / Fonts (Adobe Fonts)
+   共通　Colors / Fonts / Animation Settings
 **************************************************/
 :root {
-    /* Colors */
+    /* --- Colors --- */
     --white: #faffff;
     --gray: #e6ecec;
     --green: #558890;
     --blue: #070638;
     --black: #1C1C1C;
 
-    /* Fonts */
+    /* --- Fonts --- */
     --base-font: dnp-shuei-gothic-gin-std, Montserrat, Corbel, source-sans-pro, sans-serif;
     --accent-font: "pt-sans", sans-serif;
+
+    /* --- Animation Settings（全体で動きのトーンを揃えるための変数） --- */
+    --transition-base: 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+    --transition-slide: 1.2s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-.wf-loading body {
-    color: transparent;     /* 読み込み中はテキストを隠す（ちらつき防止） */
-}
 
+/* --- Adobe Fonts 読み込み待ちのちらつき防止 --- */
+.wf-loading body { color: transparent; }
 .wf-active body,
-.wf-inactive body {
-    color: inherit;         /* 読み込み完了、または失敗時は表示する */
-}
+.wf-inactive body { color: inherit; }
 
 
 
@@ -60,9 +54,9 @@ main { z-index: 1; }
    共通　Selectors
 **************************************************/
 html {
-    font-size: 62.5%;   /* default 16px * 62.5% = 10px を基準とする */
+    font-size: 62.5%;   /* default 16px * 62.5% = 10px */
     width: 100%;
-    scrollbar-gutter: stable;   /* スクロールバーの幅を常に確保し、重ねて表示 */ 
+    scrollbar-gutter: stable;   /* スクロールバーの幅を常に確保 */ 
 }
 
 *, *::before, *::after {
@@ -73,21 +67,20 @@ html {
 
 body {
     width: 100%;
-    font-family: var(--base-font);
-    font-weight: 400;
-    font-style: normal;
-    font-size: 1.2rem;      /* 10px * 1.2 = 12px */
-    line-height: 1.8em;
-    letter-spacing: 0.12em;
-    color: var(--black);
     margin: 0 auto;
     background-color: var(--gray);
+    color: var(--black);
+    font-family: var(--base-font);
+    font-size: 1.2rem;      /* 10px * 1.2 = 12px */
+    font-weight: 400;
+    line-height: 1.8em;
+    letter-spacing: 0.12em;
 }
 
 img {
-    vertical-align: bottom;
     max-width: 100%;
     height: auto;
+    vertical-align: bottom;
     object-fit: cover;
 }
 
@@ -98,7 +91,7 @@ ul {
 a {
     display: inline-block;
     text-decoration: none;
-    color: inherit;         /* 親要素の色を引き継ぐ（リンクテキストの青や紫をリセット） */
+    color: inherit;         /* リンクテキストの色をリセット */
 }
 
 span {
@@ -108,7 +101,7 @@ span {
 
 
 /**************************************************
-   共通　追尾カーソル
+   共通　Cursor（追尾カーソル）
 **************************************************/
 .cursor {
     position: fixed;
@@ -118,32 +111,26 @@ span {
     height: 10px;
     margin: -5px 0 0 -5px;
     border-radius: 50%;
-    pointer-events: none;   /* 追尾カーソルがクリックの邪魔にならないようにする */
-    translate: var(--x, 0px) var(--y, 0px);     /* 初期設定：JSから受け取った座標（--x, --y）を適用。変数が空のときは画面左上（0px, 0px）に配置。 */
-    opacity: 0;                     /* 初期設定：透明 */
-    visibility: hidden;             /* 初期設定：非表示 */
-    background-color: var(--blue);  /* 初期設定：青色 */
-    transition: 
-        translate 0.1s ease-out,    /* 0.1秒遅れて追従 */
-        opacity 0.3s ease,          /* 0.3秒で透明度を変化 */
-        scale 0.3s ease,            /* 0.3秒で大きさを変化 */
-        background-color 0.3s ease;     /* 0.3秒で色を変化 */
+    pointer-events: none;           /* クリックの邪魔にならないようにする */
+    background-color: var(--blue);  /* 通常：青 */
+    opacity: 0;                     /* ローディング中：非表示 */
+    visibility: hidden;
+    translate: var(--x, 0px) var(--y, 0px);     /* マウスの現在地をJSから受け取る。それまでは画面左上に配置。 */
+    transition:
+        translate 0.1s ease-out,        /* 元のカーソルから0.1秒遅れて追従 */
+        opacity   0.3s ease,            /* 0.3秒で透明度を変化させて徐々に表示（ローディング後） */
+        scale     0.3s ease,            /* 0.3秒で大きさを徐々に変化（ホバー時） */
+        background-color 0.3s ease;     /* 0.3秒で色を徐々に変化（ホバー時） */
 }
 
 body.content-ready .cursor {
-    opacity: 0.5;                   /* ローディング画面終了時の設定：不透明 */
-    visibility: visible;            /* ローディング画面終了時の設定：表示 */
+    opacity: 0.5;                   /* ローディング後：表示 */
+    visibility: visible;
 }
 
 body.content-ready .cursor.cursor-large {
-    scale: 4;                           /* ホバー時の設定：大きくする */
-    background-color: var(--green);     /* ホバー時の設定：緑色 */
-}
-
-@media (hover: none), (pointer: coarse) {
-    #cursor {
-        display: none;              /* PC以外の設定：カーソルを隠す（スマホ対応） */
-    }
+    scale: 4;                           /* ホバー：大きくする */
+    background-color: var(--green);     /* ホバー：緑 */
 }
 
 
@@ -158,8 +145,6 @@ header {
     right: 0;
 }
 
-
-/*** サイトタイトル ***/
 .site-title {
     position: absolute;
     top: 30px;
@@ -169,13 +154,13 @@ header {
 
 .site-title a {
     font-family: var(--accent-font);
-    font-size: 1.8rem;
-    line-height: 1.8rem;
+    font-size: 2rem;
+    line-height: 1;
     letter-spacing: 0.6em;
 }
 
 
-/*** グローバルナビ（メニュー） ***/
+/* --- Navigation --- */
 .global-nav {
     position: absolute;
     top: 0;
@@ -185,12 +170,12 @@ header {
     background-color: var(--green);
     color: var(--white);
     border-radius: 20px 0 0 20px;
-    transform: translateX(200px);   /* メニュー閉時の設定：非表示（画面外にずらす） */
-    transition: transform 0.3s;     /* メニュー開閉時の設定：0.3秒かけてメニューをスライドして表示・非表示を切替 */
+    transform: translateX(200px);       /* メニュー閉：非表示（画面外にずらす） */
+    transition: transform 0.3s ease;    /* メニュー開閉：0.3秒かけてメニューをスライドして表示・非表示 */
 }
 
 .global-nav.show {
-    transform: translateX(0);       /* メニュー開時の設定：表示（画面内に戻す） */
+    transform: translateX(0);           /* メニュー開：表示（画面内に戻す） */
 }
 
 .global-nav-list {
@@ -204,12 +189,12 @@ header {
 }
 
 .global-nav-item a:hover {
-    background-color: var(--blue);      /* ホバー時の設定：背景を青にする */
-    transition: background-color 1s;    /* ホバー時の設定：1秒かけて背景色を変化 */
+    background-color: var(--blue);              /* ホバー：背景色を青 */
+    transition: background-color 0.8s ease;     /* ホバー：0.8秒かけて背景色を徐々に変化 */
 }
 
 
-/*** メニューボタン ***/
+/* --- Menu Button --- */
 .menu {
     position: absolute;
     top: 40px;
@@ -221,54 +206,44 @@ header {
 
 .menu span {
     display: block;
+    position: absolute;
     width: 100%;
     height: 3px;
-    position: absolute;
-    background-color: var(--blue);      /* メニュー閉時の設定：青 */
+    background-color: var(--blue);      /* メニュー閉：青 */
     transition:
-        background-color 0.5s,          /* メニュー開閉時の設定：0.5秒で色を変化 */
-        transform 0.5s;                 /* メニュー開閉時の設定：0.5秒で二本線・✕印を変化 */
+        background-color 0.5s,          /* メニュー開閉：0.5秒で色を徐々に変化 */
+        transform 0.5s;                 /* メニュー開閉：0.5秒で二本線・バツ印を徐々に変化 */
 }
 
 .menu.show span {
-    background-color: var(--white);     /* メニュー開時の設定：白 */
+    background-color: var(--white);     /* メニュー開：白 */
 }
 
-.menu span:nth-child(1) {
-    transform: translateY(calc(50% - 5px));     /* メニュー閉時の設定：二本線 */
-}
+.menu span:nth-child(1) { transform: translateY(calc(50% - 5px)); }             /* メニュー閉：二本線 */
+.menu span:nth-child(2) { transform: translateY(calc(50% + 5px)); }
 
-.menu.show span:nth-child(1) {
-    transform: translateY(50%) rotate(45deg);   /* メニュー開時の設定：✕印 */
-}
-
-.menu span:nth-child(2) {
-    transform: translateY(calc(50% + 5px));     /* メニュー閉時の設定：二本線 */
-}
-
-.menu.show span:nth-child(2) {
-    transform: translateY(50%) rotate(-45deg);  /* メニュー開時の設定：✕印 */
-}
+.menu.show span:nth-child(1) { transform: translateY(50%) rotate(45deg); }      /* メニュー開：バツ印 */
+.menu.show span:nth-child(2) { transform: translateY(50%) rotate(-45deg); }
 
 
 
 /**************************************************
-   共通　Mask
+   共通　Mask（メニュー表示時の背景マスク）
 **************************************************/
 .mask {
     position: fixed;
-    top: 0;
-    bottom: 0;
-    right: 0;
-    left: 0;
+    inset: 0;
     background-color: var(--black);
-    visibility: hidden;         /* メニュー閉時の設定：非表示 */
-    opacity: 0;                 /* メニュー閉時の設定：透明 */
+    opacity: 0;                 /* メニュー閉：非表示 */
+    visibility: hidden;
+    transition:
+        opacity 0.3s,           /* メニュー開閉：0.3秒かけて透明度を徐々に変えて背景マスクを表示・非表示 */
+        visibility 0.3s;
 }
 
 .mask.show {
-    visibility: visible;        /* メニュー開時の設定：表示 */
-    opacity: 0.8;               /* メニュー開時の設定：不透明 */
+    opacity: 0.8;               /* メニュー開：表示 */
+    visibility: visible;
 }
 
 
@@ -302,12 +277,13 @@ main {
     margin: 0 auto 100px;
 }
 
+
+/* --- Labels --- */
 .label {
     font-weight: 400;
     border: 1px solid var(--blue);
-    border-radius: 100px;       /* 両端を半円にする（要素の高さの半分より大きい値を設定しておけば自動的に半円になる） */
+    border-radius: 100px;       /* 左右両端を半円にする（要素の高さの半分より大きい値を設定すれば自動的に半円になる） */
     padding: 2px 14px;
-    margin: 5px;
 }
 
 .work-type-label {
@@ -345,4 +321,15 @@ footer {
     bottom: 30px;
     right: 30px;
     letter-spacing: 0.2em;
+}
+
+
+
+/**************************************************
+   共通　Media Queries
+**************************************************/
+@media (hover: none), (pointer: coarse) {
+    #cursor {
+        display: none;              /* PC以外：カーソルを隠す（スマホ対応） */
+    }
 }

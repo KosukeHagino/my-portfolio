@@ -1,37 +1,36 @@
 @charset "utf-8";
 
 /**************************************************
+   z-index 管理（重なりの順番）
+**************************************************/
+/* --- common.css で一括管理します。 --- */
+
+
+
+/**************************************************
+   共通　Colors / Fonts / Animation Settings
+**************************************************/
+/* --- 基本の設定は common.css の :root を継承します。
+   top.css 固有の変数はここに追加します。 --- */
+
+
+
+/**************************************************
    Keyframes
 **************************************************/
-/*** スクロールバー ***/
+/* --- Scroll bar --- */
 @keyframes scroll-bar {
-    0% {
-        transform: scaleX(0);
-        transform-origin: left;     /* 左端を固定して右へ伸ばす */
-    }
-    50% {
-        transform: scaleX(1);
-        transform-origin: left;
-    }
-    50.1% {
-        transform: scaleX(1);
-        transform-origin: right;    /* 右端を固定して左へ縮ませる */
-    }
-    100% {
-        transform: scaleX(0);
-        transform-origin: right;
-    }
+    0%    { transform: scaleX(0); transform-origin: left; }     /* 左端を固定して右へ伸ばす */
+    50%   { transform: scaleX(1); transform-origin: left; }
+    50.1% { transform: scaleX(1); transform-origin: right; }    /* 右端を固定して左へ縮ませる */
+    100%  { transform: scaleX(0); transform-origin: right; }
 }
 
 
-/*** お問い合わせリンクのテキストを回転 ***/
+/* --- Contact text rotate --- */
 @keyframes rotate-anim {
-    0% {
-        transform: rotate(0deg);
-    }
-    100% {
-        transform: rotate(360deg);
-    }
+    0%   { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
 }
 
 
@@ -41,49 +40,47 @@
 **************************************************/
 .loading {
     position: fixed;
-    inset: 0;               /* 画面全体を覆う */
-    background-color: var(--black);
+    inset: 0;
     display: flex;
     justify-content: center;
     align-items: center;
-    opacity: 0;             /* 2回目以降の訪問時やローディング画面終了後の設定：透明 */
-    visibility: hidden;     /* 2回目以降の訪問時やローディング画面終了後の設定：非表示 */
-    pointer-events: none;   /* 2回目以降の訪問時やローディング画面終了後の設定：下のコンテンツが触れるようにすり抜け許可 */
+    background-color: var(--black);
+    opacity: 0;             /* 2回目以降の訪問やローディング終了後：非表示 */
+    visibility: hidden;
     transition:
-        opacity 2s ease,        /* ローディング画面が消える時の設定：2秒かけて透明にする */
-        visibility 2s ease;     /* ローディング画面が消える時の設定：2秒（透明になる時間）待って非表示 */
+        opacity 1.5s ease,      /* ローディング終了：1.5秒かけて透明度を徐々に変えて非表示 */
+        visibility 1.5s ease;
 }
 
 .is-first-visit .loading {
-    opacity: 1;             /* 初回訪問時のみの設定：不透明 */
-    visibility: visible;    /* 初回訪問時のみの設定：表示 */
-    pointer-events: auto;   /* 初回訪問時のみの設定：ローディング中は下の画面を触らせない */
-    transition: none;       /* ローディング画面が現れる時の設定：transitionを上書きして現れる時のチラつき防止 */
+    opacity: 1;             /* 初回訪問・ローディング中：表示 */
+    visibility: visible;
+    transition: none;       /* ローディング開始：上書きして現れる時のチラつき防止（一瞬で表示） */
 }
 
 
-/*** 進捗カウンター ***/
+/* --- Counter --- */
 .loading-counter {
+    display: flex;
+    align-items: baseline;
     font-family: var(--accent-font);
     font-size: 2.4rem;
     font-style: italic;
     color: var(--white);
     letter-spacing: 0.2em;
-    display: flex;          /* 数字と%を横並びに固定 */
-    align-items: baseline;
-    opacity: 0;             /* 初回訪問時でカウンター表示前・2回目以降訪問時の設定：透明 */
-    filter: blur(15px);     /* 初回訪問時でカウンター表示前・2回目以降訪問時の設定：少しボカす */
-    transform: scale(1.1);  /* 初回訪問時でカウンター表示前・2回目以降訪問時の設定：少し大きくする */
-    transition:
-        opacity 1.2s cubic-bezier(0.22, 1, 0.36, 1),    /* カウンター表示の設定：1.2秒かけて表示 */
-        filter 1.2s cubic-bezier(0.22, 1, 0.36, 1),     /* カウンター表示の設定：1.2秒かけてボカしをなくす */
-        transform 1.2s cubic-bezier(0.22, 1, 0.36, 1);  /* カウンター表示の設定：1.2秒かけて元の大きさに戻す（小さくなる） */
+    opacity: 0;             /* カウンター表示前：非表示 */
+    filter: blur(15px);     /* カウンター表示前：少しボカす */
+    transform: scale(1.1);  /* カウンター表示前：少し大きくする */
+    transition: 
+        opacity var(--transition-base),     /* カウンター表示：0.6秒かけて徐々に透明度を変えて表示 */
+        filter var(--transition-base),      /* カウンター表示：0.6秒かけて徐々にボカしをなくしクリアにする */
+        transform var(--transition-base);   /* カウンター表示：0.6秒かけて徐々に元の大きさに戻す（小さくなる） */
 }
 
 .is-first-visit .loading-counter.is-active {
-    opacity: 1;             /* 初回訪問時でカウンター表示後の設定：不透明（表示） */
-    filter: blur(0);        /* 初回訪問時でカウンター表示後の設定：ボカしなし（クリアになる） */
-    transform: scale(1);    /* 初回訪問時でカウンター表示後の設定：元の大きさに戻す（小さくなる） */
+    opacity: 1;             /* カウンター表示後：表示 */
+    filter: blur(0);        /* カウンター表示後：ボカしをなくしてクリアにする */
+    transform: scale(1);    /* カウンター表示後：元の大きさに戻す（小さくなる） */
 }
 
 .loading-num {
@@ -95,80 +92,120 @@
 
 
 /**************************************************
-   Work-text-area
+   Work Text Area
 **************************************************/
+/* --- Layout: テキストの表示枠 --- */
 .work-text-area {
     position: fixed;
-    top: 25px;
     left: 25%;
+    top: 30px;
     width: 50%;
-    height: 40px;
+    height: 30px;           /* PC用：1行の高さ */
     display: flex;
     justify-content: center;
     align-items: center;
-    pointer-events: none;
-    opacity: 1;         /* JSで管理するので初期値は1 */
-    transition: opacity 0.5s ease; /* ふわっと出すための設定 */
-}
-
-.work-text-container {
-    width: 100%;
-    height: 40px;
-    overflow: hidden;
-    position: relative;
-    /* 上下をふわっと消して高級感を出す演出 */
-    -webkit-mask-image: linear-gradient(to bottom, transparent, black 20%, black 80%, transparent);
+    pointer-events: none;   /* マウス操作を無効化 */
 }
 
 .work-text-list {
-    list-style: none;
-    display: flex;
-    flex-direction: column;
-    /* JSから動かすための設定。滑らかな動きにします */
-    transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    transition: transform var(--transition-slide);   /* 制作物の切替：1.2秒かけてテキストを上下にスライド */
 }
 
 .work-text-item {
-    height: 40px;
+    height: 30px;           /* PC用：1行の高さ */
+    width: 100%;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    text-align: center;
-    opacity: 0;         /* アクティブになるまでは隠す */
-    filter: blur(8px);  /* 移動中はボカす */
-    transition: opacity 0.5s, filter 0.5s;
 }
 
-/* 中央（アクティブ）に来た時のスタイル */
-.work-text-item.is-active {
-    opacity: 1;
-    filter: blur(0);
-}
-
-.work-title-block {
+.work-info-upper {
     display: flex;
     align-items: center;
-    justify-content: center;
+    gap: 20px;      /* 種類とタイトルの間隔 */
 }
 
+/* --- State: 子要素の基本状態（消えている時） --- */
+.work-type-label,
+.work-title,
+.work-description {
+    opacity: 0;                                 /* 中央に来ていない時：非表示 */
+    transition:
+        opacity var(--transition-base),         /* 現れる時・消える時：0.6秒かけて徐々に透明度を変えて表示・非表示 */
+        transform var(--transition-base);       /* 現れる時・消える時：0.6秒かけて上下に移動 */
+    transition-delay: 0s;                       /* 消える時は即座に反応 */
+}
+
+/* --- State: 待機位置の制御（JS data-index-diff 連動） --- */
+/* --- 下側待機（diff > 0) --- */
+.work-text-item[data-index-diff^="1"] .work-type-label,
+.work-text-item[data-index-diff^="1"] .work-title,
+.work-text-item[data-index-diff^="1"] .work-description,
+.work-text-item[data-index-diff^="2"] .work-type-label,
+.work-text-item[data-index-diff^="2"] .work-title,
+.work-text-item[data-index-diff^="2"] .work-description {
+    transform: translateY(20px);        /* 後に控える制作物のテキストを予め20px下で待機（隠しておく） */
+}
+
+/* --- 上側待機（diff < 0) --- */
+.work-text-item[data-index-diff^="-"] .work-type-label,
+.work-text-item[data-index-diff^="-"] .work-title,
+.work-text-item[data-index-diff^="-"] .work-description {
+    transform: translateY(-20px);       /* 前に控える制作物のテキストを予め20px上で待機（隠しておく） */
+}
+
+/* --- State: アクティブ状態（中央表示） --- */
+.work-text-item.is-active .work-type-label,
+.work-text-item.is-active .work-title,
+.work-text-item.is-active .work-description {
+    opacity: 1;
+    transform: translateY(0);           /* 中央にきている制作物のテキストを表示 */
+}
+
+/* --- Appearance: 現れる時の時間差演出 --- */
+.work-text-item.is-active .work-type-label  { transition-delay: 0.3s; }     /* 現れる時：種類は0.3秒遅れて表示 */
+.work-text-item.is-active .work-title       { transition-delay: 0.45s; }    /* 現れる時：タイトルは0.45秒遅れて表示 */
+.work-text-item.is-active .work-description { transition-delay: 0.6s; }     /* 現れる時：説明は0.6秒遅れて表示 */
+
+/* --- Decoration: 見た目の詳細設定 --- */
 .work-title {
-    padding: 1px 0;
-    margin-left: 16px;
+    padding: 0 5px;
+    font-size: 1.4rem;
     color: var(--blue);
     border-bottom: 1px dotted var(--black);
 }
 
 .work-description {
     color: var(--blue);
-    padding: 1px 0;
+}
+
+
+
+/* --- Media Queries - モバイル対応 --- */
+@media screen and (max-width: 768px) {
+    .work-text-area {
+        height: 60px;       /* スマホ用：1行の高さ */
+    }
+
+    .work-text-item {
+        height: 60px;       /* スマホ用：1行の高さ */
+        flex-direction: column;     /* 上下に並べる */
+        align-items: flex-start;    /* 左寄せにする */
+        justify-content: center;
+        gap: 10px;           /* タイトルと説明の間隔 */
+    }
 }
 
 
 
 /**************************************************
-   Works-list
+   Work List
 **************************************************/
-.works-list {
+.work-list {
     width: 100%;
     height: 100vh;
     display: flex;
@@ -181,66 +218,76 @@
     scrollbar-width: none;      /* スクロールバーを非表示（Firefox用） */
     scroll-behavior: smooth;    /* 滑らかにスクロール */
     -webkit-overflow-scrolling: touch;  /* 指での操作を滑らかにする */
-    padding: 0 25%; 
-    gap: 10%;
+    padding: 0 25%;             /* 左右に余白を設けて、前後の画像を少し画面に入れ込む */
+    gap: 10%;                   /* 前後の画像との隙間 */
 }
 
-.works-list::-webkit-scrollbar {
+.work-list::-webkit-scrollbar {
     display: none;              /* スクロールバーを非表示（Chrome / Safari / 新Edge用） */
 }
 
 .work-item {
-    flex-shrink: 0;
-    width: 50%; 
-    flex-basis: 100%;
-    scroll-snap-align: center;  /* エリアの中央にスナップ */
+    flex: 0 0 100%;             /* 画像を拡大縮小させずに常に幅100%にする */
+    scroll-snap-align: center;  /* 画面中央にスナップ */
     display: flex;
     justify-content: center;
     align-items: center;
 }
 
-/* キャッチコピー（制作物の画像リストの先頭） */
+/* --- Catch copy（制作物スライドの先頭） --- */
 .catch-copy {
     text-align: center;
     font-weight: 400;
-    opacity: 0;
-    transform: translateY(20px);
-    filter: blur(10px);
-
-    /* ページが表示されてから少し遅れて開始 */
-    transition: opacity 1.2s ease, transform 1.2s cubic-bezier(0.22, 1, 0.36, 1), filter 1.2s ease;
 }
 
-/* 表示準備が整ったら（content-readyクラスがbodyについたら）動かす */
 .content-ready .catch-copy {
-    opacity: 1;
-    transform: translateY(0);
-    filter: blur(0);
+    opacity: 1;                     /* ローディング後：表示 */
+    transform: translateY(0);       /* ローディング後：元の位置に戻す（少し上に移動） */
+    filter: blur(0);                /* ローディング後：ボカしをなくす（クリアにする） */
+}
+
+.catch-item {
+    margin-right: 50vw;         /* 右側の制作物との距離を空けてキャッチコピーの表示中は制作物を見せないようにする */
+    pointer-events: none;       /* マウス操作を無効化 */
 }
 
 .copy-jp {
     display: block;
-    font-size: 2.4rem;
-    line-height: 8rem;
+    font-size: 2.6rem;
     letter-spacing: 0.3em;
+    margin-bottom: 30px;
+    opacity: 0;                         /* ローディング中：非表示 */
+    transform: translateY(20px);        /* ローディング中：少し下にずらす */
+    filter: blur(10px);                 /* ローディング中：少しボカす */
+    transition:
+        opacity 1.2s ease,                      /* 和文表示：1.2秒かけて透明度を変えて徐々に表示 */
+        transform var(--transition-slide),      /* 和文表示：1.2秒かけて元の位置に戻す（上にずれる） */
+        filter 1.2s ease;                       /* 和文表示：1.2秒かけてボカしをなくしてクリアにする */
 }
 
 .copy-en {
+    display: block;
     font-size: 1.6rem;
     letter-spacing: 0.3em;
-    color: var(--green);
     font-family: var(--accent-font);
-    display: block;
-    opacity: 0;
-    transform: translateY(10px);
-    transition: opacity 0.8s ease 0.6s, transform 0.8s cubic-bezier(0.22, 1, 0.36, 1) 0.6s;
+    color: var(--green); 
+    opacity: 0;                         /* ローディング中：非表示 */
+    transform: translateY(10px);        /* ローディング中：少し下にずらす */
+    filter: blur(5px);                  /* ローディング中：少しボカす */
+    transition:
+        opacity 1.2s ease 0.6s,                     /* 英文表示：0.6秒待った後1.2秒かけて透明度を変えて徐々に表示 */
+        transform var(--transition-slide) 0.6s;     /* 英文表示：0.6秒待った後1.2秒かけて元の位置に戻す（上にずれる） */
+        filter: 1.2s ease 0.6s;                     /* 英文表示：0.6秒待った後1.2秒かけてボカしをなくしてクリアにする */
 }
 
+.content-ready .copy-jp,
 .content-ready .copy-en {
-    opacity: 1;
-    transform: translateY(0);
+    opacity: 1;                         /* ローディング後：表示 */
+    transform: translateY(0);           /* ローディング後：元の位置に戻す（少し上に移動） */
+    filter: blur(0);                    /* ローディング後：ボカしをなくしてクリアにする */
 }
 
+/* --- Work item（制作物スライド） --- */
 .work-item a {
     display: block;
     width: 100%;
@@ -249,29 +296,35 @@
     filter: drop-shadow(0 0 3px #ccc);
 }
 
-.work-item a img {
+.work-item a .work-img {
     width: 100%;
     height: auto;
-    transform: scale(0.8); 
-    opacity: 0.3;
-    transition: transform 0.5s ease, opacity 0.5s ease; /* スムーズに動かす */
+    transition:
+        transform 0.5s ease,        /* 中央への出入り・ホバー：0.5秒かけて大きさを変える */
+        opacity 0.5s ease;          /* 中央への出入り：0.5秒かけて透明度を変える */
 }
 
-.work-item a:hover img {
-    transform: scale(1.1);
+.work-item.is-active a .work-img {
+    transform: scale(1);            /* 中央：元の大きさに戻す（大きくなる） */
+    opacity: 1;                     /* 中央：透明度を元に戻して濃くする */
 }
 
-/* 中央に来た時のスタイル */
-.work-item.is-active img {
-    transform: scale(1);
-    opacity: 1;
+.work-item.is-active a:hover .work-img {
+    transform: scale(1.1);          /* 中央ホバー：少し大きくする */
 }
 
-.space-item {
-    scroll-snap-align: none;    /* 中央にスナップしないようにする */
+.work-item:not(.is-active) a .work-img {
+    border-radius: 8px;
+    filter: drop-shadow(0 0 3px #ccc);
+    transform: scale(0.8);          /* 中央以外：少し小さくする */
+    opacity: 0.3;                   /* 中央以外：透明度を変えて薄くする */
 }
 
-/* お問い合わせメールへのリンク（制作物の画像リストの先頭） */
+.work-item:not(.is-active) a:hover .work-img {
+    transform: scale(0.85);         /* 中央以外ホバー：少し大きくする */
+}
+
+/* Contact（制作物スライドの最後） */
 .contact-item {
     flex-shrink: 0;
     width: 200px; 
@@ -280,61 +333,51 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    margin-left: 50px; 
+    margin-left: 4vw; 
 }
 
 .contact-item a {
     display: block;
-    width: 120px;       /* 画像のサイズ */
-    height: 120px;
+    width: 150px;       /* 画像サイズ */
+    height: 150px;
     position: relative;
-    text-decoration: none;
-    filter: none;       /* work-item aに設定されている影などをリセット */
+    filter: none;       /* 上書きして影なしにする（drop-shadowをリセット） */
 }
 
-.contact-item a img {
-    opacity: 1;
-}
-
-/* テキスト画像を回転させる */
-.rotating-text {
+.contact-item a .rotating-text {
+    display: block;
     width: 100%;
     height: 100%;
-    display: block; 
-    animation: rotate-anim 10s linear infinite;
+    animation: rotate-anim 10s linear infinite;     /* 通常：10秒/周で回転（ゆっくり） */
 }
 
-/* 真ん中の矢印 */
+.contact-item a:hover .rotating-text {
+    animation-duration: 3s;                         /* ホバー：3秒/周で回転（速くする） */
+}
+
 .arrow {
     position: absolute;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    font-size: 20px;
-    color: var(--black);
-    pointer-events: none;   /* 矢印がクリックの邪魔をしないように */
-}
-
-/* ホバー時 */
-.contact-item a:hover .rotating-text {
-    animation-duration: 3s;     /* 回転を速くする（3s/周) */
+    font-size: 2rem;
 }
 
 
 
 /**************************************************
-   Scroll bar
+   Scroll Bar
 **************************************************/
 .scroll {
     position: fixed;
-    left: 35%;
-    bottom: 0;
-    width: 30%;
-    height: 90px;
+    left: 50%;
+    bottom: 30px;
+    transform: translateX(-50%);
+    width: 200px;
     display: flex;
     justify-content: center;
     align-items: center;
-    pointer-events: none;
+    pointer-events: none;   /* マウス操作を無効化 */
 }
 
 .scroll-txt {
@@ -342,20 +385,16 @@
     justify-content: center;
     padding: 0 16px;
     font-size: 1rem;
-    line-height: 2rem;
     letter-spacing: 0.6em;
-    color: var(--black);
     background-color: var(--gray);
 }
 
 .scroll-txt::after {
     content: "";
     position: absolute;
-    bottom: 45px;
-    left: 25%;
-    right: 25%;
-    height: .5px;
-    margin: 0 auto;
+    top: 50%;
+    width: 100%;
+    height: 0.5px;
     background-color: var(--black);
-    animation: scroll-bar 1.2s infinite ease-out;
+    animation: scroll-bar 1.2s infinite ease-out;   /* スクロールバー：1.2秒かけて左から右に線が通過する動きを無限に繰り返す */
 }
