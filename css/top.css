@@ -401,7 +401,7 @@
 
     .work-text-area {
         left: 10%;
-        top: 15vh;
+        top: 12.5vh;
         width: 80%;
     }
 
@@ -424,13 +424,13 @@
 
     .contact-description {
         display: block;
-        padding-top: 10vh;
+        padding-top: 5vh;
         width: 80%;
         margin: 0 auto;
     }
 
     .work-list {
-        padding-top: 12.5vh;
+        padding-top: 10vh;
         -webkit-overflow-scrolling: touch;      /* 指での操作を滑らかにする */
     }
 
