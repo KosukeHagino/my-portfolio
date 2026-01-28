@@ -402,7 +402,7 @@
 
     .work-text-area {
         left: 10%;
-        top: 10vh;
+        top: 12.5vh;
         width: 80%;
         height: 60px;               /* スマホ用：1行の高さ */
     }
@@ -429,13 +429,13 @@
     }
 
     .work-list {
-        padding-top: 10vh;
+        padding-top: 12.5vh;
         -webkit-overflow-scrolling: touch;      /* 指での操作を滑らかにする */
     }
 
     .catch-copy {
         line-height: 1.8;
-        padding-bottom: 7.5vh;
+        padding-bottom: 10vh;
     }
 
     .copy-jp {
@@ -443,15 +443,16 @@
         word-break: keep-all;       /* <wbr>のある場所で改行 */
         overflow-wrap: break-word;  /* 入り切らない時は強制改行 */
         text-align: justify;        /* 両端揃え */
-    }
+}
 
     .copy-en {
-        font-size: 1.1rem;
+        font-size: 1rem;
         letter-spacing: 0.2em;
     }
 
     .contact-item {
         width: 100%;
+        padding-bottom: 10vh;
         margin-left: 50vw;          /* 余白をリセット */
         scroll-snap-align: center;  /* スマホでは中央にスナップさせる */
         flex: 0 0 100%;             /* 他の作品と同じ幅にする */
@@ -470,7 +471,7 @@
         display: flex;
         position: fixed;
         left: 50%;
-        bottom: 10vh;
+        bottom: 7.5vh;
         transform: translateX(-50%);
         gap: 15px;          /* ドット同士の間隔 */
     }

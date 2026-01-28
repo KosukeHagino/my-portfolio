@@ -166,7 +166,7 @@ header {
     top: 0;
     right: 0;
     width: 240px;
-    height: 420px;
+    height: 380px;
     background-color: var(--green);
     color: var(--white);
     border-radius: 20px 0 0 20px;
@@ -185,21 +185,8 @@ header {
 .global-nav-item a {
     position: relative;
     display: block;
-    padding: 25px 65px;
-    font-size: 1.4rem;
-}
-
-.global-nav-item a.active::before {
-    content: "";
-    display: inline-block;
-    position: absolute;
-    top: 50%;
-    left: 40px;
-    transform: translatey(-50%);
-    width: 8px;
-    height: 8px;
-    border-radius: 50%;
-    background-color: var(--white);
+    padding: 20px 60px;
+    font-size: 1.6rem;
 }
 
 .global-nav-item a:hover {
@@ -352,6 +339,11 @@ footer {
         display: none;              /* カーソルを隠す */
     }
 
+    .site-title {
+        top: 25px;
+        left: 25px;
+    }
+
     .global-nav {
         width: 100%;
         height: 100dvh;
@@ -360,44 +352,50 @@ footer {
         transition: transform 0.6s ease;
     }
 
-    .site-title {
-        top: 15px;
-        left: 15px;
-    }
-
     .global-nav.show {
         transform: translateY(0);           /* メニュー開：表示（画面内に戻す） */
     }
 
-    .global-nav-list {
-        padding: 120px 0;
+    .global-nav-item {
+        border-top: 1px dotted var(--white);
+    }
+
+    .global-nav-item:last-child {
+        border-bottom: 1px dotted var(--white);
     }
 
     .global-nav-item a {
         display: block;
-        padding: 40px 100px;
-        font-size: 2.4rem;
+        padding: 50px 100px;
+        font-size: 2.8rem;
     }
 
-    .global-nav-item a.active::before {
-        left: 60px;
-        width: 12px;
-        height: 12px;
+    .global-nav-item a.active {
+        background-color: var(--blue);
     }
 
     .menu {
-        top: 20px;
-        right: 20px;
+        top: 30px;
+        right: 25px;
     }
 
     .github-link {
-        bottom: 15px;
-        left: 15px;
+        bottom: 5px;
+        left: 25px;
+    }
+
+    .github-link::after {
+        content: ">";
+        position: relative;
+        top: 50%;
+        left: 5px;
+        transition: transformY(-50%);
     }
 
     .copy-right {
-        bottom: 15px;
-        right: 15px;
+        bottom: 5px;
+        right: 25px;
+        font-size: 0.9rem;
     }
 }
 
