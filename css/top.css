@@ -402,7 +402,7 @@
 
     .work-text-area {
         left: 10%;
-        top: 15vh;
+        top: 10vh;
         width: 80%;
         height: 60px;               /* スマホ用：1行の高さ */
     }
@@ -412,7 +412,7 @@
         flex-direction: column;     /* 上下に並べる */
         align-items: stretch;       /* 親要素いっぱいに並べる */
         justify-content: center;
-        gap: 15px;                  /* 上段（種類・タイトル）と下段（説明）の間隔 */
+        gap: 10px;                  /* 上段（種類・タイトル）と下段（説明）の間隔 */
     }
 
     .work-info-upper {
@@ -470,9 +470,9 @@
         display: flex;
         position: fixed;
         left: 50%;
-        bottom: 12.5vh;
+        bottom: 10vh;
         transform: translateX(-50%);
-        gap: 12px;          /* ドット同士の間隔 */
+        gap: 15px;          /* ドット同士の間隔 */
     }
 
     .indicator-dot {
