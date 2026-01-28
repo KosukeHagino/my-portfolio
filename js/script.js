@@ -124,7 +124,7 @@ const initWorksScrollObserver = () => {
         // 2. テキストが存在する範囲ならスライドさせる
         if (textIndex >= 0 && textIndex < textItems.length) {
             const isMobile = window.innerWidth <= 768;
-            const itemHeight = isMobile ? 60 : 30;
+            const itemHeight = isMobile ? 30 : 30;
             textList.style.transform = `translateY(-${textIndex * itemHeight}px)`;
         } else if (textIndex >= textItems.length) {
             //　Contactに到達したらactiveを全部外して消す

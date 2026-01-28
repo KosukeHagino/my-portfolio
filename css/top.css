@@ -140,6 +140,17 @@
     transition-delay: 0s;                       /* 消える時は即座に反応 */
 }
 
+.work-title {
+    padding: 0 5px;
+    font-size: 1.4rem;
+    color: var(--blue);
+    border-bottom: 1px dotted var(--black);
+}
+
+.work-description {
+    color: var(--blue);
+}
+
 /* --- State: 待機位置の制御（JS data-index-diff 連動） --- */
 /* --- 下側待機（diff > 0) --- */
 .work-text-item[data-index-diff^="1"] .work-type-label,
@@ -170,18 +181,6 @@
 .work-text-item.is-active .work-type-label  { transition-delay: 0.3s; }     /* 現れる時：種類は0.3秒遅れて表示 */
 .work-text-item.is-active .work-title       { transition-delay: 0.45s; }    /* 現れる時：タイトルは0.45秒遅れて表示 */
 .work-text-item.is-active .work-description { transition-delay: 0.6s; }     /* 現れる時：説明は0.6秒遅れて表示 */
-
-/* --- Decoration: 見た目の詳細設定 --- */
-.work-title {
-    padding: 0 5px;
-    font-size: 1.4rem;
-    color: var(--blue);
-    border-bottom: 1px dotted var(--black);
-}
-
-.work-description {
-    color: var(--blue);
-}
 
 
 
@@ -402,30 +401,32 @@
 
     .work-text-area {
         left: 10%;
-        top: 12.5vh;
+        top: 15vh;
         width: 80%;
-        height: 60px;               /* スマホ用：1行の高さ */
     }
 
     .work-text-item {
-        height: 60px;               /* スマホ用：1行の高さ */
-        flex-direction: column;     /* 上下に並べる */
-        align-items: stretch;       /* 親要素いっぱいに並べる */
-        justify-content: center;
-        gap: 10px;                  /* 上段（種類・タイトル）と下段（説明）の間隔 */
+        display: block;
     }
 
     .work-info-upper {
-        justify-content: space-between;
-        gap: 10px;
+        justify-content: flex-start;
+        gap: 15px;                  /* 種類とタイトルの間隔 */
+    }
+
+    .work-text-item.is-active .work-title {
+        transition-delay: 0.6s;    /* 現れる時：タイトルは0.6秒遅れて表示 */
     }
 
     .work-description {
-        align-self: flex-end;
+        display: none;
     }
 
     .contact-description {
-        align-self: center;
+        display: block;
+        padding-top: 10vh;
+        width: 80%;
+        margin: 0 auto;
     }
 
     .work-list {
@@ -443,10 +444,11 @@
         word-break: keep-all;       /* <wbr>のある場所で改行 */
         overflow-wrap: break-word;  /* 入り切らない時は強制改行 */
         text-align: justify;        /* 両端揃え */
+        margin-bottom: 15px;
 }
 
     .copy-en {
-        font-size: 1rem;
+        font-size: 1.3rem;
         letter-spacing: 0.2em;
     }
 
@@ -487,7 +489,7 @@
 
     .indicator-dot.is-active {
         background-color: var(--blue);
-        transform: scale(1.3);
+        transform: scale(1.5);
     }
 
     .indicator-dot::before {
