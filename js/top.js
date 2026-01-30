@@ -145,13 +145,13 @@ const initLoading = () => {
 
 // カウントアップの再帰処理
 const updateCount = (el, current) => {
-    let nextCount = current + (Math.floor(Math.random() * 5) + 1);
+    let nextCount = current + (Math.floor(Math.random() * 3) + 1);
     if (nextCount >= 100) {
         el.textContent = 100;
         setTimeout(endLoading, 1000); // 100%になってから少し余韻を置く
     } else {
         el.textContent = nextCount;
-        setTimeout(() => updateCount(el, nextCount), 100); // 0.1秒おきに加算
+        setTimeout(() => updateCount(el, nextCount), 50); // 0.05秒おきに加算
     }
 };
 
