@@ -98,3 +98,60 @@ const initHamburgerMenu = () => {
     // すべてのトリガー要素にクリックイベントを一括登録
     triggers.forEach(trigger => trigger.addEventListener('click', toggleMenu));
 };
+
+
+
+/**************************************************
+   モーダル表示制御（バナー拡大など）
+**************************************************/
+document.addEventListener('DOMContentLoaded', () => {
+    const modal = document.getElementById('modal');
+    const modalImg = document.getElementById('modal-img');
+    const mask = document.getElementById('mask');
+    const modalClose = document.querySelector('.modal-close');
+    // 全ページ共通で使えるよう、ボタンのクラス名で取得
+    const modalTriggers = document.querySelectorAll('.modal-trigger-button');
+
+    // モーダルを開く処理
+    modalTriggers.forEach(trigger => {
+        trigger.addEventListener('click', () => {
+            // 1. クリックされたボタン内から画像情報を取得
+            const img = trigger.querySelector('img');
+            if (img) {
+                modalImg.src = img.src;
+                modalImg.alt = img.alt;
+            }
+
+            // 2. モーダルとマスクを表示（z-indexはCSSのis-modalで制御）
+            mask.classList.add('is-modal');
+            modal.classList.add('show');
+
+            // 3. 背景スクロールを禁止（モーダル背後で動かないようにする）
+            document.body.style.overflow = 'hidden';
+        });
+    });
+
+    // モーダルを閉じる共通処理
+    const closeModal = () => {
+        if (modal) modal.classList.remove('show');
+        if (mask) mask.classList.remove('is-modal');
+        
+        // 背景スクロールを再開
+        document.body.style.overflow = '';
+    };
+
+    // 閉じるイベント：×ボタンクリック
+    if (modalClose) {
+        modalClose.addEventListener('click', closeModal);
+    }
+
+    // 閉じるイベント：背景マスククリック
+    if (mask) {
+        mask.addEventListener('click', () => {
+            // モーダル表示中（is-modalが付いている時）だけ閉じる処理を実行
+            if (mask.classList.contains('is-modal')) {
+                closeModal();
+            }
+        });
+    }
+});

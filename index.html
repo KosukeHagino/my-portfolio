@@ -140,20 +140,20 @@
             </li>
 
             <li class="work-item">
-                <a href="#" data-type="banner" target="_blank">
+                <button class="modal-trigger-button" data-type="banner">
                     <img class="work-img" src="./img/screenshot/english_school_banner.png" alt="架空の英会話スクールのバナー">
-                </a>
+                </button>
             </li>
 
             <li class="work-item">
-                <a href="#" data-type="banner" target="_blank">
+                <button class="modal-trigger-button" type="button" data-type="banner">
                     <img class="work-img" src="./img/screenshot/jobchange_site_banner.png" alt="架空の転職サイトのバナー">
-                </a>
+                </button>
             </li>
 
             <li class="work-item contact-item"> 
                 <a href="mailto:kosukehagino.web@gmail.com">
-                    <img class="rotating-text" src="./img/btn/contactme.png" alt="Contact me">
+                    <img class="rotating-text" src="./img/btn/contactme.png" alt="Contact me by email !">
                     <span class="arrow">→</span>
                 </a>
             </li>
@@ -164,13 +164,23 @@
             <p class="scroll-txt">scroll</p>
         </div> <!-- scroll end -->
 
-        <div id="indicator" class="indicator"></div>
+        <!-- indicator -->
+        <div id="indicator" class="indicator"></div> <!-- indicator end -->
     </main>
     
     <footer>
         <p class="copy-right">&copy;2026 KOSUKE HAGINO</p>
         <p class="github-link"><a href="https://github.com/KosukeHagino/my-portfolio" target="_blank">My GitHub</a></p>
     </footer>
+
+    <!-- modal -->
+    <div id="modal" class="modal">
+        <div class="modal-close">
+            <span></span>
+            <span></span>
+        </div>
+        <img id="modal-img" class="modal-img" src="./img/screenshot/portfolio-pc.webp" alt="架空の英会話スクールのバナー">
+    </div> <!-- modal-content end -->
 
     <!-- mask -->
     <div id="mask" class="mask"></div>

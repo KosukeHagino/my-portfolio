@@ -4,17 +4,20 @@
    z-index 管理（重なりの順番）
 **************************************************/
 /* --- 全ページ共通 --- */
-.loading  { z-index: 10000; }       /* 最前面：ローディング */
-.cursor   { z-index: 9000; }        /* カスタムカーソル */
+.modal          { z-index: 12000; }     /* モーダルコンテンツ */
+.mask.is-modal  { z-index: 11000; }     /* モーダル表示時の背景マスク */
 
-header    { z-index: 4000; }        /* ヘッダー */
+.loading        { z-index: 10000; }     /* ローディング */
+.cursor         { z-index: 9000; }      /* カスタムカーソル */
+
+header          { z-index: 4000; }      /* ヘッダー */
     .menu       { z-index: 200; }       /* メニューボタン（ヘッダー内） */
     .global-nav { z-index: 100; }       /* ナビゲーション（ヘッダー内） */
 
-footer    { z-index: 3000; }        /* フッター */
-.mask     { z-index: 2000; }        /* メニュー表示時の背景マスク */
+footer          { z-index: 3000; }      /* フッター */
+.mask           { z-index: 2000; }      /* メニュー表示時の背景マスク */
 
-main      { z-index: 1; }           /* メインコンテンツ */
+main            { z-index: 1; }         /* メインコンテンツ */
 
 
 /* --- トップページ --- */
@@ -161,7 +164,7 @@ header {
     font-family: futura-pt, sans-serif;
     font-size: 2rem;
     line-height: 1;
-    letter-spacing: 0.6em;
+    letter-spacing: 0.5em;
 }
 
 
@@ -178,16 +181,16 @@ header {
     background-color: var(--green);
     color: var(--white);
     border-radius: 20px 0 0 20px;
-    visibility: hidden;                 /* メニュー閉：非表示 */    /* これを追加 */
+    visibility: hidden;                 /* メニュー閉：非表示 */
     transform: translateX(240px);       /* メニュー閉：非表示（画面外にずらす） */
     transition:
         transform 0.3s ease,            /* メニュー開閉：0.3秒かけてメニューをスライドして表示・非表示 */
-        visibility 0.3s;                /* メニュー開閉：0.3秒後に表示・非表示 */    /* これを追加 */
+        visibility 0.3s;                /* メニュー開閉：0.3秒後に表示・非表示 */
 }
 
 .global-nav.show {
-    visibility: visible;                /* メニュー開：表示 */  /* これを追加 */
-    transform: translateX(0);           /* メニュー開：表示（画面内に戻す） */  /* これを追加 */
+    visibility: visible;                /* メニュー開：表示 */
+    transform: translateX(0);           /* メニュー開：表示（画面内に戻す） */
 }
 
 .global-nav-list {
@@ -232,27 +235,6 @@ header {
 
 .menu.show span:nth-child(1) { transform: translateY(50%) rotate(45deg); }      /* メニュー開：バツ印 */
 .menu.show span:nth-child(2) { transform: translateY(50%) rotate(-45deg); }
-
-
-
-/**************************************************
-   共通　Mask（メニュー表示時の背景マスク）
-**************************************************/
-.mask {
-    position: fixed;
-    inset: 0;
-    background-color: var(--black);
-    opacity: 0;                 /* メニュー閉：非表示 */
-    visibility: hidden;
-    transition:
-        opacity 0.3s,           /* メニュー開閉：0.3秒かけて透明度を徐々に変えて背景マスクを表示・非表示 */
-        visibility 0.3s;
-}
-
-.mask.show {
-    opacity: 0.8;               /* メニュー開：表示 */
-    visibility: visible;
-}
 
 
 
@@ -335,6 +317,102 @@ footer {
 
 
 /**************************************************
+   共通　Modal
+**************************************************/
+.modal {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 80%;
+    max-width: 1000px;
+    opacity: 0;                 /* 通常：非表示 */
+    visibility: hidden;
+    transition:
+        opacity 0.4s ease,      /* モーダル表示：0.4秒かけて徐々に表示 */
+        visibility 0.4s;
+}
+
+.modal.show {
+    opacity: 1;                 /* モーダル：表示 */
+    visibility: visible;
+}
+
+.modal-img {
+    width: 100%;
+    height: auto;
+    display: block;
+    border-radius: 10px;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+}
+
+.modal-close {
+    position: absolute;
+    top: -50px;
+    right: 0;
+    width: 24px;
+    height: 24px;
+    cursor: pointer;
+    opacity: 0;                 /* 通常：閉じるボタン非表示 */
+    visibility: hidden;
+    transition:
+        opacity 0.4s ease,      /* モーダル表示・非表示：0.4秒かけて徐々に表示・非表示 */
+        visibility 0.4s;
+}
+
+.modal.show .modal-close {
+    opacity: 1;                 /* モーダル表示：閉じるボタン表示 */
+    visibility: visible;
+}
+
+.modal-close span {
+    display: block;
+    position: absolute;
+    width: 100%;
+    height: 3px;
+    background-color: var(--white);
+    top: 50%;
+    margin-top: -1.5px;
+}
+
+.modal-close span:nth-child(1) { transform: translateY(50%) rotate(45deg); }    /* 常時：バツ印（表示・非表示は.modal-closeで制御） */
+.modal-close span:nth-child(2) { transform: translateY(50%) rotate(-45deg); }
+
+.modal-trigger-button {
+    background: none;
+    border: none;
+    padding: 0;
+    margin: 0;
+    cursor: pointer;
+    display: block;
+    width: 100%;
+}
+
+
+
+/**************************************************
+   共通　Mask（メニュー表示時・モーダル表示時の背景マスク）
+**************************************************/
+.mask {
+    position: fixed;
+    inset: 0;
+    background-color: var(--black);
+    opacity: 0;                 /* メニュー閉：非表示 */
+    visibility: hidden;
+    transition:
+        opacity 0.3s,           /* メニュー開閉：0.3秒かけて透明度を徐々に変えて背景マスクを表示・非表示 */
+        visibility 0.3s;
+}
+
+.mask.show,
+.mask.is-modal {
+    opacity: 0.8;               /* メニュー開・モーダル：表示 */
+    visibility: visible;
+}
+
+
+
+/**************************************************
    共通　Media Queries
 **************************************************/
 /* --- 画面サイズで判定（～768pxのスマホ・タブレット端末を想定） --- */
@@ -352,17 +430,17 @@ footer {
         width: 100%;
         height: 100dvh;
         border-radius: 0;
-        clip-path: inset(0 0 100% 0);       /* メニュー閉：下方向100%を切り取り（見えなくする） */
+        clip-path: inset(0 0 100% 0);       /* メニュー閉：下方向100%を切り取り（スマホの上下メニューバーの色残りを見えないようにする） */
         transform: translateY(-100dvh);     /* メニュー閉：非表示（画面外にずらす） */
         visibility: hidden; /* これを追加 */
         transition:
             transform 0.6s ease,            /* メニュー開閉：0.6秒かけてメニューをスライドして表示・非表示 */
-            visibility 0.6s;                /* メニュー開閉：0.6秒後にメニューを表示・非表示 */    /* これを追加 */  
+            visibility 0.6s;                /* メニュー開閉：0.6秒後にメニューを表示・非表示 */
     }
 
     .global-nav.show {
         clip-path: inset(0 0 0 0);          /* メニュー開：切り取りを解除 */
-        visibility: visible;                /* メニュー開：表示 *//* これを追加 */  
+        visibility: visible;                /* メニュー開：表示 */ 
         transform: translateY(0);           /* メニュー開：表示（画面内に戻す） */
     }
 

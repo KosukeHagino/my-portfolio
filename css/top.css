@@ -266,7 +266,8 @@
 }
 
 /* --- Work item（制作物スライド） --- */
-.work-item a {
+.work-item a,
+.work-item button {
     display: block;
     width: 100%;
     overflow: hidden;
@@ -274,7 +275,12 @@
     filter: drop-shadow(0 0 3px #ccc);
 }
 
-.work-item a .work-img {
+.work-item button {
+    border: none;
+    background-color: transparent;
+}
+
+.work-img {
     width: 100%;
     height: auto;
     transition:
@@ -282,12 +288,12 @@
         opacity 0.5s ease;          /* 中央への出入り：0.5秒かけて透明度を変える */
 }
 
-.work-item.is-active a .work-img {
+.work-item.is-active .work-img {
     transform: scale(1);            /* 中央：元の大きさに戻す（大きくなる） */
     opacity: 1;                     /* 中央：透明度を元に戻して濃くする */
 }
 
-.work-item:not(.is-active) a .work-img {
+.work-item:not(.is-active) .work-img {
     border-radius: 8px;
     filter: drop-shadow(0 0 3px #ccc);
     transform: scale(0.8);          /* 中央以外：少し小さくする */
@@ -419,7 +425,6 @@
         padding-top: 5vh;
         width: 80%;
         margin: 0 auto;
-        transition-delay: 0.3s;     /* 現れる時：タイトルは0.3秒遅れて表示 */
     }
 
     .work-list {
@@ -491,11 +496,13 @@
 
 /* --- 操作方法で判定（PCなどのホバー可能な端末） --- */
 @media (hover:hover) {
-    .work-item.is-active a:hover .work-img {
+    .work-item.is-active a:hover .work-img,
+    .work-item.is-active button:hover .work-img {
         transform: scale(1.1);          /* 中央ホバー：少し大きくする */
     }
 
-    .work-item:not(.is-active) a:hover .work-img {
+    .work-item:not(.is-active) a:hover .work-img,
+    .work-item:not(.is-active) button:hover .work-img {
         transform: scale(0.85);         /* 中央以外ホバー：少し大きくする */
     }
 
