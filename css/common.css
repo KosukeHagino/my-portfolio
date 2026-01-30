@@ -17,8 +17,8 @@ footer    { z-index: 3000; }        /* フッター */
 main      { z-index: 1; }           /* メインコンテンツ */
 
 
-/* --- トップページ固有 --- */
-.scroll-txt::after { z-index: -1; }     /* スクロールバー：テキストの下を通過させるため */
+/* --- トップページ --- */
+.scroll-txt::after { z-index: -1; }     /* スクロールバー：テキストの後ろを通過させるため */
 
 
 
@@ -33,9 +33,11 @@ main      { z-index: 1; }           /* メインコンテンツ */
     --blue: #070638;
     --black: #1C1C1C;
 
+
     /* --- Fonts --- */
     --base-font: dnp-shuei-gothic-gin-std, Montserrat, Corbel, source-sans-pro, sans-serif;
-    --accent-font: "pt-sans", sans-serif;
+    --accent-font: "futura-pt", sans-serif;
+
 
     /* --- Animation Settings（全体で動きのトーンを揃えるための変数） --- */
     --transition-base: 0.6s cubic-bezier(0.22, 1, 0.36, 1);
@@ -154,6 +156,9 @@ header {
 
 .site-title a {
     font-family: var(--accent-font);
+    font-weight: 700;
+    font-style: normal;
+    font-family: futura-pt, sans-serif;
     font-size: 2rem;
     line-height: 1;
     letter-spacing: 0.6em;
@@ -167,15 +172,22 @@ header {
     right: 0;
     width: 240px;
     height: 380px;
+    font-family: var(--accent-font);
+    font-weight: 400;
+    font-style: normal;
     background-color: var(--green);
     color: var(--white);
     border-radius: 20px 0 0 20px;
+    visibility: hidden;                 /* メニュー閉：非表示 */    /* これを追加 */
     transform: translateX(240px);       /* メニュー閉：非表示（画面外にずらす） */
-    transition: transform 0.3s ease;    /* メニュー開閉：0.3秒かけてメニューをスライドして表示・非表示 */
+    transition:
+        transform 0.3s ease,            /* メニュー開閉：0.3秒かけてメニューをスライドして表示・非表示 */
+        visibility 0.3s;                /* メニュー開閉：0.3秒後に表示・非表示 */    /* これを追加 */
 }
 
 .global-nav.show {
-    transform: translateX(0);           /* メニュー開：表示（画面内に戻す） */
+    visibility: visible;                /* メニュー開：表示 */  /* これを追加 */
+    transform: translateX(0);           /* メニュー開：表示（画面内に戻す） */  /* これを追加 */
 }
 
 .global-nav-list {
@@ -187,11 +199,6 @@ header {
     display: block;
     padding: 20px 60px;
     font-size: 1.6rem;
-}
-
-.global-nav-item a:hover {
-    background-color: var(--blue);              /* ホバー：背景色を青 */
-    transition: background-color 0.8s ease;     /* ホバー：0.8秒かけて背景色を徐々に変化 */
 }
 
 
@@ -269,8 +276,9 @@ main {
 
 .section-title {
     font-family: var(--accent-font);
-    font-size: 3.2rem;
     font-weight: 400;
+    font-style: normal;
+    font-size: 3.2rem;
     line-height: 8rem;
     letter-spacing: 0.6em;
     text-align: center;
@@ -329,14 +337,10 @@ footer {
 /**************************************************
    共通　Media Queries
 **************************************************/
-/* --- 画面サイズで判定（～768pxのスマホ・タブレットを想定） --- */
+/* --- 画面サイズで判定（～768pxのスマホ・タブレット端末を想定） --- */
 @media screen and (max-width:768px) {
     html {
         scrollbar-gutter: auto;     /* スクロールバーのための隙間をなくす */
-    }
-
-    .cursor {
-        display: none;              /* カーソルを隠す */
     }
 
     .site-title {
@@ -349,15 +353,15 @@ footer {
         height: 100dvh;
         border-radius: 0;
         transform: translateY(-100dvh);     /* メニュー閉：非表示（画面外にずらす） */
-        visibility: hidden;
+        visibility: hidden; /* これを追加 */
         transition:
-            transform 0.6s ease,
-            visibility 0.6s;
+            transform 0.6s ease,            /* メニュー開閉：0.6秒かけてメニューをスライドして表示・非表示 */
+            visibility 0.6s;                /* メニュー開閉：0.6秒後にメニューを表示・非表示 */    /* これを追加 */  
     }
 
     .global-nav.show {
+        visibility: visible;                /* メニュー開：表示 *//* これを追加 */  
         transform: translateY(0);           /* メニュー開：表示（画面内に戻す） */
-        visibility: visible;
     }
 
     .global-nav-item {
@@ -389,11 +393,11 @@ footer {
     }
 
     .github-link::after {
-        content: ">";
+        content: ">";               /* マウスホバー演出の代わりにクリックが出来ることを認識できるように追加 */
         position: relative;
         top: 50%;
         left: 5px;
-        transition: transformY(-50%);
+        transform: translateY(-50%);
     }
 
     .copy-right {
@@ -403,8 +407,31 @@ footer {
     }
 }
 
+
+/* --- 操作方法で判定（PCなどのホバー可能な端末） --- */
+@media (hover:hover) {
+    .global-nav-item a:hover {
+        background-color: var(--blue);              /* ホバー：背景色を青 */
+        transition: background-color 0.8s ease;     /* ホバー：0.8秒かけて背景色を徐々に変化 */
+    }
+}
+
+
 /* --- 操作方法で判定（iPad + マウスなどの特殊ケースをカバー） --- */
 @media (hover: none), (pointer: coarse) {
+    a, button {
+        -webkit-tap-highlight-color: transparent;       /* リンクを長押しした時のシステムのハイライトを消す */
+    }
+
+    img, a {
+        -webkit-touch-callout: none;        /* 画像やリンクを長押しした時に「コピー/保存」メニューが出るのを防ぐ */
+    }
+
+    .global-nav, .menu {
+        user-select: none;              /* スライド操作中に誤って文字が選択されるのを防ぎます */
+        -webkit-user-select: none;
+    }
+
     .cursor {
         display: none;              /* カーソルを隠す */
     }

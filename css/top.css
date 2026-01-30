@@ -8,14 +8,6 @@
 
 
 /**************************************************
-   共通　Colors / Fonts / Animation Settings
-**************************************************/
-/* --- 基本の設定は common.css の :root を継承します。
-   top.css 固有の変数はここに追加します。 --- */
-
-
-
-/**************************************************
    Keyframes
 **************************************************/
 /* --- Scroll bar --- */
@@ -64,10 +56,12 @@
     display: flex;
     align-items: baseline;
     font-family: var(--accent-font);
-    font-size: 2.4rem;
+    font-weight: 400;
     font-style: italic;
+    font-size: 2.4rem;
     color: var(--white);
-    letter-spacing: 0.2em;
+    letter-spacing: 0.15em;
+    font-feature-settings: "tnum";      /* 数字の幅を等幅（固定幅）にする */
     opacity: 0;             /* カウンター表示前：非表示 */
     filter: blur(15px);     /* カウンター表示前：少しボカす */
     transform: scale(1.1);  /* カウンター表示前：少し大きくする */
@@ -86,7 +80,7 @@
 .loading-num {
     width: 2.5em;           /* 3桁の数字が入る幅を確保（フォントサイズに依存） */
     text-align: right;      /* 右寄せにし、%との距離を常に一定に保つ */
-    margin-right: 0.05em;   /* 数字と%の間の余白 */
+    margin-right: 0.04em;   /* 数字と%の間の余白 */
 }
 
 
@@ -112,7 +106,8 @@
     top: 0;
     left: 0;
     width: 100%;
-    transition: transform var(--transition-slide);   /* 制作物の切替：1.2秒かけてテキストを上下にスライド */
+    transform: translateY(calc(var(--current-index, 0) * -30px));   /* JSから受け取った制作物のindexに30px（1行の高さ）を掛けて移動距離を算出 */
+    transition: transform var(--transition-slide);   /* リスト全体の移動：1.2秒かけて上下にスライド */
 }
 
 .work-text-item {
@@ -236,7 +231,7 @@
     display: block;
     font-size: 2.6rem;
     letter-spacing: 0.3em;
-    margin-bottom: 30px;
+    margin-bottom: 40px;
     opacity: 0;                         /* ローディング中：非表示 */
     transform: translateY(20px);        /* ローディング中：少し下にずらす */
     filter: blur(10px);                 /* ローディング中：少しボカす */
@@ -251,6 +246,8 @@
     font-size: 1.6rem;
     letter-spacing: 0.3em;
     font-family: var(--accent-font);
+    font-weight: 400;
+    font-style: normal;
     color: var(--green); 
     opacity: 0;                         /* ローディング中：非表示 */
     transform: translateY(10px);        /* ローディング中：少し下にずらす */
@@ -290,19 +287,11 @@
     opacity: 1;                     /* 中央：透明度を元に戻して濃くする */
 }
 
-.work-item.is-active a:hover .work-img {
-    transform: scale(1.1);          /* 中央ホバー：少し大きくする */
-}
-
 .work-item:not(.is-active) a .work-img {
     border-radius: 8px;
     filter: drop-shadow(0 0 3px #ccc);
     transform: scale(0.8);          /* 中央以外：少し小さくする */
     opacity: 0.3;                   /* 中央以外：透明度を変えて薄くする */
-}
-
-.work-item:not(.is-active) a:hover .work-img {
-    transform: scale(0.85);         /* 中央以外ホバー：少し大きくする */
 }
 
 /* Contact（制作物スライドの最後） */
@@ -330,10 +319,6 @@
     width: 100%;
     height: 100%;
     animation: rotate-anim 10s linear infinite;     /* 通常：10秒/周で回転（ゆっくり） */
-}
-
-.contact-item a:hover .rotating-text {
-    animation-duration: 3s;                         /* ホバー：3秒/周で回転（速くする） */
 }
 
 .arrow {
@@ -394,6 +379,7 @@
 /**************************************************
    Media Queries
 **************************************************/
+/* --- 画面サイズで判定（～768pxのスマホ・タブレットを想定） --- */
 @media screen and (max-width:768px) {
     html, body {
         overflow-y: clip;           /* 縦スクロールを無効 */
@@ -403,6 +389,12 @@
         left: 10%;
         top: 12.5vh;
         width: 80%;
+        height: auto;
+        align-items: flex-start;
+    }
+
+    .work-text-list {
+        position: relative;
     }
 
     .work-text-item {
@@ -415,7 +407,7 @@
     }
 
     .work-text-item.is-active .work-title {
-        transition-delay: 0.6s;    /* 現れる時：タイトルは0.6秒遅れて表示 */
+        transition-delay: 0.45s;    /* 現れる時：タイトルは0.45秒遅れて表示 */
     }
 
     .work-description {
@@ -427,6 +419,7 @@
         padding-top: 5vh;
         width: 80%;
         margin: 0 auto;
+        transition-delay: 0.3s;     /* 現れる時：タイトルは0.3秒遅れて表示 */
     }
 
     .work-list {
@@ -445,7 +438,7 @@
         overflow-wrap: break-word;  /* 入り切らない時は強制改行 */
         text-align: justify;        /* 両端揃え */
         margin-bottom: 15px;
-}
+    }
 
     .copy-en {
         font-size: 1.3rem;
@@ -484,21 +477,38 @@
         height: 8px;
         border-radius: 50%;
         background-color: var(--green);
-        transition: all 0.3s ease;
+        transition:
+            background-color 0.3s ease,     /* インジケーターの切替：0.3秒かけて徐々に色が変化 */
+            transform 0.3s ease;            /* インジケーターの切替：0.3秒かけて徐々に大きさが変化 */
     }
 
     .indicator-dot.is-active {
         background-color: var(--blue);
         transform: scale(1.5);
     }
+}
 
-    .indicator-dot::before {
-        content: "";
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        width: 24px;    /* 指で触れるサイズ */
-        height: 24px;
+
+/* --- 操作方法で判定（PCなどのホバー可能な端末） --- */
+@media (hover:hover) {
+    .work-item.is-active a:hover .work-img {
+        transform: scale(1.1);          /* 中央ホバー：少し大きくする */
+    }
+
+    .work-item:not(.is-active) a:hover .work-img {
+        transform: scale(0.85);         /* 中央以外ホバー：少し大きくする */
+    }
+
+    .contact-item a:hover .rotating-text {
+        animation-duration: 3s;                         /* ホバー：3秒/周で回転（速くする） */
+    }
+}
+
+
+/* --- 操作方法で判定（iPad + マウスなどの特殊ケースをカバー） --- */
+@media (hover: none), (pointer: coarse) {
+    .work-item {
+        user-select: none;              /* スライド操作中に誤って文字が選択されるのを防ぎます */
+        -webkit-user-select: none;
     }
 }
