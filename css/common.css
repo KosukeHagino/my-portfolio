@@ -4,11 +4,11 @@
    z-index 管理（重なりの順番）
 **************************************************/
 /* --- 全ページ共通 --- */
-.modal          { z-index: 12000; }     /* モーダルコンテンツ */
-.mask.is-modal  { z-index: 11000; }     /* モーダル表示時の背景マスク */
+.modal          { z-index: 10000; }     /* モーダルコンテンツ */
+.mask.is-modal  { z-index: 9000; }      /* モーダル表示時の背景マスク */
 
-.loading        { z-index: 10000; }     /* ローディング */
-.cursor         { z-index: 9000; }      /* カスタムカーソル */
+.loading        { z-index: 8000; }      /* ローディング */
+.cursor         { z-index: 7000; }      /* カスタムカーソル */
 
 header          { z-index: 4000; }      /* ヘッダー */
     .menu       { z-index: 200; }       /* メニューボタン（ヘッダー内） */
@@ -26,25 +26,84 @@ main            { z-index: 1; }         /* メインコンテンツ */
 
 
 /**************************************************
-   共通　Colors / Fonts / Animation Settings
+   共通　Color / Font / Animation Setting
 **************************************************/
 :root {
-    /* --- Colors --- */
+    /* --- Color --- */
     --white: #faffff;
-    --gray: #e6ecec;
+    --gray : #e6ecec;
     --green: #558890;
-    --blue: #070638;
-    --black: #1C1C1C;
+    --blue : #070638;
+    --black: #1c1c1c;
 
 
-    /* --- Fonts --- */
-    --base-font: dnp-shuei-gothic-gin-std, Montserrat, Corbel, source-sans-pro, sans-serif;
-    --accent-font: "futura-pt", sans-serif;
+    /* --- Font family --- */
+    --base-font  : dnp-shuei-gothic-gin-std, Montserrat, Corbel, source-sans-pro, sans-serif;
+    --accent-font: futura-pt, dnp-shuei-gothic-gin-std, sans-serif;
+    --countup-font: "inter-variable",sans-serif;
+    
+
+    /* --- Font size --- */
+    --font-size-s  : clamp(1.0rem, 0.82rem + 0.2vw, 1.2rem);    /* 可変10～12px */
+    --font-size-m  : clamp(1.2rem, 0.85rem + 0.39vw, 1.6rem);   /* 可変12～16px */
+    --font-size-l  : clamp(2.0rem, 1.3rem + 0.78vw, 2.8rem);    /* 可変20～28px */
+    --font-size-xl : clamp(2.6rem, 1.36rem + 1.37vw, 4.0rem);   /* 可変26～40px */
+    --font-size-2xl: clamp(3.0rem, 2.37rem + 1.56vw, 5.0rem);   /* 可変32～64px */
 
 
-    /* --- Animation Settings（全体で動きのトーンを揃えるための変数） --- */
-    --transition-base: 0.6s cubic-bezier(0.22, 1, 0.36, 1);
-    --transition-slide: 1.2s cubic-bezier(0.16, 1, 0.3, 1);
+    /* --- Space --- */
+    --space-2xs: 0.4rem;    /* 固定4px */
+    --space-xs : 0.8rem;    /* 固定8px */
+    --space-s  : clamp(1.6rem, 0.89rem + 0.78vw, 2.4rem);       /* 可変16～24px */
+    --space-m  : clamp(2.4rem, 0.99rem + 1.57vw, 4.0rem);       /* 可変24～40px */
+    --space-l  : clamp(5.6rem, 2.6rem + 3.75vw, 12.0rem);       /* 可変56～120px */
+    --space-xl : clamp(12.0rem, 6.38rem + 7.03vw, 24.0rem);     /* 可変120～240px */
+    --nav-space-top   : 4vw;    /* global-nav 上部余白 可変4vw */
+    --nav-space-bottom: 2vw;    /* global-nav 下部余白 可変2vw */
+    --nav-space-x     : 4vw;    /* global-nav-item a 左右余白 可変4vw */
+    --work-slide-space-x: 25%;  /* (top)work-list 左右余白 可変25% */
+    --work-slide-gap  : 10%;    /* (top)work-list 子要素間余白 可変10% */
+    --catch-space-x   : 50vw;   /* (top)catch-item 右側余白 可変50vw */
+    --contact-space-sp-x: 50vw;   /* (top)contact-item 左側余白 可変50vw */
+
+
+    /* --- Width & Height --- */
+    --cursor-xy        : 12px;                                      /* cursor 固定12px */
+    --nav-pc-x         : clamp(20.0rem, 16.0rem + 6.25vw, 28.0rem); /* [PC]global-nav 可変200～280px */
+    --menu-btn-xy      : 24px;                                      /* menu, modal-close 固定24px */
+    --menu-btn-span-y  : 3px;                                       /* menu, modal-close 固定3px */
+    --modal-x          : 70%;                                       /* modal 可変70% */
+    --modal-max-x      : 1000px;                                    /* modal 固定1000px */
+    --container-x      : 90%;                                       /* container 可変90% */
+    --container-max-x  : 1280px;                                    /* container 可変1280px */
+    --work-text-item-y : clamp(3.0rem, 2.5rem + 1.0vw, 4.0rem);     /* (top)work-text-area, work-text-item 可変30～40px(1行)  */
+    --work-text-pc-x   : 55%;                                       /* [PC](top)work-text-area 可変55% */
+    --work-text-sp-x   : 80%;                                       /* [SP](top)work-text-area 可変80% */
+    --work-text-sp-top : 12.5dvh;                                   /* [SP](top)work-text-area 可変12.5dvh */
+    --contact-description-x : 80%;                                  /* [SP](top)contact-description 可変80% */
+    --contact-item-pc-x: 200px;                                     /* [PC](top)contact-item 固定200px */
+    --contact-item-a-pc-xy: 150px;                                  /* [PC](top)contact-item a 固定150px */
+    --contact-item-a-sp-xy: 120px;                                  /* [PC](top)contact-item a 固定120px */
+    --scroll-x   : clamp(16.0rem, 14.0rem + 5.0vw, 20.0rem);        /* (top)scroll 可変16～20px */
+    --indicator-xy     : 8px;                                       /* [SP](top)indicator 固定8px */
+
+
+    /* --- Border & Radius --- */
+    --border-thin: 0.5px;       /* 固定0.5px */
+    --border-base: 1px;         /* 固定1px */
+    --radius-s   : 8px;         /* 固定8px */
+    --radius-m   : 16px;        /* 固定16px */
+    --radius-l   : 100px;       /* 固定100px */
+
+
+    /* --- Shadow --- */
+    --shadow-modal : 0 20px 60px rgba(0, 0, 0, 0.5);    /* modal x軸0、y軸20px、ぼかし60px、黒 */
+    --shadow-small : 0 0 3px #ccc;
+
+
+    /* --- Animation Setting（全体で動きのトーンを揃えるための変数） --- */
+    --transition-base : 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+    --transition-slide: 1.2s cubic-bezier(0.16, 1, 0.30, 1);
 }
 
 
@@ -56,7 +115,7 @@ main            { z-index: 1; }         /* メインコンテンツ */
 
 
 /**************************************************
-   共通　Selectors
+   共通　Selector
 **************************************************/
 html {
     font-size: 62.5%;   /* default 16px * 62.5% = 10px */
@@ -71,21 +130,19 @@ html {
 }
 
 body {
-    width: 100%;
-    margin: 0 auto;
+    margin-inline: auto;
     background-color: var(--gray);
     color: var(--black);
     font-family: var(--base-font);
-    font-size: 1.2rem;      /* 10px * 1.2 = 12px */
-    font-weight: 400;
-    line-height: 1.8em;
+    font-size: var(--font-size-m);
+    line-height: 1.8;
     letter-spacing: 0.12em;
 }
 
 img {
+    display: block;
     max-width: 100%;
     height: auto;
-    vertical-align: bottom;
     object-fit: cover;
 }
 
@@ -112,9 +169,10 @@ span {
     position: fixed;
     top: 0;
     left: 0;
-    width: 10px;
-    height: 10px;
-    margin: -5px 0 0 -5px;
+    width: var(--cursor-xy);
+    height: var(--cursor-xy);
+    margin-top: calc(var(--space-xs) * -1);
+    margin-left: calc(var(--space-xs) * -1);
     border-radius: 50%;
     pointer-events: none;           /* クリックの邪魔にならないようにする */
     background-color: var(--blue);  /* 通常：青 */
@@ -134,7 +192,7 @@ body.content-ready .cursor {
 }
 
 body.content-ready .cursor.cursor-large {
-    scale: 4;                           /* ホバー：大きくする */
+    scale: 3;                           /* ホバー：大きくする */
     background-color: var(--green);     /* ホバー：緑 */
 }
 
@@ -152,9 +210,10 @@ header {
 
 .site-title {
     position: absolute;
-    top: 30px;
-    left: 30px;
+    top: var(--space-m);
+    left: var(--space-m);
     margin: 0;
+    line-height: 1;
 }
 
 .site-title a {
@@ -162,9 +221,8 @@ header {
     font-weight: 700;
     font-style: normal;
     font-family: futura-pt, sans-serif;
-    font-size: 2rem;
-    line-height: 1;
-    letter-spacing: 0.5em;
+    font-size: var(--font-size-l);
+    letter-spacing: 0.4em;
 }
 
 
@@ -173,16 +231,16 @@ header {
     position: absolute;
     top: 0;
     right: 0;
-    width: 240px;
-    height: 380px;
+    width: var(--nav-pc-x);
     font-family: var(--accent-font);
-    font-weight: 400;
-    font-style: normal;
+    letter-spacing: 0.2em;
     background-color: var(--green);
     color: var(--white);
-    border-radius: 20px 0 0 20px;
+    border-radius: var(--radius-m) 0 0 var(--radius-m);
+    padding-top: var(--nav-space-top);
+    padding-bottom: var(--nav-space-bottom);
     visibility: hidden;                 /* メニュー閉：非表示 */
-    transform: translateX(240px);       /* メニュー閉：非表示（画面外にずらす） */
+    transform: translateX(100%);        /* メニュー閉：非表示（画面外にずらす） */
     transition:
         transform 0.3s ease,            /* メニュー開閉：0.3秒かけてメニューをスライドして表示・非表示 */
         visibility 0.3s;                /* メニュー開閉：0.3秒後に表示・非表示 */
@@ -194,24 +252,25 @@ header {
 }
 
 .global-nav-list {
-    padding: 80px 0;
+    padding-block: var(--space-s);
 }
 
 .global-nav-item a {
     position: relative;
     display: block;
-    padding: 20px 60px;
-    font-size: 1.6rem;
+    font-size: var(--font-size-l);
+    padding-block: var(--space-s);
+    padding-inline: var(--nav-space-x);
 }
 
 
 /* --- Menu Button --- */
 .menu {
     position: absolute;
-    top: 40px;
-    right: 40px;
-    width: 24px;
-    height: 24px;
+    top: var(--space-m);
+    right: var(--space-m);
+    width: var(--menu-btn-xy);
+    height: var(--menu-btn-xy);
     cursor: pointer;
 }
 
@@ -219,7 +278,7 @@ header {
     display: block;
     position: absolute;
     width: 100%;
-    height: 3px;
+    height: var(--menu-btn-span-y);
     background-color: var(--blue);      /* メニュー閉：青 */
     transition:
         background-color 0.5s,          /* メニュー開閉：0.5秒で色を徐々に変化 */
@@ -230,42 +289,40 @@ header {
     background-color: var(--white);     /* メニュー開：白 */
 }
 
-.menu span:nth-child(1) { transform: translateY(calc(50% - 5px)); }             /* メニュー閉：二本線 */
-.menu span:nth-child(2) { transform: translateY(calc(50% + 5px)); }
+.menu span:nth-child(1) { transform: translateY(7px); }             /* メニュー閉：二本線 */
+.menu span:nth-child(2) { transform: translateY(17px); }
 
-.menu.show span:nth-child(1) { transform: translateY(50%) rotate(45deg); }      /* メニュー開：バツ印 */
-.menu.show span:nth-child(2) { transform: translateY(50%) rotate(-45deg); }
+.menu.show span:nth-child(1) { transform: translateY(12px) rotate(45deg); }      /* メニュー開：バツ印 */
+.menu.show span:nth-child(2) { transform: translateY(12px) rotate(-45deg); }
 
 
 
 /**************************************************
    共通　Main
 **************************************************/
-main {
-    position: relative;
-    width: 100%;
-}
-
 .wrapper {
-    width: 100%;
-    padding: 60px 0;
+    padding-top: var(--space-l);
 }
 
 .section {
-    width: 84%;
-    margin: 0 auto 120px;
+    margin-bottom: var(--space-xl);
 }
 
 .section-title {
     font-family: var(--accent-font);
-    font-weight: 400;
-    font-style: normal;
-    font-size: 3.2rem;
-    line-height: 8rem;
-    letter-spacing: 0.6em;
+    font-weight: 700;
+    font-size: var(--font-size-2xl);
+    letter-spacing: 0.2em;
     text-align: center;
-    border-bottom: 0.5px solid var(--green);
-    margin: 0 auto 100px;
+    border-bottom: var(--border-thin) solid var(--green);
+    margin-bottom: var(--space-l);
+}
+
+.container {
+    width: var(--container-x);
+    max-width: var(--container-max-x);
+    margin-inline: auto;
+    padding-inline: var(--space-m);
 }
 
 
@@ -273,8 +330,9 @@ main {
 .label {
     font-weight: 400;
     border: 1px solid var(--blue);
-    border-radius: 100px;       /* 左右両端を半円にする（要素の高さの半分より大きい値を設定すれば自動的に半円になる） */
-    padding: 2px 14px;
+    border-radius: var(--radius-l);         /* 左右両端を半円にする（要素の高さの半分より大きい値を設定すれば自動的に半円になる） */
+    padding-block: var(--space-2xs);
+    padding-inline: var(--space-s);
 }
 
 .work-type-label {
@@ -296,21 +354,21 @@ footer {
     position: fixed;
     bottom: 0;
     width: 100%;
-    font-size: 1rem;
+    font-size: var(--font-size-s);
 }
 
 .github-link {
     position: absolute;
-    bottom: 30px;
-    left: 30px;
+    bottom: var(--space-m);
+    left: var(--space-m);
     letter-spacing: 0.2em;
     color: var(--blue);
 }
 
 .copy-right {
     position: absolute;
-    bottom: 30px;
-    right: 30px;
+    bottom: var(--space-m);
+    right: var(--space-m);
     letter-spacing: 0.2em;
 }
 
@@ -324,8 +382,8 @@ footer {
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    width: 80%;
-    max-width: 1000px;
+    width: var(--modal-x);
+    max-width: var(--modal-max-x);
     opacity: 0;                 /* 通常：非表示 */
     visibility: hidden;
     transition:
@@ -342,16 +400,16 @@ footer {
     width: 100%;
     height: auto;
     display: block;
-    border-radius: 10px;
-    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+    border-radius: var(--radius-s);
+    box-shadow: var(--shadow-modal);
 }
 
 .modal-close {
     position: absolute;
-    top: -50px;
-    right: 0;
-    width: 24px;
-    height: 24px;
+    top: calc(var(--space-m) * 1);
+    right: calc(var(--space-m) * 1);
+    width: var(--menu-btn-xy);
+    height: var(--menu-btn-xy);
     cursor: pointer;
     opacity: 0;                 /* 通常：閉じるボタン非表示 */
     visibility: hidden;
@@ -369,14 +427,13 @@ footer {
     display: block;
     position: absolute;
     width: 100%;
-    height: 3px;
-    background-color: var(--white);
+    height: var(--menu-btn-span-y);
+    background-color: var(--black);
     top: 50%;
-    margin-top: -1.5px;
 }
 
-.modal-close span:nth-child(1) { transform: translateY(50%) rotate(45deg); }    /* 常時：バツ印（表示・非表示は.modal-closeで制御） */
-.modal-close span:nth-child(2) { transform: translateY(50%) rotate(-45deg); }
+.modal-close span:nth-child(1) { transform: rotate(45deg); }    /* 常時：バツ印（表示・非表示は.modal-closeで制御） */
+.modal-close span:nth-child(2) { transform: rotate(-45deg); }
 
 .modal-trigger-button {
     background: none;
@@ -421,21 +478,18 @@ footer {
         scrollbar-gutter: auto;     /* スクロールバーのための隙間をなくす */
     }
 
-    .site-title {
-        top: 25px;
-        left: 25px;
-    }
-
     .global-nav {
         width: 100%;
         height: 100dvh;
         border-radius: 0;
+        padding-block: var(--space-xl);
         clip-path: inset(0 0 100% 0);       /* メニュー閉：下方向100%を切り取り（スマホの上下メニューバーの色残りを見えないようにする） */
         transform: translateY(-100dvh);     /* メニュー閉：非表示（画面外にずらす） */
-        visibility: hidden; /* これを追加 */
+        visibility: hidden;
         transition:
             transform 0.6s ease,            /* メニュー開閉：0.6秒かけてメニューをスライドして表示・非表示 */
-            visibility 0.6s;                /* メニュー開閉：0.6秒後にメニューを表示・非表示 */
+            visibility 0.6s,                /* メニュー開閉：0.6秒後にメニューを表示・非表示 */
+            clip-path 0.9s ease 0.3s;       /* メニュー開閉：0.3秒遅れて0.9秒かけて切り取り実行・解除 */
     }
 
     .global-nav.show {
@@ -445,45 +499,37 @@ footer {
     }
 
     .global-nav-item {
-        border-top: 1px dotted var(--white);
+        border-top: var(--border-base) dotted var(--white);
     }
 
     .global-nav-item:last-child {
-        border-bottom: 1px dotted var(--white);
+        border-bottom: var(--border-base) dotted var(--white);
     }
 
     .global-nav-item a {
         display: block;
-        padding: 40px 80px;
-        font-size: 2.8rem;
+        padding-block: var(--space-l);
+        padding-inline: var(--space-xl);
     }
 
     .global-nav-item a.active {
         background-color: var(--blue);
     }
 
-    .menu {
-        top: 30px;
-        right: 25px;
-    }
-
     .github-link {
-        bottom: 5px;
-        left: 25px;
+        bottom: var(--space-2xs);
     }
 
     .github-link::after {
         content: ">";               /* マウスホバー演出の代わりにクリックが出来ることを認識できるように追加 */
         position: relative;
         top: 50%;
-        left: 5px;
+        left: var(--space-2xs);
         transform: translateY(-50%);
     }
 
     .copy-right {
-        bottom: 5px;
-        right: 25px;
-        font-size: 0.9rem;
+        bottom: var(--space-2xs);
     }
 }
 
@@ -508,7 +554,7 @@ footer {
     }
 
     .global-nav, .menu {
-        user-select: none;              /* スライド操作中に誤って文字が選択されるのを防ぎます */
+        user-select: none;              /* スライド操作中に誤って文字が選択されるのを防ぐ */
         -webkit-user-select: none;
     }
 

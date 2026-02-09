@@ -6,7 +6,6 @@
    定数・変数管理
 **************************************************/
 const TOP_CONFIG = {
-    TEXT_ITEM_HEIGHT: 30,       // テキストスライド1行の高さ
     SCROLL_SPEED_RATIO: 2.5,    // マウスホイールの回転を横スクロール量に変換する倍率
     AUTO_SCROLL_DELAY: 3000,    // サイト表示後、自動スクロールが始まるまでの時間
     OFFSET_INDEX: 1             // 画像1枚目(キャッチ)にはテキストがないためのズレ調整
@@ -20,10 +19,10 @@ let autoScrollTimer;            // 自動スクロールを止めるためのタ
    初期化処理（ページ読み込み時に一度だけ実行）
 **************************************************/
 const initTopPage = () => {
-    initScrollPosition();       // 1. スクロール位置を左端へリセット
-    initWorksScrollObserver();  // 2. スクロール監視とテキスト連動の仕組みを起動
-    initIndicator();            // 3. スマホ用ドットインジケーターを作成
-    initLoading();              // 4. ローディング演出を開始
+    initScrollPosition();       // スクロール位置を左端へリセット
+    initWorksScrollObserver();  // スクロール監視とテキスト連動の仕組みを起動
+    initIndicator();            // スマホ用ドットインジケーターを作成
+    initLoading();              // ローディング演出を開始
 };
 
 // 全てのリソースが読み込まれてから初期化を開始
@@ -56,14 +55,14 @@ const initWorksScrollObserver = () => {
         // 中央に来た画像にだけ active を付与（拡大表示などのCSS用）
         if (workItems[index]) workItems[index].classList.add('is-active');
 
-        // 【重要】画像とテキストのインデックス調整
+        // 画像とテキストのインデックス調整
         // 画像は [キャッチ, 作品1, 2, 3, 4, Contact] の6枚
         // テキストは [作品1, 2, 3, 4, Contact] の5つ。
         // キャッチ(index:0)の時は textIndex が -1 になるように計算
         const textIndex = index - TOP_CONFIG.OFFSET_INDEX;
 
         textItems.forEach((item, i) => {
-            // [重要] data-index-diff を常に計算
+            // data-index-diff を常に計算
             // これにより、現在地より「下」にあるか「上」にあるかがCSSに伝わり、
             // スルスルとした上下スライドのアニメーションが維持される
             const diff = i - textIndex;
@@ -77,14 +76,9 @@ const initWorksScrollObserver = () => {
             }
         });
 
-        // テキストリスト(全体)を上下にスライドさせる
-        if (textIndex >= 0) {
-            // 作品表示中は、その行の高さに合わせて移動
-            textList.style.setProperty('--current-index', textIndex);
-        } else {
-            // キャッチコピー表示中は、最初のテキストが下から上がってくる準備のため上に逃がしておく
-            textList.style.setProperty('--current-index', -1);
-        }
+        // テキストリストの移動距離計算はCSSに任せる
+        // JSは今何番目かの数字を渡す
+        textList.style.setProperty('--current-index', textIndex);
 
         // 下のドット（インジケーター）も更新
         updateIndicator(index);

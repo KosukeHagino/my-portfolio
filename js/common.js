@@ -13,10 +13,18 @@ window.mouseY = 0;
 /**************************************************
    初期化処理
 **************************************************/
+// ローディング画面がないページ（＝トップページ以外）なら、すぐに表示フラグを立てる
+if (!document.querySelector('#loading')) {
+    document.body.classList.add('content-ready');
+}
+
+
+// 初期化処理
 const initCommon = () => {
     initCustomCursor();     // 追尾カーソルの開始
     initHamburgerMenu();    // メニュー開閉機能の有効化
 };
+
 
 // ページ読み込み完了時に実行
 window.addEventListener('load', initCommon);
@@ -85,7 +93,6 @@ const initHamburgerMenu = () => {
     // 複数の要素（NodeList）を一つの配列に展開してまとめる
     const triggers = [
         menuBtn,
-        mask,
         ...document.querySelectorAll('.global-nav-item a')
     ];
     
@@ -95,14 +102,28 @@ const initHamburgerMenu = () => {
         [menuBtn, globalNav, mask].forEach(el => el.classList.toggle('show'));
     };
 
-    // すべてのトリガー要素にクリックイベントを一括登録
+    // メニューボタン、ナビ内のリンクにクリックイベントを登録
     triggers.forEach(trigger => trigger.addEventListener('click', toggleMenu));
+
+    // マウス専用のクリック処理
+    mask.addEventListener('click', () => {
+        // モーダル表示中の場合：モーダルを閉じる（モーダル側の処理と競合させないため）
+        if (mask.classList.contains('is-modal')) {
+            // ここでは何もせずモーダル制御のセクションに任せる
+            return;
+        }
+
+        // メニュー表示中の場合：メニューを閉じる
+        if (mask.classList.contains('show')) {
+            toggleMenu();
+        }
+    });
 };
 
 
 
 /**************************************************
-   モーダル表示制御（バナー拡大など）
+   [機能] モーダル表示制御（バナー拡大など）
 **************************************************/
 document.addEventListener('DOMContentLoaded', () => {
     const modal = document.getElementById('modal');

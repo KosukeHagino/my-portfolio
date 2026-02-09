@@ -55,13 +55,12 @@
 .loading-counter {
     display: flex;
     align-items: baseline;
-    font-family: var(--accent-font);
-    font-weight: 400;
-    font-style: italic;
-    font-size: 2.4rem;
+    font-family: var(--countup-font);
+    font-variation-settings: 'wght' 400, 'slnt' -10;
+    font-size: var(--font-size-l);
     color: var(--white);
     letter-spacing: 0.15em;
-    font-feature-settings: "tnum";      /* 数字の幅を等幅（固定幅）にする */
+    font-variant-numeric: tabular-nums;     /* 数字の幅を等幅（固定幅）にする */
     opacity: 0;             /* カウンター表示前：非表示 */
     filter: blur(15px);     /* カウンター表示前：少しボカす */
     transform: scale(1.1);  /* カウンター表示前：少し大きくする */
@@ -80,7 +79,6 @@
 .loading-num {
     width: 2.5em;           /* 3桁の数字が入る幅を確保（フォントサイズに依存） */
     text-align: right;      /* 右寄せにし、%との距離を常に一定に保つ */
-    margin-right: 0.04em;   /* 数字と%の間の余白 */
 }
 
 
@@ -91,14 +89,15 @@
 /* --- Layout: テキストの表示枠 --- */
 .work-text-area {
     position: fixed;
-    left: 25%;
-    top: 30px;
-    width: 50%;
-    height: 30px;           /* PC用：1行の高さ */
+    left: calc((100% - var(--work-text-pc-x)) / 2);    /* (100%-幅)/2で左右中央に配置 */
+    top: var(--space-m);
+    width: var(--work-text-pc-x);
+    height: var(--work-text-item-y);    /* PC用：1行の高さ */
     display: flex;
     justify-content: center;
     align-items: center;
     pointer-events: none;   /* マウス操作を無効化 */
+    font-size: var(--font-size-m);
 }
 
 .work-text-list {
@@ -106,12 +105,12 @@
     top: 0;
     left: 0;
     width: 100%;
-    transform: translateY(calc(var(--current-index, 0) * -30px));   /* JSから受け取った制作物のindexに30px（1行の高さ）を掛けて移動距離を算出 */
+    transform: translateY(calc(var(--current-index, 0) * var(--work-text-item-y) * -1));   /* JSから受け取った制作物のindexに1行の高さ(可変)を掛けて移動距離を算出 */
     transition: transform var(--transition-slide);   /* リスト全体の移動：1.2秒かけて上下にスライド */
 }
 
 .work-text-item {
-    height: 30px;           /* PC用：1行の高さ */
+    height: var(--work-text-item-y);    /* PC用：1行の高さ */
     width: 100%;
     display: flex;
     justify-content: space-between;
@@ -121,7 +120,7 @@
 .work-info-upper {
     display: flex;
     align-items: center;
-    gap: 20px;      /* 種類とタイトルの間隔 */
+    gap: var(--space-s);      /* 種類とタイトルの間隔 */
 }
 
 /* --- State: 子要素の基本状態（消えている時） --- */
@@ -136,10 +135,9 @@
 }
 
 .work-title {
-    padding: 0 5px;
-    font-size: 1.4rem;
+    padding-inline: var(--space-xs);
     color: var(--blue);
-    border-bottom: 1px dotted var(--black);
+    border-bottom: var(--border-base) dotted var(--black);
 }
 
 .work-description {
@@ -187,15 +185,15 @@
     height: 100dvh;
     display: flex;
     align-items: center;
-    overflow-x: auto;           /* 横スクロールを有効 */
-    overflow-y: clip;           /* 縦スクロールを無効 */
-    overscroll-behavior-x: contain; /* スクロールが端で止まるように */
-    scroll-snap-type: x mandatory;  /* 横方向にスナップ */
-    -ms-overflow-style: none;   /* スクロールバーを非表示（IE / 旧Edge用） */
-    scrollbar-width: none;      /* スクロールバーを非表示（Firefox用） */
-    scroll-behavior: smooth;    /* 滑らかにスクロール */
-    padding: 0 25%;             /* 左右に余白を設けて、前後の画像を少し画面に入れ込む */
-    gap: 10%;                   /* 前後の画像との隙間 */
+    overflow-x: auto;                   /* 横スクロールを有効 */
+    overflow-y: clip;                   /* 縦スクロールを無効 */
+    overscroll-behavior-x: contain;     /* スクロールが端で止まるように */
+    scroll-snap-type: x mandatory;      /* 横方向にスナップ */
+    -ms-overflow-style: none;           /* スクロールバーを非表示（IE / 旧Edge用） */
+    scrollbar-width: none;              /* スクロールバーを非表示（Firefox用） */
+    scroll-behavior: smooth;            /* 滑らかにスクロール */
+    padding-inline: var(--work-slide-space-x);      /* 左右に余白を設けて、前後の画像を少し画面に入れ込む */
+    gap: var(--work-slide-gap);         /* 前後の画像との隙間 */
 }
 
 .work-list::-webkit-scrollbar {
@@ -223,15 +221,15 @@
 }
 
 .catch-item {
-    margin-right: 50vw;         /* 右側の制作物との距離を空けてキャッチコピーの表示中は制作物を見せないようにする */
+    margin-right: var(--catch-space-x);     /* 右側の制作物との距離を空けてキャッチコピーの表示中は制作物を見せないようにする */
     pointer-events: none;       /* マウス操作を無効化 */
 }
 
 .copy-jp {
     display: block;
-    font-size: 2.6rem;
-    letter-spacing: 0.3em;
-    margin-bottom: 40px;
+    font-size: var(--font-size-xl);
+    letter-spacing: 0.4em;
+    margin-bottom: var(--space-s);
     opacity: 0;                         /* ローディング中：非表示 */
     transform: translateY(20px);        /* ローディング中：少し下にずらす */
     filter: blur(10px);                 /* ローディング中：少しボカす */
@@ -243,8 +241,8 @@
 
 .copy-en {
     display: block;
-    font-size: 1.6rem;
-    letter-spacing: 0.3em;
+    font-size: var(--font-size-l);
+    letter-spacing: 0.2em;
     font-family: var(--accent-font);
     font-weight: 400;
     font-style: normal;
@@ -271,8 +269,8 @@
     display: block;
     width: 100%;
     overflow: hidden;
-    border-radius: 10px;
-    filter: drop-shadow(0 0 3px #ccc);
+    border-radius: var(--radius-s);
+    filter: drop-shadow(0 0 4px #ccc);
 }
 
 .work-item button {
@@ -294,7 +292,7 @@
 }
 
 .work-item:not(.is-active) .work-img {
-    border-radius: 8px;
+    border-radius: var(--radius-s);
     filter: drop-shadow(0 0 3px #ccc);
     transform: scale(0.8);          /* 中央以外：少し小さくする */
     opacity: 0.3;                   /* 中央以外：透明度を変えて薄くする */
@@ -303,19 +301,19 @@
 /* Contact（制作物スライドの最後） */
 .contact-item {
     flex-shrink: 0;
-    width: 200px; 
+    width: var(--contact-item-pc-x); 
     flex-basis: auto; 
     scroll-snap-align: none;    /* 中央にスナップしないようにする */
     display: flex;
     justify-content: center;
     align-items: center;
-    margin-left: 4vw; 
+    margin-left: var(--space-m); 
 }
 
 .contact-item a {
     display: block;
-    width: 150px;       /* 画像サイズ */
-    height: 150px;
+    width: var(--contact-item-a-pc-xy);         /* 画像サイズ */
+    height: var(--contact-item-a-pc-xy);
     position: relative;
     filter: none;       /* 上書きして影なしにする（drop-shadowをリセット） */
 }
@@ -332,7 +330,7 @@
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    font-size: 2rem;
+    font-size: var(--font-size-l);
 }
 
 
@@ -343,9 +341,9 @@
 .scroll {
     position: fixed;
     left: 50%;
-    bottom: 30px;
+    bottom: var(--space-m);
     transform: translateX(-50%);
-    width: 200px;
+    width: var(--scroll-x);
     display: flex;
     justify-content: center;
     align-items: center;
@@ -355,9 +353,9 @@
 .scroll-txt {
     display: flex;
     justify-content: center;
-    padding: 0 16px;
-    font-size: 1rem;
-    letter-spacing: 0.6em;
+    padding-inline: var(--space-s);
+    font-size: var(--font-size-s);
+    letter-spacing: 0.4em;
     background-color: var(--gray);
 }
 
@@ -366,7 +364,7 @@
     position: absolute;
     top: 50%;
     width: 100%;
-    height: 0.5px;
+    height: var(--border-thin);
     background-color: var(--black);
     animation: scroll-bar 1.2s infinite ease-out;   /* スクロールバー：1.2秒かけて左から右に線が通過する動きを無限に繰り返す */
 }
@@ -392,9 +390,9 @@
     }
 
     .work-text-area {
-        left: 10%;
-        top: 12.5vh;
-        width: 80%;
+        left: calc((100% - var(--work-text-sp-x)) / 2);
+        top: var(--work-text-sp-top);
+        width: var(--work-text-sp-x);
         height: auto;
         align-items: flex-start;
     }
@@ -409,7 +407,7 @@
 
     .work-info-upper {
         justify-content: flex-start;
-        gap: 15px;                  /* 種類とタイトルの間隔 */
+        gap: var(--space-s);        /* 種類とタイトルの間隔 */
     }
 
     .work-text-item.is-active .work-title {
@@ -422,45 +420,43 @@
 
     .contact-description {
         display: block;
-        padding-top: 5vh;
-        width: 80%;
+        padding-top: var(--space-m);
+        width: var(--contact-description-x);
         margin: 0 auto;
     }
 
     .work-list {
-        padding-top: 10vh;
+        padding-top: var(--space-l);
         -webkit-overflow-scrolling: touch;      /* 指での操作を滑らかにする */
     }
 
     .catch-copy {
         line-height: 1.8;
-        padding-bottom: 10vh;
+        padding-bottom: var(--space-l);
     }
 
     .copy-jp {
-        font-size: 2.4rem;
         word-break: keep-all;       /* <wbr>のある場所で改行 */
         overflow-wrap: break-word;  /* 入り切らない時は強制改行 */
         text-align: justify;        /* 両端揃え */
-        margin-bottom: 15px;
+        margin-bottom: var(--space-s);
     }
 
     .copy-en {
-        font-size: 1.3rem;
         letter-spacing: 0.2em;
     }
 
     .contact-item {
         width: 100%;
-        padding-bottom: 10vh;
-        margin-left: 50vw;          /* 余白をリセット */
+        padding-bottom: var(--space-l);
+        margin-left: var(----contact-space-sp-x);   /* 余白をリセット */
         scroll-snap-align: center;  /* スマホでは中央にスナップさせる */
         flex: 0 0 100%;             /* 他の作品と同じ幅にする */
     }
     
     .contact-item a {
-        width: 120px;
-        height: 120px;
+        width: var(--contact-item-a-sp-xy);
+        height: var(--contact-item-a-sp-xy);
     }
 
     .scroll {
@@ -471,15 +467,15 @@
         display: flex;
         position: fixed;
         left: 50%;
-        bottom: 7.5vh;
+        bottom: var(--space-l);
         transform: translateX(-50%);
-        gap: 15px;          /* ドット同士の間隔 */
+        gap: var(--space-s);        /* ドット同士の間隔 */
     }
 
     .indicator-dot {
         position: relative;
-        width: 8px;
-        height: 8px;
+        width: var(----indicator-xy);
+        height: var(--indicator-xy);
         border-radius: 50%;
         background-color: var(--green);
         transition:
