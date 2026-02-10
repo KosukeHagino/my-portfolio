@@ -67,7 +67,7 @@ const initCustomCursor = () => {
     // ホバーイベントの設定
     // 特定の要素に乗ったときにカーソルの見た目を変える
     const updateHoverEvents = () => {
-        const hoverElements = document.querySelectorAll('a, #menu, .work-item, button');
+        const hoverElements = document.querySelectorAll('a, button, #menu, .work-item, .process-side');
         hoverElements.forEach((el) => {
             el.addEventListener('mouseenter', () => cursor.classList.add('cursor-large'));
             el.addEventListener('mouseleave', () => cursor.classList.remove('cursor-large'));

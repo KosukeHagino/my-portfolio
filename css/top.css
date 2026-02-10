@@ -137,7 +137,7 @@
 .work-title {
     padding-inline: var(--space-xs);
     color: var(--blue);
-    border-bottom: var(--border-base) dotted var(--black);
+    border-bottom: var(--border-base) dotted var(--blue);
 }
 
 .work-description {
@@ -212,12 +212,6 @@
 .catch-copy {
     text-align: center;
     font-weight: 400;
-}
-
-.content-ready .catch-copy {
-    opacity: 1;                     /* ローディング後：表示 */
-    transform: translateY(0);       /* ローディング後：元の位置に戻す（少し上に移動） */
-    filter: blur(0);                /* ローディング後：ボカしをなくす（クリアにする） */
 }
 
 .catch-item {
@@ -484,7 +478,7 @@
     }
 
     .indicator-dot.is-active {
-        background-color: var(--blue);
+        background-color: var(--gradient);
         transform: scale(1.5);
     }
 }

@@ -22,6 +22,7 @@
     <!-- 後でファビコン作成 -->
     <link rel="icon" href="./img/svg/favicon.svg" type="image/svg">    
     <script src="./js/common.js" defer></script>
+    <script src="./js/profile.js" defer></script>
     <title>萩野弘祐のポートフォリオ</title>
 </head>
 <body>
@@ -52,119 +53,213 @@
         <!-- wrapper -->
         <div class="wrapper">
 
-            <!-- section -->
-            <section class="section">
+            <!-- about-section -->
+            <section class="section about-section">
                 <h2 class="section-title">About</h2>
 
-                <!-- profile-container -->
-                <div class="profile-container">
-                    <img src="./img/jpg/IMG_0482.jpg" alt="萩野弘祐(はぎのこうすけ)の写真">
+                <!-- about-container -->
+                <div class="container about-container">
+                    <img class="about-photo" src="./img/jpg/IMG_0482.jpg" alt="萩野弘祐(はぎのこうすけ)の写真">
 
-                    <!-- profile-inner -->
-                    <div class="profile-inner">
-                        <h3 class="profile-name">
-                            <span class="profile-name-jp">萩野 弘祐</span>
-                            <span class="profile-name-en">KOSUKE HAGINO</span>
+                    <!-- about-inner -->
+                    <div class="about-inner">
+                        <h3 class="about-name">
+                            <span class="about-name-jp">萩野 弘祐</span>
+                            <span class="about-name-en">KOSUKE HAGINO</span>
                         </h3>
-                        <p class="profile-description">
-                            これまで設計士として、現場の使いやすさと効率的な作業動線を追求した厨房の設計に携わってきました。「ものづくりで人を喜ばせること」にやりがいを感じる中、怪我による療養を経験。それを機に、以前より興味のあったWeb制作の世界への転身を決意しました。<br><br>
-                            設計士として培った「ユーザー視点」と「最適な動線を考える力」は、WebのUI/UXデザインにも通じると考えています。単に形を作るだけでなく、ユーザーの意図を汲み取り、課題を解決できるフロントエンドエンジニアを目指します。
+                        <p class="about-description">
+                            これまで厨房設計士として、作業動線の効率化と使いやすさを追求してきました。厨房づくりを通じた課題解決にやりがいを感じる中、怪我による療養を経験。この期間を機に自身のキャリアを見つめ直し、以前より強い関心をもっていたWeb制作の世界への転身を決意しました。<br><br>
+                            設計士として培ったユーザー視点と、最適な動線を考える力は、WebのUI/UXデザインや構造設計にも通じると考えています。単に見栄えを整えるだけでなく、ユーザーの意図を汲み取り、本質的な課題を解決できるフロントエンドエンジニアを目指しています。
                         </p>
-                    </div> <!-- profile-inner end -->
-                </div> <!-- profile-container end -->
-            </section> <!-- section end -->
-
-            <!-- section -->
-            <section class="section skill-section">
-                <h2 class="section-title">Skills</h2>
-
-                <!-- profile-container -->
-                <ul class="profile-container">
-                    <li class="skill-item">
-                        <h3 class="profile-name">
-                            <span class="profile-name-jp">デザイン</span>
-                            <span class="profile-name-en">DESIGN</span>
-                        </h3>
-                        <p class="profile-description">
-                            Webサイトやバナーを制作することができます。デザイン4原則に基づいた、見やすく整理されたレイアウトを基本とし、そこに厨房設計で培った「ユーザー視点」を掛け合わせ、意図が正しく伝わる使い勝手の良いデザインを心がけています。
-                        </p>
-                        <p>
-                            <span class="label work-skill-label">Figma</span>
-                            <span class="label work-skill-label">Photoshop</span>
-                            <span class="label work-skill-label">Illustrator</span>
-                        </p>
-                    </li>
+                    </div> <!-- about-inner end -->
                     
-                    <li class="skill-item">
-                        <h3 class="profile-name">
-                            <span class="profile-name-jp">コーディング</span>
-                            <span class="profile-name-en">CODING</span>
-                        </h3>
-                        <p class="profile-description">
-                            厨房設計で培った設計図を正確に読み取り形にする力を活かし、デザインカンプを忠実に再現します。また、後々のメンテナンスを考えて、図面を引くように規則性のある整ったコードを書くことを大切にしています。レスポンシブ対応や、JavaScript/jQueryによる動きの実装、PHP/SQLを用いたお問い合わせフォームの構築まで、使う人に優しい実装を心がけています。
-                        </p>
-                        <p>
-                            <span class="label work-skill-label">HTML</span>
-                            <span class="label work-skill-label">CSS</span>
-                            <span class="label work-skill-label">SCSS</span>
-                            <span class="label work-skill-label">JavaScript</span>
-                            <span class="label work-skill-label">jQuery</span>
-                            <span class="label work-skill-label">PHP</span>
-                            <span class="label work-skill-label">WordPress</span>
-                            <span class="label work-skill-label">SQL</span></p>
-                    </li>
-                </ul> <!-- profile-container end -->
-
-                <!-- skill-development-environment -->
-                <div class="skill-development-environment">
-                    <h3 class="profile-name">
-                        <span class="profile-name-jp">開発環境</span>
-                        <span class="profile-name-en">DEVELOPMENT ENVIRONMENT</span>
-                    </h3>
-                    <p class="profile-description">個人開発ではSourcetreeを使用してGitでのバージョン管理と、GitHubでチーム内での作業連携やコードの共有、承認制などを常に意識しながら管理しています。コーディング作業はVS Code、PHPやDBを用いた開発ではローカル環境としてXAMPPを使用しています。</p>
-                    <p class="skill-label">
-                        <span class="label work-skill-label">Git</span>
-                        <span class="label work-skill-label">GitHub</span>
-                        <span class="label work-skill-label">Sourcetree</span>
-                        <span class="label work-skill-label">XAMPP</span>
-                        <span class="label work-skill-label">Visual Studio Code</span>
-                    </p>
-                </div> <!-- skill-development-environment end -->
-            </section> <!-- section end -->            
+                </div> <!-- about-container end -->
+            </section> <!-- about-section end -->
             
-            <!-- section -->
-            <section class="section strength-section">
-                <h2 class="section-title">Strengths</h2>
+            <!-- process-section -->
+            <section class="section process-section">
+                <h2 class="section-title">Thought process</h2>
+                <p class="section-description">Web制作において大切にしているのは、単にコードを書くことではなく「その先にいる誰か」を想像することです。ユーザーの使いやすさや、情報の届け方にこだわり、細かな配慮を積み重ねることで、心地よい体験の提供を目指しています。</p>
 
-                <!-- profile-container -->
-                <ul class="profile-container">
-                    <li class="skill-item">
-                        <h3 class="profile-name">調整力</h3>
-                        <p class="profile-description">
-                            建築図面と実際の現場寸法の差異を、可変寸法の機器を使って現場で調整してきた経験をコーディングに活かします。デザイン案をただ数値通りに組むのではなく、実機（スマートフォンやPC）での見え方の違いを考慮し、最終的に使う人が違和感なく操作できるよう、細部まで収まりを整える実装を大切にしています。
-                        </p>
-                    </li>
-                    
-                    <li class="skill-item">
-                        <h3 class="profile-name">提案力</h3>
-                        <p class="profile-description">
-                            厨房設計では、調理工程や人・器具・食器の流れを深く理解しなければ、使い勝手の良い空間は作れません。この経験を活かし、コーディングに入る前に「誰がどう使うか」という動線を徹底して確認します。事前の丁寧な対話で認識を合わせることで、制作のズレを最小限に抑えます。
-                        </p>
+                <!-- process-list -->
+                <ul class="container process-list">
+                    <li class="process-item active">
+
+                        <!-- process-side -->
+                        <div class="process-side">
+                            <span class="process-title-num">01</span>
+                            <span class="process-title-en">FOR USERS</span>
+
+                            <!-- process-icon -->
+                            <div class="process-icon">
+                                <span></span>
+                                <span></span>
+                            </div> <!-- process-icon end -->
+                        </div> <!-- process-side end -->
+
+                        <!-- process-body -->
+                        <div class="process-body">
+                            <!-- process-body-inner -->
+                            <div class="process-body-inner">
+                                <h3 class="process-title-jp">ユーザーの動きを想像する</h3>
+                                <p class="process-description">
+                                    厨房機器を配置する際に調理する人の動線を考えてきたように、Web制作でもユーザーがこのボタンをどんな時に押すのかを常に想像するようにしています。いきなりコードを書くのではなく、使う人の目線に立った親切な設計を意識し、誰もが迷わず操作できるサイト作りを大切にしています。
+                                </p>
+                            </div> <!-- process-body-inner end -->
+                        </div> <!-- process-body end -->
                     </li>
 
-                    <li class="skill-item">
-                        <h3 class="profile-name">共有力</h3>
-                        <p class="profile-description">
-                            厨房設計の際、施主様だけでなく施工に関わる多くの業者様が目にすることを意識し、「誰が見ても分かりやすい正確な図面」を作ることを心がけてきました。Web制作でもこの姿勢を貫き、チームの誰もが意図を正確に把握できる整理されたコードを書くこと、そして円滑なコミュニケーションを常に意識しています。
-                        </p>
+                    <li class="process-item">
+
+                        <!-- process-side -->
+                        <div class="process-side">
+                            <span class="process-title-num">02</span>
+                            <span class="process-title-en">FOR TEAM</span>
+
+                            <!-- process-icon -->
+                            <div class="process-icon">
+                                <span></span>
+                                <span></span>
+                            </div> <!-- process-icon end -->
+                        </div> <!-- process-side end -->
+
+                        <!-- process-body -->
+                        <div class="process-body">
+                            <!-- process-body-inner -->
+                            <div class="process-body-inner">
+                                <h3 class="process-title-jp">意図が伝わるように情報を整理する</h3>
+                                <p class="process-description">
+                                    厨房工事に関わる多くの業者が目にする図面を作ってきた経験を活かし、自分以外の誰が見ても一目で意図が伝わるような情報の整理を心がけています。コーディングでも、次にそのコードを触る人が迷わないように、コメントをつけて読みやすくメンテナンスしやすい書き方を意識して、円滑な連携に貢献したいと考えています。
+                                </p>
+                            </div> <!-- process-body-inner end -->
+                        </div> <!-- process-body end -->
                     </li>
-                </ul> <!-- profile-container end -->
-            </section> <!-- section end -->        
+
+                    <li class="process-item">
+
+                        <!-- process-side -->
+                        <div class="process-side">
+                            <span class="process-title-num">03</span>
+                            <span class="process-title-en">FOR SYSTEM</span>
+
+                            <!-- process-icon -->
+                            <div class="process-icon">
+                                <span></span>
+                                <span></span>
+                            </div> <!-- process-icon end -->
+                        </div> <!-- process-side end -->
+
+                        <!-- process-body -->
+                        <div class="process-body">
+                            <!-- process-body-inner -->
+                            <div class="process-body-inner">
+                                <h3 class="process-title-jp">見えない部分まで丁寧に作り込む</h3>
+                                <p class="process-description">
+                                    電気や給排水などの正しい設備計画によって厨房機器が動作するように、Webサイトもユーザーの目に見えないコードの構造が動作の安定性を決めると考えています。表面のデザインを再現するだけでなく、中身のコードが整理されて正確に組み立てられているかという裏側の仕組みを大切にし、表示が崩れにくい丁寧なコーディングを心がけています。
+                                </p>
+                            </div> <!-- process-body-inner end -->
+                        </div> <!-- process-body end -->
+                    </li>
+                </ul> <!-- process-list end -->
+            </section> <!-- process-section end -->
+
+            <!-- achievement-section -->
+            <section class="section achievement-section">
+                <h2 class="section-title">Achievement</h2>
+                <p class="section-description">前職では厨房設計に従事しながら、特定顧客の修理メンテナンスに関する事務管理も兼任していました。設計業務の枠を超え、現場の課題に対して自分なりの提案を積み重ねたことが、大幅なコスト削減や業務効率化へと繋がりました。</p>
+
+                <!-- process-list -->
+                <ul class="container process-list">
+                    <li class="process-item active">
+
+                        <!-- process-side -->
+                        <div class="process-side">
+                            <span class="process-title-num">04</span>
+                            <span class="process-title-en">DATA ANALYSIS</span>
+
+                            <!-- process-icon -->
+                            <div class="process-icon">
+                                <span></span>
+                                <span></span>
+                            </div> <!-- process-icon end -->
+                        </div> <!-- process-side end -->
+
+                        <!-- process-body -->
+                        <div class="process-body">
+                            <!-- process-body-inner -->
+                            <div class="process-body-inner">
+                                <h3 class="process-title-jp">データ活用による課題解決</h3>
+                                <p class="process-description">
+                                    「修理総額が高い」という顧客からの課題に対し、受付機能のみだった機器修理管理台帳を抜本的に改善しました。修理進捗や金額、故障原因、交換部品、作業内容などを詳細に記録・蓄積する運用を徹底。膨大なデータの分析から、特定店舗の使用環境への改善提案や、故障頻度に基づいた的確な機器入替提案を可能にしました。結果として、店舗増に伴う総額増の中でも1店舗・1機器あたりの修理コストの削減に成功。データに基づく根拠ある提案が、顧客からの深い信頼と、円滑な設備投資の承認へと繋がりました。
+                                </p>
+                            </div> <!-- process-body-inner end -->
+                        </div> <!-- process-body end -->
+                    </li>
+
+                    <li class="process-item">
+
+                        <!-- process-side -->
+                        <div class="process-side">
+                            <span class="process-title-num">05</span>
+                            <span class="process-title-en">WORK EFFICIENCY</span>
+
+                            <!-- process-icon -->
+                            <div class="process-icon">
+                                <span></span>
+                                <span></span>
+                            </div> <!-- process-icon end -->
+                        </div> <!-- process-side end -->
+
+                        <!-- process-body -->
+                        <div class="process-body">
+                            <!-- process-body-inner -->
+                            <div class="process-body-inner">
+                                <h3 class="process-title-jp">発注業務の効率化</h3>
+                                <p class="process-description">
+                                    顧客店舗・顧客本部・弊社の三者間で頻発していた備品の特定と見積依頼の工程を、情報を視覚化することで自主的に効率化しました。従来は名称のみのやり取りで誤認が多く、三者間での確認作業に多大な時間を費やしていました。そこで、全備品を網羅した写真付きリストを独自に作成。さらに各備品の見積書をセットでシステムへ登録することを提案・実行しました。結果、写真による直感的な判断が可能になり、問い合わせ件数が大幅に減少。顧客側にとっても毎回見積を依頼する手間がなくなり、三者全員の業務負担を軽減する仕組みづくりに貢献しました。
+                                </p>
+                            </div> <!-- process-body-inner end -->
+                        </div> <!-- process-body end -->
+                    </li>
+
+                    <li class="process-item">
+
+                        <!-- process-side -->
+                        <div class="process-side">
+                            <span class="process-title-num">06</span>
+                            <span class="process-title-en">PROCESS STANDARD</span>
+
+                            <!-- process-icon -->
+                            <div class="process-icon">
+                                <span></span>
+                                <span></span>
+                            </div> <!-- process-icon end -->
+                        </div> <!-- process-side end -->
+
+                        <!-- process-body -->
+                        <div class="process-body">
+                            <!-- process-body-inner -->
+                            <div class="process-body-inner">
+                                <h3 class="process-title-jp">専門知識の共有と対応の標準化</h3>
+                                <p class="process-description">
+                                    個人の経験値に依存していたトラブル対応をルール化し、無駄な修理費用の発生を大幅に削減しました。従来は、リセット操作等の軽微な対応で済む事案でも、担当者の知識量によって誤って修理依頼（サービスマン派遣）を出してしまい、不必要なコストが発生していました。この対応のばらつきを解消するため、過去の事例を網羅した故障判断セルフチェック表を作成。誰もが同等の判断ができる仕組みを整え、全店舗へ配布・周知を徹底しました。結果、無駄な出張修理を最小限に抑え、修理コストの削減を実現しました。
+                                </p>
+                            </div> <!-- process-body-inner end -->
+                        </div> <!-- process-body end -->
+                    </li>
+                </ul> <!-- process-list end -->
+            </section> <!-- achievement-section end -->
+
+            <!-- photo-section -->
+            <section class="section photo-section">
+                <h2 class="section-title"></h2>
+
+            </section> <!-- photo-section end -->
         </div> <!-- wrapper end -->
     </main>
     
     <footer>
-        <p class="copy-right">&copy;2026 KOSUKE HAGINO</p>
+        <p class="copy-right">&copy;2026 kosuke hagino</p>
         <p class="github-link"><a href="https://github.com/KosukeHagino/my-portfolio" target="_blank">My GitHub</a></p>
     </footer>
 

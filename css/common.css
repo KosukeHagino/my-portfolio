@@ -30,11 +30,12 @@ main            { z-index: 1; }         /* メインコンテンツ */
 **************************************************/
 :root {
     /* --- Color --- */
-    --white: #faffff;
-    --gray : #e6ecec;
-    --green: #558890;
-    --blue : #070638;
-    --black: #1c1c1c;
+    --white   : #faffff;
+    --gray    : #e6ecec;
+    --green   : #558890;
+    --blue    : #070638;
+    --black   : #1c1c1c;
+    --gradient: linear-gradient(180deg, #748e91 0%, #465a5d 100%);
 
 
     /* --- Font family --- */
@@ -187,7 +188,7 @@ span {
 }
 
 body.content-ready .cursor {
-    opacity: 0.5;                   /* ローディング後：表示 */
+    opacity: 0.7;                   /* ローディング後：表示 */
     visibility: visible;
 }
 
@@ -329,19 +330,19 @@ header {
 /* --- Labels --- */
 .label {
     font-weight: 400;
-    border: 1px solid var(--blue);
+    border: 1px solid var(--gradient);
     border-radius: var(--radius-l);         /* 左右両端を半円にする（要素の高さの半分より大きい値を設定すれば自動的に半円になる） */
     padding-block: var(--space-2xs);
     padding-inline: var(--space-s);
 }
 
 .work-type-label {
-    background-color: var(--blue);
+    background: var(--gradient);
     color: var(--white);
 }
 
 .work-skill-label {
-    background-color: var(--white);
+    background: var(--white);
     color: var(--blue);
 }
 
@@ -508,8 +509,8 @@ footer {
 
     .global-nav-item a {
         display: block;
-        padding-block: var(--space-l);
-        padding-inline: var(--space-xl);
+        padding-block: var(--space-m);
+        padding-inline: var(--space-l);
     }
 
     .global-nav-item a.active {

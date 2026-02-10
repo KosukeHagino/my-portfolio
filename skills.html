@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./css/normalize.css">
+
+    <!-- Adobe Fontsの指定 -->
+    <script>
+        (function(d) {
+            var config = {
+            kitId: 'fav6ghg',
+            scriptTimeout: 3000,
+            async: true
+            },
+            h=d.documentElement,t=setTimeout(function(){h.className=h.className.replace(/\bwf-loading\b/g,"")+" wf-inactive";},config.scriptTimeout),tk=d.createElement("script"),f=false,s=d.getElementsByTagName("script")[0],a;h.className+=" wf-loading";tk.src='https://use.typekit.net/'+config.kitId+'.js';tk.async=true;tk.onload=tk.onreadystatechange=function(){a=this.readyState;if(f||a&&a!="complete"&&a!="loaded")return;f=true;clearTimeout(t);try{Typekit.load(config)}catch(e){}};s.parentNode.insertBefore(tk,s)
+        })(document);
+    </script> <!-- Adobe Fontsの指定 end -->
+    
+    <link rel="stylesheet" href="./css/common.css">
+    <link rel="stylesheet" href="./css/profile.css">
+    <!-- 後でファビコン作成 -->
+    <link rel="icon" href="./img/svg/favicon.svg" type="image/svg">    
+    <script src="./js/common.js" defer></script>
+    <title>萩野弘祐のポートフォリオ</title>
+</head>
+<body>
+    <!-- cursor -->
+    <div id="cursor" class="cursor"></div> <!-- cursor end -->
+
+    <header>
+        <h1 class="site-title"><a href="./index.html">HAGINO</a></h1>
+
+        <!-- global-nav -->
+        <nav id="global-nav" class="global-nav">
+            <ul class="global-nav-list">
+                <li class="global-nav-item"><a href="./index.html">Top</a></li>
+                <li class="global-nav-item"><a class="active" href="./profile.html">Profile</a></li>
+                <li class="global-nav-item"><a class="active" href="./skills.html">Skills</a></li>
+                <li class="global-nav-item"><a href="./works.html">Works</a></li>
+            </ul>
+        </nav> <!-- global-nav end -->
+
+        <!-- menu -->
+        <div id="menu" class="menu">
+            <span></span>
+            <span></span>
+        </div> <!-- menu end -->
+    </header>
+
+    <main>
+        <!-- wrapper -->
+        <div class="wrapper">
+
+            <!-- section -->
+            <section class="section skill-section">
+                <h2 class="section-title">Skills</h2>
+
+                <!-- profile-container -->
+                <ul class="profile-container">
+                    <li class="skill-item">
+                        <h3 class="profile-name">
+                            <span class="profile-name-jp">デザイン</span>
+                            <span class="profile-name-en">DESIGN</span>
+                        </h3>
+                        <p class="profile-description">
+                            Webサイトやバナーを制作することができます。デザイン4原則に基づいた、見やすく整理されたレイアウトを基本とし、そこに厨房設計で培った「ユーザー視点」を掛け合わせ、意図が正しく伝わる使い勝手の良いデザインを心がけています。
+                        </p>
+                        <p>
+                            <span class="label work-skill-label">Figma</span>
+                            <span class="label work-skill-label">Photoshop</span>
+                            <span class="label work-skill-label">Illustrator</span>
+                        </p>
+                    </li>
+                    
+                    <li class="skill-item">
+                        <h3 class="profile-name">
+                            <span class="profile-name-jp">コーディング</span>
+                            <span class="profile-name-en">CODING</span>
+                        </h3>
+                        <p class="profile-description">
+                            厨房設計で培った設計図を正確に読み取り形にする力を活かし、デザインカンプを忠実に再現します。また、後々のメンテナンスを考えて、図面を引くように規則性のある整ったコードを書くことを大切にしています。レスポンシブ対応や、JavaScript/jQueryによる動きの実装、PHP/SQLを用いたお問い合わせフォームの構築まで、使う人に優しい実装を心がけています。
+                        </p>
+                        <p>
+                            <span class="label work-skill-label">HTML</span>
+                            <span class="label work-skill-label">CSS</span>
+                            <span class="label work-skill-label">SCSS</span>
+                            <span class="label work-skill-label">JavaScript</span>
+                            <span class="label work-skill-label">jQuery</span>
+                            <span class="label work-skill-label">PHP</span>
+                            <span class="label work-skill-label">WordPress</span>
+                            <span class="label work-skill-label">SQL</span></p>
+                    </li>
+                </ul> <!-- profile-container end -->
+
+                <!-- skill-development-environment -->
+                <div class="skill-development-environment">
+                    <h3 class="profile-name">
+                        <span class="profile-name-jp">開発環境</span>
+                        <span class="profile-name-en">DEVELOPMENT ENVIRONMENT</span>
+                    </h3>
+                    <p class="profile-description">個人開発ではSourcetreeを使用してGitでのバージョン管理と、GitHubでチーム内での作業連携やコードの共有、承認制などを常に意識しながら管理しています。コーディング作業はVS Code、PHPやDBを用いた開発ではローカル環境としてXAMPPを使用しています。</p>
+                    <p class="skill-label">
+                        <span class="label work-skill-label">Git</span>
+                        <span class="label work-skill-label">GitHub</span>
+                        <span class="label work-skill-label">Sourcetree</span>
+                        <span class="label work-skill-label">XAMPP</span>
+                        <span class="label work-skill-label">Visual Studio Code</span>
+                    </p>
+                </div> <!-- skill-development-environment end -->
+            </section> <!-- section end -->            
+        
+        </div> <!-- wrapper end -->
+    </main>
+    
+    <footer>
+        <p class="copy-right">&copy;2026 kosuke hagino</p>
+        <p class="github-link"><a href="https://github.com/KosukeHagino/my-portfolio" target="_blank">My GitHub</a></p>
+    </footer>
+
+    <!-- mask -->
+    <div id="mask" class="mask"></div>
+    <!-- mask end -->
+</body>
+</html>

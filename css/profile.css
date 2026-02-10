@@ -1,100 +1,226 @@
 @charset "utf-8";
 
+/**************************************************
+   z-index 管理（重なりの順番）
+**************************************************/
+/* --- common.css で一括管理します。 --- */
 
 
-.profile-container {
+
+/**************************************************
+   Profile
+**************************************************/
+/* --- About section --- */
+.about-container {
     display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 0 40px;
-    gap: 80px;
+    justify-content: space-between;
+    gap: var(--space-l);
 }
 
-.profile-container img {
+.about-photo {
     width: 45%;
     max-width: 480px;
-    border: 0.5px solid var(--green);
+    border: var(--border-thin) solid var(--green);
     object-fit: cover;
 }
 
-.profile-inner {
-    max-width: 700px;
-}
-
-.profile-name {
+.about-name {
     display: flex;
     align-items: baseline;
-    margin-bottom: 32px;
+    gap: var(--space-m);
+    margin-bottom: var(--space-m);
     font-weight: 400;
 }
 
-.profile-name-jp {
+.about-name-jp {
     display: block;
-    font-size: 2.4rem;
+    font-size: var(--font-size-l);
     letter-spacing: 0.2em;
-    margin-right: 24px;
 }
 
-.profile-name-en {
+.about-name-en {
     display: block;
-    font-size: 1rem;
+    font-size: var(--font-size-s);
     letter-spacing: 0.2em;
     color: var(--green);
 }
 
-.profile-description {
-    max-width: 600px;
-    text-align: justify;    /* 両端揃え */
+.about-description {
+    text-align: justify;            /* 両端揃え */
     text-justify: inter-character;  /* 日本語の調整を最適化 */
-    word-break: break-all;  /* 単語の途中で変な改行が起きないようにする */
+    word-break: break-all;          /* 単語の途中で変な改行が起きないようにする */
     line-height: 1.8;
 }
 
-.skill-section .profile-container {
-    width: 100%;
-    max-width: 1260px;
-    align-items: stretch;
-    gap: 60px;
-    margin: 0 auto 60px;
-}
 
-.skill-item {
-    height: auto;
-    padding: 60px;
-    border: 0.5px solid var(--green);
-    border-radius: 20px;
-    background-color: var(--white);
-}
-
-.skill-item .profile-description {
-    max-width: 100%;
+/* --- Process section / Achievement section --- */
+.section-description {
+    width: clamp(500px, 60%, 1200px);
+    margin-inline: auto;
     margin-bottom: 40px;
 }
 
-.skill-development-environment {
-    width: calc(100% - 80px);
-    max-width: 1180px;
-    margin: 0 auto;
-    padding: 60px;
-    border: 0.5px solid var(--green);
-    border-radius: 20px;
-    background-color: var(--white);
+.process-list {
+    display: flex;
+    justify-content: center;
+    gap: var(--space-m);
 }
 
-.skill-development-environment .profile-description {
-    width: 100%;
-    margin-bottom: 40px;
+.process-section .process-list {
+    height: clamp(380px, 30vw, 500px);
 }
 
-.strength-section .profile-container {
+.achievement-section .process-list {
+    height: clamp(450px, 35vw, 600px);
+}
+
+.process-item {
+    display: flex;
+    flex-shrink: 1;
+    min-width: 0;
+    border: var(--border-thin) solid var(--green);
+    border-radius: 10px;
+    transition: flex var(--transition-base) 0.3s;
+}
+
+.process-item:not(.active) {
+    flex: 0 0 120px;
+}
+
+.process-item.active {
+    flex: 1;
+}
+
+.process-side {
+    flex-shrink: 0;
+    width: 120px;
+    padding: var(--space-m);
+    display: flex;
     flex-direction: column;
-    gap: 40px;
+    align-items: center;
+    gap: var(--space-s);
+    background: var(--gradient);
+    color: var(--white);
+    border-radius: 10px;
+    font-family: var(--accent-font);
+    font-size: var(--font-size-l);
+    cursor: pointer;
+    transition: border-radius var(--transition-base) 0.3s;
 }
 
-.strength-section .profile-name {
-    font-size: 2.4rem;
+.active .process-side {
+    border-radius: 10px 0 0 10px;
 }
 
-.strength-section .profile-description {
-    max-width: 100%;
+.process-title-num {
+    display: block;
+    font-style: italic;
 }
+
+.process-title-en {
+    display: block;
+    letter-spacing: 0.2em;
+    writing-mode: vertical-rl;
+}
+
+.process-icon {
+    position: relative;
+    width: 16px;
+    height: 16px;
+    margin-top: auto;
+    margin-bottom: var(--space-xs);
+}
+
+.process-icon span {
+    position: absolute;
+    right: 0;
+    bottom: 6px;
+    width: 12px;
+    height: 1.5px;
+    background-color: var(--white);
+    border-radius: 2px;
+    transform-origin: right center;
+    transition:
+        opacity var(--transition-base) 0.9s,
+        transform var(--transition-base) 0.3s;
+}
+
+.process-icon span:nth-child(1) {
+    transform: rotate(45deg);
+}
+
+.process-icon span:nth-child(2) {
+    transform: rotate(-45deg);
+}
+
+.active .process-icon span {
+    opacity: 0;
+    transform: rotate(0);
+}
+
+.process-body {
+    flex: 1;
+    width: 0;
+    overflow-y: hidden;
+    scrollbar-width: thin;
+    scrollbar-color: var(--blue) transparent;  
+    padding: var(--space-l);
+    padding-inline: 0;
+    background-color: var(--white);
+    color: var(--black);
+    border-radius: 0 10px 10px 0;
+    transition:
+        width var(--transition-base) 0.3s,
+        padding-inline var(--transition-base) 0.3s;
+}
+
+.active .process-body {
+    width: 100%;
+    padding-inline: var(--space-l);
+    overflow-y: auto;
+    transition:
+        width var(--transition-base) 0.3s,
+        padding-inline var(--transition-base) 0.3s,
+        overflow-y 0.3s linear 0.9s;
+}
+
+.process-body-inner {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-m);
+}
+
+.process-title-jp {
+    display: block;
+    font-size: var(--font-size-l);
+    font-weight: 400;
+    letter-spacing: 0.2em;
+}
+
+.process-title-jp,
+.process-description {
+    opacity: 0;                         /* ローディング中：非表示 */
+    transform: translateY(20px);
+    transition:
+        opacity 0.4s ease,
+        transform 0.4s ease;
+}
+
+.active .process-title-jp,
+.active .process-description {
+    opacity: 1;                         /* ローディング後：表示 */
+    transform: translateY(0);
+}
+
+.active .process-title-jp {
+    transition:
+        opacity 2.4s ease 0.6s,
+        transform 0.9s ease 0.6s;
+}
+
+.active .process-description {
+    transition:
+        opacity 2.4s ease 1.2s,
+        transform 0.9s ease 1.2s;
+}
+
