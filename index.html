@@ -104,10 +104,6 @@
                     </div>
                     <p class="work-description">架空の転職サイトのバナー制作例です。</p>
                 </li>
-
-                <li class="work-text-item">
-                    <p class="work-description contact-description">下記ボタンより、お気軽にメールにてご連絡ください。</p>
-                </li>
             </ul> <!-- work-text-list end -->
 
         </div> <!-- work-text-area -->
@@ -141,21 +137,29 @@
 
             <li class="work-item">
                 <button class="modal-trigger-button" data-type="banner">
-                    <img class="work-img" src="./img/screenshot/english_school_banner.png" alt="架空の英会話スクールのバナー">
+                    <picture>
+                        <source srcset="./img/screenshot/portfolio-sp.png" media="(max-width: 768px)">
+                        <img class="work-img" src="./img/screenshot/english_school_banner.png" alt="架空の英会話スクールのバナー">
+                    </picture>
                 </button>
             </li>
 
             <li class="work-item">
                 <button class="modal-trigger-button" type="button" data-type="banner">
-                    <img class="work-img" src="./img/screenshot/jobchange_site_banner.png" alt="架空の転職サイトのバナー">
+                    <picture>
+                        <source srcset="./img/screenshot/portfolio-sp.png" media="(max-width: 768px)">
+                        <img class="work-img" src="./img/screenshot/jobchange_site_banner.png" alt="架空の転職サイトのバナー">
+                    </picture>
                 </button>
             </li>
 
-            <li class="work-item contact-item"> 
-                <a href="mailto:kosukehagino.web@gmail.com">
-                    <img class="rotating-text" src="./img/btn/contactme.png" alt="Contact me by email !">
-                    <span class="arrow">→</span>
-                </a>
+            <li class="work-item contact-item">
+                <h3 class="section-title">Contact</h3>
+                <p class="contact-msg">
+                    ご覧いただきありがとうございます。<br>
+                    下記のメールアドレスに<span class="sp-br">お気軽にご連絡ください。</span>
+                </p>
+                <a class="mail-btn" href="mailto:kosukehagino.web@gmail.com">kosukehagino.web@gmail.com</a>
             </li>
         </ul> <!-- work-list end -->
 

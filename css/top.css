@@ -19,13 +19,6 @@
 }
 
 
-/* --- Contact text rotate --- */
-@keyframes rotate-anim {
-    0%   { transform: rotate(0deg); }
-    100% { transform: rotate(360deg); }
-}
-
-
 
 /**************************************************
    Loading
@@ -208,21 +201,22 @@
     align-items: center;
 }
 
-/* --- Catch copy（制作物スライドの先頭） --- */
-.catch-copy {
-    text-align: center;
-    font-weight: 400;
-}
 
+/* --- Catch copy（制作物スライドの先頭） --- */
 .catch-item {
     margin-right: var(--catch-space-x);     /* 右側の制作物との距離を空けてキャッチコピーの表示中は制作物を見せないようにする */
     pointer-events: none;       /* マウス操作を無効化 */
+}
+
+.catch-copy {
+    font-weight: 400;
 }
 
 .copy-jp {
     display: block;
     font-size: var(--font-size-xl);
     letter-spacing: 0.4em;
+    text-align: center;
     margin-bottom: var(--space-s);
     opacity: 0;                         /* ローディング中：非表示 */
     transform: translateY(20px);        /* ローディング中：少し下にずらす */
@@ -240,7 +234,8 @@
     font-family: var(--accent-font);
     font-weight: 400;
     font-style: normal;
-    color: var(--green); 
+    color: var(--green);
+    text-align: center;
     opacity: 0;                         /* ローディング中：非表示 */
     transform: translateY(10px);        /* ローディング中：少し下にずらす */
     filter: blur(5px);                  /* ローディング中：少しボカす */
@@ -257,9 +252,11 @@
     filter: blur(0);                    /* ローディング後：ボカしをなくしてクリアにする */
 }
 
+
 /* --- Work item（制作物スライド） --- */
 .work-item a,
-.work-item button {
+.work-item button,
+.work-item div {
     display: block;
     width: 100%;
     overflow: hidden;
@@ -292,39 +289,66 @@
     opacity: 0.3;                   /* 中央以外：透明度を変えて薄くする */
 }
 
+
 /* Contact（制作物スライドの最後） */
 .contact-item {
-    flex-shrink: 0;
-    width: var(--contact-item-pc-x); 
-    flex-basis: auto; 
-    scroll-snap-align: none;    /* 中央にスナップしないようにする */
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-left: var(--space-m); 
-}
-
-.contact-item a {
     display: block;
-    width: var(--contact-item-a-pc-xy);         /* 画像サイズ */
-    height: var(--contact-item-a-pc-xy);
-    position: relative;
-    filter: none;       /* 上書きして影なしにする（drop-shadowをリセット） */
+    margin-left: var(--catch-space-x);      /* 左側の制作物との距離を空けてお問い合わせの表示中は制作物を見せないようにする */
+    padding: var(--space-l);
+    background-color: var(--white);
+    text-align: center;
+    border-radius: var(--radius-s);
+    filter: drop-shadow(0 0 4px #ccc);
+    pointer-events: none;                   /* マウス操作を無効化 */
 }
 
-.contact-item a .rotating-text {
-    display: block;
-    width: 100%;
-    height: 100%;
-    animation: rotate-anim 10s linear infinite;     /* 通常：10秒/周で回転（ゆっくり） */
+.contact-item .section-title,
+.contact-item .contact-msg,
+.contact-item .mail-btn {
+    opacity: 0;                         /* 初期：非表示 */
+    transform: translateY(20px);        /* 初期：少し下にずらす */
+    transition:
+        opacity var(--transition-base),     /* 表示：0.6秒かけて徐々に表示 */
+        transform var(--transition-base);   /* 表示：0.6秒かけて徐々に元の位置に戻す（少し上にずれる） */
 }
 
-.arrow {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    font-size: var(--font-size-l);
+.contact-item .section-title {
+    margin-bottom: var(--space-m);
+}
+
+.contact-item .section-title::after {
+    width: 0;                           /* 初期：0 */
+    transition: width 0.8s ease;        /* 表示：0.8秒かけて徐々に横に広がる */
+}
+
+.contact-item .mail-btn {
+    width: var(--contact-item-pc-x);
+    border-radius: 100px;
+    pointer-events: auto;                   /* マウス操作を有効化 */
+}
+
+/* --- Active状態（順番に表示） --- */
+.contact-item.is-active .section-title {
+    opacity: 1;                         /* 現れる時：表示 */
+    transform: translateY(0);           /* 現れる時：元の位置に戻す */
+    transition-delay: 0.2s;             /* 現れる時：タイトルは0.2秒遅れて表示し始める */
+}
+
+.contact-item.is-active .section-title::after {
+    width: 100%;                        /* 現れる時：100% */
+    transition-delay: 0.5s;             /* 現れる時：タイトルの下線は0.5秒遅れて表示し始める */
+}
+
+.contact-item.is-active .contact-msg {
+    opacity: 1;                         /* 現れる時：表示 */
+    transform: translateY(0);           /* 現れる時：元の位置に戻す */
+    transition-delay: 0.9s;             /* 現れる時：メッセージは0.9秒遅れて表示し始める */
+}
+
+.contact-item.is-active .mail-btn {
+    opacity: 1;                         /* 現れる時：表示 */
+    transform: translateY(0);           /* 現れる時：元の位置に戻す */
+    transition-delay: 1.2s;             /* 現れる時：メールアドレスは1.2秒遅れて表示し始める */
 }
 
 
@@ -412,20 +436,12 @@
         display: none;
     }
 
-    .contact-description {
-        display: block;
-        padding-top: var(--space-m);
-        width: var(--contact-description-x);
-        margin: 0 auto;
-    }
-
     .work-list {
         padding-top: var(--space-l);
         -webkit-overflow-scrolling: touch;      /* 指での操作を滑らかにする */
     }
 
     .catch-copy {
-        line-height: 1.8;
         padding-bottom: var(--space-l);
     }
 
@@ -441,16 +457,17 @@
     }
 
     .contact-item {
-        width: 100%;
-        padding-bottom: var(--space-l);
-        margin-left: var(----contact-space-sp-x);   /* 余白をリセット */
-        scroll-snap-align: center;  /* スマホでは中央にスナップさせる */
-        flex: 0 0 100%;             /* 他の作品と同じ幅にする */
+        padding: var(--space-l);
     }
     
-    .contact-item a {
-        width: var(--contact-item-a-sp-xy);
-        height: var(--contact-item-a-sp-xy);
+    .contact-item .mail-btn {
+        width: 100%;
+        padding-inline: var(--space-m);
+        font-size: var(--font-size-m);        
+    }
+
+    .sp-br {
+        display: block;
     }
 
     .scroll {

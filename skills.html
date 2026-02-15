@@ -18,10 +18,11 @@
     </script> <!-- Adobe Fontsの指定 end -->
     
     <link rel="stylesheet" href="./css/common.css">
-    <link rel="stylesheet" href="./css/profile.css">
+    <link rel="stylesheet" href="./css/skills.css">
     <!-- 後でファビコン作成 -->
     <link rel="icon" href="./img/svg/favicon.svg" type="image/svg">    
     <script src="./js/common.js" defer></script>
+    <script src="./js/skills.js" defer></script>
     <title>萩野弘祐のポートフォリオ</title>
 </head>
 <body>
@@ -35,7 +36,7 @@
         <nav id="global-nav" class="global-nav">
             <ul class="global-nav-list">
                 <li class="global-nav-item"><a href="./index.html">Top</a></li>
-                <li class="global-nav-item"><a class="active" href="./profile.html">Profile</a></li>
+                <li class="global-nav-item"><a href="./profile.html">Profile</a></li>
                 <li class="global-nav-item"><a class="active" href="./skills.html">Skills</a></li>
                 <li class="global-nav-item"><a href="./works.html">Works</a></li>
             </ul>
@@ -52,64 +53,159 @@
         <!-- wrapper -->
         <div class="wrapper">
 
-            <!-- section -->
-            <section class="section skill-section">
-                <h2 class="section-title">Skills</h2>
+            <!-- design-section -->
+            <section class="section design-section">
+                <h2 class="section-title">Design</h2>
+                <p class="section-lead">Webサイトやバナーを制作することができます。デザイン4原則に基づいた、見やすく整理されたレイアウトを基本とし、そこに厨房設計で培った「ユーザー視点」を掛け合わせ、意図が正しく伝わる使い勝手の良いデザインを心がけています。</p>
 
-                <!-- profile-container -->
-                <ul class="profile-container">
-                    <li class="skill-item">
-                        <h3 class="profile-name">
-                            <span class="profile-name-jp">デザイン</span>
-                            <span class="profile-name-en">DESIGN</span>
-                        </h3>
-                        <p class="profile-description">
-                            Webサイトやバナーを制作することができます。デザイン4原則に基づいた、見やすく整理されたレイアウトを基本とし、そこに厨房設計で培った「ユーザー視点」を掛け合わせ、意図が正しく伝わる使い勝手の良いデザインを心がけています。
-                        </p>
-                        <p>
-                            <span class="label work-skill-label">Figma</span>
-                            <span class="label work-skill-label">Photoshop</span>
-                            <span class="label work-skill-label">Illustrator</span>
-                        </p>
-                    </li>
+                <!-- skill-tab-container -->
+                <div class="container skill-tab-container">
+                    <button class="skill-tab-item active" data-skill="figma">Figma</button>
+                    <button class="skill-tab-item" data-skill="ps">Photoshop</button>
+                    <button class="skill-tab-item" data-skill="ai">Illustrator</button>
+                </div> <!-- skill-tab-container end -->
+
+                <!-- skill-data-container -->
+                <div class="container skill-data-container">
+                    <!-- figma -->
+                    <div id="figma" class="skill-detail-content">
+                        <h3 class="skill-detail-title" data-star="3">Figma</h3>
+                        <p>ポートフォリオや架空カフェサイトのデザインカンプ制作に使用しています。ワイヤーフレームに基づいた正確なレイアウト制作に加え、現在は効率的な運用のための「コンポーネント化」や「色・フォントのスタイル管理」を学習・実践しています。修正に強く、コーディング工程へスムーズに移行できるデータの構築を意識して取り組んでいます。</p>
+                        <div class="skill-detail-inner">
+                            <img src="./img/icon/figma.png" alt="Figma">
+                        </div>
+                    </div> <!-- figma end -->
+
+                    <!-- ps -->
+                    <div id="ps" class="skill-detail-content">
+                        <h3 class="skill-detail-title" data-star="3">Photoshop</h3>
+                        <p>Webサイトに使用する写真のレタッチや合成、バナー制作に使用しています。写真の明るさ・色味の補正といった基本的なレタッチに加え、レイヤーマスクを用いた画像の切り抜き・合成が可能です。現在は、制作スピードの向上に加え、再編集を容易にするスマートオブジェクトの活用など、より実務的なワークフローの習得を意識して取り組んでいます。</p>
+                        <div class="skill-detail-inner">
+                            <img src="./img/icon/ps.png" alt="Photoshop">
+                        </div>
+                    </div> <!-- ps end -->
+
+                    <!-- ai -->
+                    <div id="ai" class="skill-detail-content">
+                        <h3 class="skill-detail-title" data-star="3">Illustrator</h3>
+                        <p>Webサイトで使用するロゴやアイコンなどのベクターデータの制作に使用しています。パスファインダーを用いた図形の合成や、基本的なパス操作によるパーツ制作が可能です。現在は、拡大・縮小しても画質が劣化しないベクターデータの特性を活かし、SVG形式での適切な書き出しや、より効率的なパスの描き方を意識して取り組んでいます。</p>
+                        <div class="skill-detail-inner">
+                            <img src="./img/icon/ai.png" alt="Illustrator">
+                        </div>
+                    </div> <!-- ai end -->
+                </div> <!-- skill-data-container end -->
+            </section> <!-- design-section end -->
+
+            <!-- coding-section -->
+            <section class="section coding-section">
+                <h2 class="section-title">Coding</h2>
+                <p class="section-lead">設計図を正確に読み取り、デザインを忠実に再現します。後々のメンテナンスを考慮し、規則性のある整ったコードを書くことを大切にしています。</p>
+
+                <!-- skill-tab-container -->
+                <div class="container skill-tab-container">
+                    <button class="skill-tab-item active" data-skill="htmlcss">HTML/CSS</button>
+                    <button class="skill-tab-item" data-skill="js">JavaScript</button>
+                    <button class="skill-tab-item" data-skill="phpsql">PHP/SQL</button>
+                </div> <!-- skill-tab-container end -->
+
+                <!-- skill-data-container -->
+                <div class="container skill-data-container">
+                    <!-- htmlcss -->
+                    <div id="htmlcss" class="skill-detail-content">
+                        <h3 class="skill-detail-title" data-star="4">HTML / CSS(Sass)</h3>
+                        <p>Web標準を意識したセマンティックなHTML記述と、Flexboxを活用した柔軟なレイアウト構築が可能です。メディアクエリを用いたレスポンシブ対応はもちろん、JavaScriptと連携した動的なUI（タブ切り替えやアニメーション）の実装も行っています。現在はSassを導入し、変数管理やネストを活用した、より保守性の高い修正に強いコーディングを実践しています。</p>
+                        <div class="skill-detail-inner">
+                            <img src="./img/icon/html.png" alt="HTML">
+                            <img src="./img/icon/css.png" alt="CSS">
+                            <img src="./img/icon/sass.png" alt="Sass">
+                        </div>
+                    </div> <!-- htmlcss end -->
                     
-                    <li class="skill-item">
-                        <h3 class="profile-name">
-                            <span class="profile-name-jp">コーディング</span>
-                            <span class="profile-name-en">CODING</span>
-                        </h3>
-                        <p class="profile-description">
-                            厨房設計で培った設計図を正確に読み取り形にする力を活かし、デザインカンプを忠実に再現します。また、後々のメンテナンスを考えて、図面を引くように規則性のある整ったコードを書くことを大切にしています。レスポンシブ対応や、JavaScript/jQueryによる動きの実装、PHP/SQLを用いたお問い合わせフォームの構築まで、使う人に優しい実装を心がけています。
-                        </p>
-                        <p>
-                            <span class="label work-skill-label">HTML</span>
-                            <span class="label work-skill-label">CSS</span>
-                            <span class="label work-skill-label">SCSS</span>
-                            <span class="label work-skill-label">JavaScript</span>
-                            <span class="label work-skill-label">jQuery</span>
-                            <span class="label work-skill-label">PHP</span>
-                            <span class="label work-skill-label">WordPress</span>
-                            <span class="label work-skill-label">SQL</span></p>
-                    </li>
-                </ul> <!-- profile-container end -->
+                    <!-- js -->
+                    <div id="js" class="skill-detail-content">
+                        <h3 class="skill-detail-title" data-star="3">JavaScript / jQuery</h3>
+                        <p>Webサイトに動きを加えるための基礎的なJavaScript（Vanilla JS）、jQueryを習得しています。ポートフォリオでは、addEventListener や dataset を活用し、各セクションが独立して動作するタブ切り替え機能などを自力で実装しました。現在は、より効率的で読みやすいコードの書き方や、再利用性の高い関数設計について、実践を通じて学習を深めています。</p>
+                        <div class="skill-detail-inner">
+                            <img src="./img/icon/js.png" alt="JavaScript">
+                            <img src="./img/icon/jquery.png" alt="jQuery">
+                        </div>
+                    </div> <!-- js end -->
 
-                <!-- skill-development-environment -->
-                <div class="skill-development-environment">
-                    <h3 class="profile-name">
-                        <span class="profile-name-jp">開発環境</span>
-                        <span class="profile-name-en">DEVELOPMENT ENVIRONMENT</span>
-                    </h3>
-                    <p class="profile-description">個人開発ではSourcetreeを使用してGitでのバージョン管理と、GitHubでチーム内での作業連携やコードの共有、承認制などを常に意識しながら管理しています。コーディング作業はVS Code、PHPやDBを用いた開発ではローカル環境としてXAMPPを使用しています。</p>
-                    <p class="skill-label">
-                        <span class="label work-skill-label">Git</span>
-                        <span class="label work-skill-label">GitHub</span>
-                        <span class="label work-skill-label">Sourcetree</span>
-                        <span class="label work-skill-label">XAMPP</span>
-                        <span class="label work-skill-label">Visual Studio Code</span>
-                    </p>
-                </div> <!-- skill-development-environment end -->
-            </section> <!-- section end -->            
-        
+                    <!-- phpsql -->
+                    <div id="phpsql" class="skill-detail-content">
+                        <h3 class="skill-detail-title" data-star="3">PHP / SQL</h3>
+                        <p>Webサイトに動的な機能を実装するためのPHPの基本文法（変数、配列、ループ処理、関数）および、データベース（SQL）の基礎知識を習得しています。フォームからのデータ受け取りや、条件に応じたコンテンツの出し分けなど、バックエンドの基本的な仕組みを理解しています。現在はこれらの知識を応用し、WordPressの学習や、データベースを活用した効率的なコンテンツ管理の実装に向けて学習を深めています。</p>
+                        <div class="skill-detail-inner">
+                            <img src="./img/icon/php.png" alt="PHP">
+                            <img src="./img/icon/wp.png" alt="WordPress">
+                            <img src="./img/icon/mysql.png" alt="SQL">
+                        </div>
+                    </div> <!-- phpsql end -->
+                </div> <!-- skill-data-container end -->
+            </section> <!-- design-section end -->
+
+            <!-- development-section -->
+            <section class="section development-section">
+                <h2 class="section-title">Development Environment</h2>
+                <p class="section-lead">チーム開発や効率的な制作を可能にするツールを導入しています。常にモダンな開発フローを意識した環境構築を行っています。</p>
+
+                <!-- skill-tab-container -->
+                <div class="container skill-tab-container">
+                    <button class="skill-tab-item active" data-skill="git">Git/GitHub</button>
+                    <button class="skill-tab-item" data-skill="tool">Tools</button>
+                </div> <!-- skill-tab-container end -->
+
+                <!-- skill-data-container -->
+                <div class="container skill-data-container">
+                    <!-- git -->
+                    <div id="git" class="skill-detail-content">
+                        <h3 class="skill-detail-title" data-star="2">Git / GitHub</h3>                  
+                        <p>Sourcetreeを活用し、制作プロセスの履歴管理およびGitHubへの公開を行っています。基本的なプッシュ・プル操作に加え、ブランチを用いた機能ごとの並行開発や管理が可能です。現在は個人開発においても、本番用と作業用ブランチを分けた安全なワークフローを実践しています。今後は、チーム開発におけるプルリクエストの活用や、コンフリクトを未然に防ぐ運用の習慣化を目標としています。</p>
+                        <div class="skill-detail-inner">
+                            <img src="./img/icon/git.png" alt="Git">
+                            <img src="./img/icon/github.png" alt="GitHub">
+                            <img src="./img/icon/sourcetree.png" alt="Sourcetree">
+                        </div>
+                    </div> <!-- git end -->
+
+                    <!-- tool -->
+                    <div id="tool" class="skill-detail-content">
+                        <h3 class="skill-detail-title" data-star="3">VS Code / XAMPP</h3>
+                        <p>VS Codeをメインエディタとして使用し、拡張機能を活用したミスのないスピーディーなコーディングを実践しています。また、ブラウザのデベロッパーツールを用いたリアルタイムでのデバッグやレスポンシブ検証を習慣化しており、PHP等の動作確認にはLocalを用いたローカルサーバー環境を構築しています。将来的には、ターミナル操作やパッケージマネージャー（npm等）の導入など、より実務的なモダン開発環境の習得も視野に入れて学習を進めています。</p>
+                        <div class="skill-detail-inner">
+                            <img src="./img/icon/vscode.png" alt="vscode">
+                            <img src="./img/icon/xampp.png" alt="XAMPP">
+                        </div>
+                    </div> <!-- tool end -->
+                </div> <!-- skill-data-container end -->
+            </section> <!-- development-section end -->
+            
+            <!-- contact-section -->
+            <section class="section contact-section">
+                
+                <!-- contact-container -->
+                <div class="container contact-container">
+                    <!-- contact-outer -->
+                    <div class="contact-outer">
+                        <!-- photo-inner -->
+                        <div class="photo-inner">
+                            <img src="./img/photo/sakura.jpg" alt="">
+                            <img src="./img/photo/taiwan.jpg" alt="">
+                            <img src="./img/photo/sunset.jpg" alt="">
+                        </div> <!-- photo-inner end -->
+
+                        <!-- contact-item -->
+                        <div class="contact-item">
+                            <h2 class="section-title">Contact</h2>
+                            <p class="contact-msg">
+                                ご覧いただきありがとうございます。<br>
+                                下記のメールアドレスにお気軽にご連絡ください。
+                            </p>
+                            <a class="mail-btn" href="mailto:kosukehagino.web@gmail.com">kosukehagino.web@gmail.com</a>
+                        </div> <!-- contact-item end -->
+                    </div> <!-- contact-outer end -->
+                </div> <!-- contact-container end -->              
+            </section> <!-- contact-section end -->        
         </div> <!-- wrapper end -->
     </main>
     

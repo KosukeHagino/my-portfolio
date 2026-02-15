@@ -8,9 +8,8 @@
 
 
 /**************************************************
-   Profile
+   About Section
 **************************************************/
-/* --- About section --- */
 .about-container {
     display: flex;
     justify-content: space-between;
@@ -21,6 +20,7 @@
     width: 45%;
     max-width: 480px;
     border: var(--border-thin) solid var(--green);
+    border-radius: var(--radius-s);
     object-fit: cover;
 }
 
@@ -49,17 +49,13 @@
     text-align: justify;            /* 両端揃え */
     text-justify: inter-character;  /* 日本語の調整を最適化 */
     word-break: break-all;          /* 単語の途中で変な改行が起きないようにする */
-    line-height: 1.8;
 }
 
 
-/* --- Process section / Achievement section --- */
-.section-description {
-    width: clamp(500px, 60%, 1200px);
-    margin-inline: auto;
-    margin-bottom: 40px;
-}
 
+/**************************************************
+   Process Section / Achievement Section
+**************************************************/
 .process-list {
     display: flex;
     justify-content: center;
@@ -223,4 +219,3 @@
         opacity 2.4s ease 1.2s,
         transform 0.9s ease 1.2s;
 }
-

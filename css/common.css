@@ -24,6 +24,10 @@ main            { z-index: 1; }         /* メインコンテンツ */
 .scroll-txt::after { z-index: -1; }     /* スクロールバー：テキストの後ろを通過させるため */
 
 
+/* --- スキルページ --- */
+.skill-detail-inner img {z-index: -1;}  /* 各セクション内のロゴ：重なった時に文字より後ろに配置するため */
+
+
 
 /**************************************************
    共通　Color / Font / Animation Setting
@@ -81,10 +85,7 @@ main            { z-index: 1; }         /* メインコンテンツ */
     --work-text-pc-x   : 55%;                                       /* [PC](top)work-text-area 可変55% */
     --work-text-sp-x   : 80%;                                       /* [SP](top)work-text-area 可変80% */
     --work-text-sp-top : 12.5dvh;                                   /* [SP](top)work-text-area 可変12.5dvh */
-    --contact-description-x : 80%;                                  /* [SP](top)contact-description 可変80% */
-    --contact-item-pc-x: 200px;                                     /* [PC](top)contact-item 固定200px */
-    --contact-item-a-pc-xy: 150px;                                  /* [PC](top)contact-item a 固定150px */
-    --contact-item-a-sp-xy: 120px;                                  /* [PC](top)contact-item a 固定120px */
+    --contact-item-pc-x: 85%;                                       /* [PC](top)contact-item 可変85% */
     --scroll-x   : clamp(16.0rem, 14.0rem + 5.0vw, 20.0rem);        /* (top)scroll 可変16～20px */
     --indicator-xy     : 8px;                                       /* [SP](top)indicator 固定8px */
 
@@ -112,6 +113,17 @@ main            { z-index: 1; }         /* メインコンテンツ */
 .wf-loading body { color: transparent; }
 .wf-active body,
 .wf-inactive body { color: inherit; }
+
+
+
+/**************************************************
+   共通　Keyframes
+**************************************************/
+/* --- Contact text rotate --- */
+@keyframes rotate-anim {
+    0%   { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
 
 
 
@@ -264,6 +276,10 @@ header {
     padding-inline: var(--nav-space-x);
 }
 
+.global-nav-item a.active {
+    background-color: var(--blue);
+}
+
 
 /* --- Menu Button --- */
 .menu {
@@ -315,8 +331,23 @@ header {
     font-size: var(--font-size-2xl);
     letter-spacing: 0.2em;
     text-align: center;
-    border-bottom: var(--border-thin) solid var(--green);
     margin-bottom: var(--space-l);
+}
+
+.section-title::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    height: var(--border-thin);
+    background-color: var(--green);
+    transform: translateX(-50%);
+}
+
+.section-lead {
+    width: clamp(500px, 60%, 1200px);
+    margin-inline: auto;
+    margin-bottom: 40px;
 }
 
 .container {
@@ -344,6 +375,80 @@ header {
 .work-skill-label {
     background: var(--white);
     color: var(--blue);
+}
+
+
+/**************************************************
+   Contact
+**************************************************/
+.contact-section {
+    margin-bottom: 0;
+    padding-top: 100vh;
+    background: var(--gradient);
+}
+
+.contact-outer {
+    display: flex;
+    justify-content: space-between;
+    background-color: var(--white);
+    padding: var(--space-l);
+    border-radius: var(--radius-m) var(--radius-m) 0 0;
+    filter: drop-shadow(0 0 4px var(--blue));
+}
+
+.photo-inner {
+    width: 50%;
+    position: relative;
+}
+
+.photo-inner img {
+    display: block;
+    position: absolute;  
+    width: 240px; 
+    border: var(--border-base) solid var(--white);
+    border-radius: var(--radius-s);
+}
+
+.photo-inner img:nth-child(1) {
+    top: 0;
+    left: 0;
+}
+
+.photo-inner img:nth-child(2) {
+    top: 40px;
+    left: 120px;
+}
+
+.photo-inner img:nth-child(3) {
+    top: 80px;
+    left: 240px;
+}
+
+.contact-item {
+    text-align: center;
+    padding-block: var(--space-l);
+}
+
+.contact-msg {
+    margin-bottom: var(--space-m);
+}
+
+.mail-btn {
+    display: block;
+    padding-block: var(--space-xs);
+    padding-inline: var(--space-m);
+    margin-inline: auto;
+    border: var(--border-base) solid var(--green);
+    border-radius: var(--radius-l);         /* 左右両端を半円にする（要素の高さの半分より大きい値を設定すれば自動的に半円になる） */
+    font-family: var(--accent-font);
+    font-size: var(--font-size-l);
+    color: var(--green);                    /* 通常：緑 */
+    transition: color 0.5s ease;            /* ホバー：0.5秒かけて文字色を徐々に変化 */
+}
+
+.mail-btn:hover {
+    background: var(--gradient);            /* ホバー：緑（グラデーション） */
+    color: var(--white);                    /* ホバー：白 */
 }
 
 
@@ -513,10 +618,6 @@ footer {
         padding-inline: var(--space-l);
     }
 
-    .global-nav-item a.active {
-        background-color: var(--blue);
-    }
-
     .github-link {
         bottom: var(--space-2xs);
     }
@@ -537,9 +638,20 @@ footer {
 
 /* --- 操作方法で判定（PCなどのホバー可能な端末） --- */
 @media (hover:hover) {
+    body.content-ready .cursor.cursor-large {
+        scale: 3;                           /* ホバー：大きくする */
+        background-color: var(--green);     /* ホバー：緑 */
+    }
+
     .global-nav-item a:hover {
         background-color: var(--blue);              /* ホバー：背景色を青 */
         transition: background-color 0.8s ease;     /* ホバー：0.8秒かけて背景色を徐々に変化 */
+    }
+
+    .mail-btn:hover {
+        background: var(--gradient);
+        color: var(--white);
+        transition: color 0.5s ease;                /* ホバー：0.5秒かけて文字色を徐々に変化 */
     }
 }
 

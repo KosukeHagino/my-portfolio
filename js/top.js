@@ -57,7 +57,7 @@ const initWorksScrollObserver = () => {
 
         // 画像とテキストのインデックス調整
         // 画像は [キャッチ, 作品1, 2, 3, 4, Contact] の6枚
-        // テキストは [作品1, 2, 3, 4, Contact] の5つ。
+        // テキストは [作品1, 2, 3, 4] の4つ。
         // キャッチ(index:0)の時は textIndex が -1 になるように計算
         const textIndex = index - TOP_CONFIG.OFFSET_INDEX;
 

@@ -1,0 +1,114 @@
+@charset "utf-8";
+
+/**************************************************
+   z-index 管理（重なりの順番）
+**************************************************/
+/* --- common.css で一括管理します。 --- */
+
+
+
+/**************************************************
+   Design Section
+**************************************************/
+.skill-tab-container {
+   display: flex;
+   justify-content: center;
+   gap: var(--space-xs);
+}
+
+.skill-tab-item {
+   flex-basis: 20%;
+   padding-block: var(--space-s);
+   border: var(--border-thin) solid var(--green);
+   border-bottom: none;
+   border-radius: var(--radius-s) var(--radius-s) 0 0;
+   font-family: var(--accent-font);
+   font-size: var(--font-size-l);
+   letter-spacing: 0.2em;
+   background: var(--white);
+   color: var(--green);
+   transition: color 0.5s ease;
+}
+
+.skill-tab-item:hover {
+   background: var(--gradient);
+   color: var(--white);
+}
+
+.skill-tab-item.active {
+   background: var(--gradient);
+   color: var(--white);
+   font-weight: 700;
+   transition: color 0.5s ease;
+}
+
+.skill-data-container {
+   width: 80%;
+   max-width: 900px;
+   height: 40vw;
+   padding-block: var(--space-l);
+   padding-inline: var(--space-xl);
+   background-color: var(--white);
+   border: var(--border-thin) solid var(--green);
+   border-radius: var(--radius-s);
+}
+
+.skill-detail-title {
+   font-family: var(--accent-font);
+   font-size: var(--font-size-xl);
+   font-weight: 700;
+   letter-spacing: 0.2em;
+   margin-bottom: 24px;
+}
+
+.skill-detail-content {
+   display: none;
+   position: relative;
+   height: 100%;
+   opacity: 0;
+   transform: translateY(10px);
+   transition: opacity 0.5s ease, transform 0.5s ease;
+}
+
+/* --- active状態：表示する --- */
+.skill-detail-content.active {
+    display: block;      /* 存在を出す */
+    opacity: 1;
+    transform: translateY(0);
+    animation: fadeIn 0.5s forwards;
+}
+
+.skill-detail-inner {
+   position: absolute;
+   bottom: 0;
+   right: 0;
+   display: flex;
+   align-items: center;
+   gap: var(--space-l);
+}
+
+.skill-detail-inner img {
+   width: 120px;
+}
+
+/* アニメーションをより滑らかにするための設定 */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.star-container {
+    margin-left: 40px;
+    display: inline-flex;
+    gap: 2px;
+    vertical-align: middle;
+}
+
+.star {
+    font-size: 0.7em; /* タイトルより少し小さく */
+    color: #ccc;      /* 塗られていない星の色 */
+}
+
+.star.filled {
+    color: var(--green); /* 習得レベルに応じた星の色（テーマカラー） */
+}
