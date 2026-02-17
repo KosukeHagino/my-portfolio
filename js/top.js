@@ -50,9 +50,9 @@ const initWorksScrollObserver = () => {
     // 中央に来た画像に合わせて、テキストの状態を更新する
     // @param {number} index - 現在中央にある画像の番号(0〜5)
     const updateActiveState = (index) => {
-        // 全ての画像から一旦 active クラスを削除
+        // 全ての画像から一旦is-activeクラスを削除
         workItems.forEach(item => item.classList.remove('is-active'));
-        // 中央に来た画像にだけ active を付与（拡大表示などのCSS用）
+        // 中央に来た画像にだけis-activeを付与（拡大表示などのCSS用）
         if (workItems[index]) workItems[index].classList.add('is-active');
 
         // 画像とテキストのインデックス調整
@@ -68,7 +68,7 @@ const initWorksScrollObserver = () => {
             const diff = i - textIndex;
             item.setAttribute('data-index-diff', diff);
             
-            // 現在の作品に該当するテキストにだけ active を付与（表示用）
+            // 現在の作品に該当するテキストにだけis-activeを付与（表示用）
             if (i === textIndex) {
                 item.classList.add('is-active');
             } else {
@@ -97,7 +97,7 @@ const initWorksScrollObserver = () => {
         }
     }, { 
         root: scrollList,
-        threshold: 0.3,                 // 要素が30%以上エリアに入ったら反応
+        threshold: 0.1,                 // 要素が10%以上エリアに入ったら反応
         rootMargin: "0px -25% 0px -25%" // 画面の中央50%の幅を判定基準にする
     });
 

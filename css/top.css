@@ -50,7 +50,7 @@
     font-variation-settings: 'wght' 400, 'slnt' -10;
     font-size: var(--font-size-l);
     color: var(--white);
-    letter-spacing: 0.15em;
+    letter-spacing: 0.12em;
     font-variant-numeric: tabular-nums;     /* 数字の幅を等幅（固定幅）にする */
     opacity: 0;                             /* カウンター表示前：非表示 */
     filter: blur(15px);                     /* カウンター表示前：少しボカす */
@@ -249,20 +249,17 @@
 
 /* --- Catch copy（制作物スライドの先頭） --- */
 .catch-item {
-    margin-right: var(--catch-space-x);     /* 右側の制作物との距離を空けて制作物を見せないようにする */
-    pointer-events: none;       /* マウス操作を無効化 */
-}
-
-.catch-copy {
-    font-weight: 400;
+    margin-right: var(--work-space-x);      /* 右側の制作物との距離を空けて制作物を見せないようにする */
+    pointer-events: none;                   /* マウス操作を無効化 */
 }
 
 .copy-jp {
     display: block;
-    font-size: var(--font-size-xl);
-    letter-spacing: 0.4em;
-    text-align: center;
     margin-bottom: var(--space-s);
+    font-family: var(--accent-font);
+    font-size: var(--font-size-xl);
+    font-weight: 700;
+    letter-spacing: 0.5em;
     opacity: 0;                         /* ローディング中：非表示 */
     transform: translateY(20px);        /* ローディング中：少し下にずらす */
     filter: blur(10px);                 /* ローディング中：少しボカす */
@@ -300,7 +297,7 @@
 /* Contact（制作物スライドの最後） */
 .contact-item {
     display: block;
-    margin-left: var(--catch-space-x);      /* 左側の制作物との距離を空けて制作物を見せないようにする */
+    margin-left: var(--work-space-x);       /* 左側の制作物との距離を空けて制作物を見せないようにする */
     padding: var(--space-l);
     background-color: var(--white);
     text-align: center;
@@ -435,9 +432,12 @@
     }
 
     .copy-jp {
-        word-break: keep-all;       /* <wbr>のある場所で改行 */
-        overflow-wrap: break-word;  /* 入り切らない時は強制改行 */
-        text-align: justify;        /* 両端揃え */
+        letter-spacing: 0.2em;
+    }
+
+    .copy-en {
+        /* font-size: var(--font-size-m); */
+        letter-spacing: 0.12em;
     }
     
     .contact-item .mail-btn {
@@ -467,15 +467,15 @@
         width: var(--indicator-xy);
         height: var(--indicator-xy);
         border-radius: 50%;
-        background-color: var(--green);
+        background-color: var(--green);     /* 通常：緑 */
         transition:
             background-color 0.3s ease,     /* インジケーターの切替：0.3秒かけて徐々に色が変化 */
             transform 0.3s ease;            /* インジケーターの切替：0.3秒かけて徐々に大きさが変化 */
     }
 
     .indicator-dot.is-active {
-        background-color: var(--blue);
-        transform: scale(1.5);
+        background-color: var(--blue);      /* アクティブ：青 */
+        transform: scale(1.5);              /* アクティブ：少し大きくする */
     }
 }
 
@@ -511,7 +511,41 @@
 /* --- 操作方法で判定（iPad + マウスなどの特殊ケースをカバー） --- */
 @media (hover: none), (pointer: coarse) {
     .work-item {
-        user-select: none;              /* スライド操作中に誤って文字が選択されるのを防ぎます */
+        user-select: none;              /* スライド操作中に誤って文字が選択されるのを防止 */
         -webkit-user-select: none;
+    }
+
+    .contact-item .mail-btn {
+        width: 100%;
+        font-size: var(--font-size-m);        
+    }
+
+    .indicator {
+        display: flex;
+        position: fixed;
+        left: 50%;
+        bottom: var(--space-l);
+        transform: translateX(-50%);
+        gap: var(--space-s);        /* ドット同士の間隔 */
+        padding-block: var(--space-xs);
+    }
+
+    .indicator-dot {
+        width: var(--indicator-xy);
+        height: var(--indicator-xy);
+        border-radius: 50%;
+        background-color: var(--green);     /* 通常：緑 */
+        transition:
+            background-color 0.3s ease,     /* インジケーターの切替：0.3秒かけて徐々に色が変化 */
+            transform 0.3s ease;            /* インジケーターの切替：0.3秒かけて徐々に大きさが変化 */
+    }
+
+    .indicator-dot.is-active {
+        background-color: var(--blue);      /* アクティブ：青 */
+        transform: scale(1.5);              /* アクティブ：少し大きくする */
+    }
+
+    .scroll {
+        display: none;
     }
 }
