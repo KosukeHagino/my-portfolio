@@ -1,9 +1,6 @@
 @charset "utf-8";
 
-/**************************************************
-   z-index 管理（重なりの順番）
-**************************************************/
-/* --- common.css で一括管理します。 --- */
+/* --- 変数はcommon.cssで一括管理 --- */
 
 
 
@@ -53,14 +50,6 @@
    border-radius: var(--radius-s);
 }
 
-.skill-detail-title {
-   font-family: var(--accent-font);
-   font-size: var(--font-size-xl);
-   font-weight: 700;
-   letter-spacing: 0.2em;
-   margin-bottom: 24px;
-}
-
 .skill-detail-content {
    display: none;
    position: relative;
@@ -78,13 +67,44 @@
     animation: fadeIn 0.5s forwards;
 }
 
+.skill-detail-title {
+   display: flex;
+   justify-content: space-between;
+   align-items: center;
+   font-family: var(--accent-font);
+   font-size: var(--font-size-xl);
+   font-weight: 700;
+   letter-spacing: 0.2em;
+   margin-bottom: 40px;
+   border-bottom: 1px solid var(--green);
+   padding-bottom: 8px;
+}
+
+.star-container {
+   margin-left: auto;
+   display: inline-flex;
+   gap: 4px;
+   font-family: initial;
+}
+
+.star {
+   font-size: 1.8rem;
+   color: var(--gray);
+}
+
+.star.filled {
+    color: var(--green); /* 習得レベルに応じた星の色 */
+}
+
+
 .skill-detail-inner {
    position: absolute;
    bottom: 0;
    right: 0;
    display: flex;
    align-items: center;
-   gap: var(--space-l);
+   gap: var(--space-m);
+   z-index: var(--z-back-content);
 }
 
 .skill-detail-inner img {
@@ -97,18 +117,3 @@
     to { opacity: 1; transform: translateY(0); }
 }
 
-.star-container {
-    margin-left: 40px;
-    display: inline-flex;
-    gap: 2px;
-    vertical-align: middle;
-}
-
-.star {
-    font-size: 0.7em; /* タイトルより少し小さく */
-    color: #ccc;      /* 塗られていない星の色 */
-}
-
-.star.filled {
-    color: var(--green); /* 習得レベルに応じた星の色（テーマカラー） */
-}

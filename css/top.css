@@ -1,9 +1,6 @@
 @charset "utf-8";
 
-/**************************************************
-   z-index 管理（重なりの順番）
-**************************************************/
-/* --- common.css で一括管理します。 --- */
+/* --- 変数はcommon.cssで一括管理 --- */
 
 
 
@@ -30,7 +27,8 @@
     justify-content: center;
     align-items: center;
     background-color: var(--black);
-    opacity: 0;             /* 2回目以降の訪問やローディング終了後：非表示 */
+    z-index: var(--z-loading);
+    opacity: 0;                 /* 2回目以降の訪問やローディング終了後：非表示 */
     visibility: hidden;
     transition:
         opacity 1.5s ease,      /* ローディング終了：1.5秒かけて透明度を徐々に変えて非表示 */
@@ -38,9 +36,9 @@
 }
 
 .is-first-visit .loading {
-    opacity: 1;             /* 初回訪問・ローディング中：表示 */
+    opacity: 1;                 /* 初回訪問・ローディング中：表示 */
     visibility: visible;
-    transition: none;       /* ローディング開始：上書きして現れる時のチラつき防止（一瞬で表示） */
+    transition: none;           /* ローディング開始：上書きして現れる時のチラつき防止（一瞬で表示） */
 }
 
 
@@ -54,9 +52,9 @@
     color: var(--white);
     letter-spacing: 0.15em;
     font-variant-numeric: tabular-nums;     /* 数字の幅を等幅（固定幅）にする */
-    opacity: 0;             /* カウンター表示前：非表示 */
-    filter: blur(15px);     /* カウンター表示前：少しボカす */
-    transform: scale(1.1);  /* カウンター表示前：少し大きくする */
+    opacity: 0;                             /* カウンター表示前：非表示 */
+    filter: blur(15px);                     /* カウンター表示前：少しボカす */
+    transform: scale(1.1);                  /* カウンター表示前：少し大きくする */
     transition: 
         opacity var(--transition-base),     /* カウンター表示：0.6秒かけて徐々に透明度を変えて表示 */
         filter var(--transition-base),      /* カウンター表示：0.6秒かけて徐々にボカしをなくしクリアにする */
@@ -97,29 +95,20 @@
     position: absolute;
     top: 0;
     left: 0;
-    width: 100%;
     transform: translateY(calc(var(--current-index, 0) * var(--work-text-item-y) * -1));   /* JSから受け取った制作物のindexに1行の高さ(可変)を掛けて移動距離を算出 */
     transition: transform var(--transition-slide);   /* リスト全体の移動：1.2秒かけて上下にスライド */
 }
 
 .work-text-item {
     height: var(--work-text-item-y);    /* PC用：1行の高さ */
-    width: 100%;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
-.work-info-upper {
     display: flex;
     align-items: center;
-    gap: var(--space-s);      /* 種類とタイトルの間隔 */
+    gap: var(--space-m);
 }
 
 /* --- State: 子要素の基本状態（消えている時） --- */
 .work-type-label,
-.work-title,
-.work-description {
+.work-title {
     opacity: 0;                                 /* 中央に来ていない時：非表示 */
     transition:
         opacity var(--transition-base),         /* 現れる時・消える時：0.6秒かけて徐々に透明度を変えて表示・非表示 */
@@ -128,45 +117,34 @@
 }
 
 .work-title {
-    padding-inline: var(--space-xs);
-    color: var(--blue);
-    border-bottom: var(--border-base) dotted var(--blue);
-}
-
-.work-description {
-    color: var(--blue);
+    font-weight: 400;
 }
 
 /* --- State: 待機位置の制御（JS data-index-diff 連動） --- */
 /* --- 下側待機（diff > 0) --- */
 .work-text-item[data-index-diff^="1"] .work-type-label,
 .work-text-item[data-index-diff^="1"] .work-title,
-.work-text-item[data-index-diff^="1"] .work-description,
 .work-text-item[data-index-diff^="2"] .work-type-label,
-.work-text-item[data-index-diff^="2"] .work-title,
-.work-text-item[data-index-diff^="2"] .work-description {
-    transform: translateY(20px);        /* 後に控える制作物のテキストを予め20px下で待機（隠しておく） */
+.work-text-item[data-index-diff^="2"] .work-title {
+    transform: translateY(20px);        /* 後に控える制作物のテキスト：予め20px下で待機（非表示） */
 }
 
 /* --- 上側待機（diff < 0) --- */
 .work-text-item[data-index-diff^="-"] .work-type-label,
-.work-text-item[data-index-diff^="-"] .work-title,
-.work-text-item[data-index-diff^="-"] .work-description {
-    transform: translateY(-20px);       /* 前に控える制作物のテキストを予め20px上で待機（隠しておく） */
+.work-text-item[data-index-diff^="-"] .work-title {
+    transform: translateY(-20px);       /* 前に控える制作物のテキスト：予め20px上で待機（非表示） */
 }
 
 /* --- State: アクティブ状態（中央表示） --- */
 .work-text-item.is-active .work-type-label,
-.work-text-item.is-active .work-title,
-.work-text-item.is-active .work-description {
+.work-text-item.is-active .work-title {
     opacity: 1;
-    transform: translateY(0);           /* 中央にきている制作物のテキストを表示 */
+    transform: translateY(0);           /* 中央にきている制作物のテキスト：表示 */
 }
 
 /* --- Appearance: 現れる時の時間差演出 --- */
-.work-text-item.is-active .work-type-label  { transition-delay: 0.3s; }     /* 現れる時：種類は0.3秒遅れて表示 */
-.work-text-item.is-active .work-title       { transition-delay: 0.45s; }    /* 現れる時：タイトルは0.45秒遅れて表示 */
-.work-text-item.is-active .work-description { transition-delay: 0.6s; }     /* 現れる時：説明は0.6秒遅れて表示 */
+.work-text-item.is-active .work-type-label  { transition-delay: 0.3s; }     /* 現れる時：0.3秒遅れて表示 */
+.work-text-item.is-active .work-title       { transition-delay: 0.45s; }    /* 現れる時：0.45秒遅れて表示 */
 
 
 
@@ -190,21 +168,88 @@
 }
 
 .work-list::-webkit-scrollbar {
-    display: none;              /* スクロールバーを非表示（Chrome / Safari / 新Edge用） */
+    display: none;                      /* スクロールバーを非表示（Chrome / Safari / 新Edge用） */
 }
 
+
+/* --- Work item（制作物スライド） --- */
 .work-item {
-    flex: 0 0 100%;             /* 画像を拡大縮小させずに常に幅100%にする */
-    scroll-snap-align: center;  /* 画面中央にスナップ */
+    flex: 0 0 100%;                     /* 画像を拡大縮小させずに常に幅100%にする */
+    scroll-snap-align: center;          /* 画面中央にスナップ */
     display: flex;
     justify-content: center;
     align-items: center;
 }
 
+.work-item-link,
+.modal-trigger-button {
+    position: relative;                 /* 子要素にabsoluteを指定するため */
+    display: block;
+    padding: 0;                         /* ボタンの標準パディングを消す */
+    line-height: 1;                     /* 行の高さを最小限にして、中身のpaddingで制御しやすくする */
+    font-family: inherit;               /* ボタンだけフォントがズレるのを防ぐ */
+}
+
+.work-img-container {
+    overflow: hidden;
+    border-radius: var(--radius-s);
+    filter: drop-shadow(0 0 4px #ccc);
+    transition:
+        transform 0.6s ease,        /* 中央への出入り：0.6秒かけて徐々に大きさを変える */
+        opacity 0.6s ease;          /* 中央への出入り：0.6秒かけて徐々に透明度を変える */
+}
+
+.work-item.is-active .work-img-container {
+    transform: scale(1);            /* 中央：元の大きさ */
+    opacity: 1;                     /* 中央：表示 */
+}
+
+.work-item:not(.is-active) .work-img-container {
+    transform: scale(0.8);          /* 中央以外：小さくする */
+    opacity: 0.4;                   /* 中央以外：少し透明にする */
+}
+
+.work-hover-overlay {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgba(0, 0, 0, 0.7);
+    opacity: 0;                         /* 通常：非表示 */
+    transition: opacity 0.6s ease;      /* ホバー：0.6秒かけて徐々に表示 */
+}
+
+.work-hover-text {
+    display: inline-block;
+    font-family: var(--accent-font);
+    font-size: var(--font-size-m);
+    letter-spacing: 0.2em;
+    color: var(--white);
+    border: var(--border-base) solid var(--white);
+    padding-block: 1em;
+    padding-inline: 1.5em;
+    transform: scale(1.3);              /* 初期：少し大きくする */
+    transition: transform 0.6s ease;    /* ホバー：0.6秒かけて徐々に元の大きさに戻す（小さくなる） */
+}
+
+.work-img {
+    width: 100%;
+    display: block;
+    transition:
+        transform 0.6s ease,        /* 中央への出入り・ホバー：0.5秒かけて大きさを変える */
+        opacity 0.6s ease;          /* 中央への出入り：0.5秒かけて透明度を変える */
+}
+
+.work-item.is-active .work-img {
+    transform: scale(1);            /* 中央：元の大きさに戻す（大きくなる） */
+    opacity: 1;                     /* 中央：透明度を元に戻して濃くする */
+}
+
 
 /* --- Catch copy（制作物スライドの先頭） --- */
 .catch-item {
-    margin-right: var(--catch-space-x);     /* 右側の制作物との距離を空けてキャッチコピーの表示中は制作物を見せないようにする */
+    margin-right: var(--catch-space-x);     /* 右側の制作物との距離を空けて制作物を見せないようにする */
     pointer-events: none;       /* マウス操作を無効化 */
 }
 
@@ -229,11 +274,10 @@
 
 .copy-en {
     display: block;
-    font-size: var(--font-size-l);
-    letter-spacing: 0.2em;
     font-family: var(--accent-font);
+    font-size: var(--font-size-l);
     font-weight: 400;
-    font-style: normal;
+    letter-spacing: 0.2em;    
     color: var(--green);
     text-align: center;
     opacity: 0;                         /* ローディング中：非表示 */
@@ -253,47 +297,10 @@
 }
 
 
-/* --- Work item（制作物スライド） --- */
-.work-item a,
-.work-item button,
-.work-item div {
-    display: block;
-    width: 100%;
-    overflow: hidden;
-    border-radius: var(--radius-s);
-    filter: drop-shadow(0 0 4px #ccc);
-}
-
-.work-item button {
-    border: none;
-    background-color: transparent;
-}
-
-.work-img {
-    width: 100%;
-    height: auto;
-    transition:
-        transform 0.5s ease,        /* 中央への出入り・ホバー：0.5秒かけて大きさを変える */
-        opacity 0.5s ease;          /* 中央への出入り：0.5秒かけて透明度を変える */
-}
-
-.work-item.is-active .work-img {
-    transform: scale(1);            /* 中央：元の大きさに戻す（大きくなる） */
-    opacity: 1;                     /* 中央：透明度を元に戻して濃くする */
-}
-
-.work-item:not(.is-active) .work-img {
-    border-radius: var(--radius-s);
-    filter: drop-shadow(0 0 3px #ccc);
-    transform: scale(0.8);          /* 中央以外：少し小さくする */
-    opacity: 0.3;                   /* 中央以外：透明度を変えて薄くする */
-}
-
-
 /* Contact（制作物スライドの最後） */
 .contact-item {
     display: block;
-    margin-left: var(--catch-space-x);      /* 左側の制作物との距離を空けてお問い合わせの表示中は制作物を見せないようにする */
+    margin-left: var(--catch-space-x);      /* 左側の制作物との距離を空けて制作物を見せないようにする */
     padding: var(--space-l);
     background-color: var(--white);
     text-align: center;
@@ -313,7 +320,7 @@
 }
 
 .contact-item .section-title {
-    margin-bottom: var(--space-m);
+    margin-bottom: var(--space-l);
 }
 
 .contact-item .section-title::after {
@@ -336,19 +343,19 @@
 
 .contact-item.is-active .section-title::after {
     width: 100%;                        /* 現れる時：100% */
-    transition-delay: 0.5s;             /* 現れる時：タイトルの下線は0.5秒遅れて表示し始める */
+    transition-delay: 0.2s;             /* 現れる時：タイトルの下線は0.2秒遅れて表示し始める */
 }
 
 .contact-item.is-active .contact-msg {
     opacity: 1;                         /* 現れる時：表示 */
     transform: translateY(0);           /* 現れる時：元の位置に戻す */
-    transition-delay: 0.9s;             /* 現れる時：メッセージは0.9秒遅れて表示し始める */
+    transition-delay: 0.5s;             /* 現れる時：メッセージは0.5秒遅れて表示し始める */
 }
 
 .contact-item.is-active .mail-btn {
     opacity: 1;                         /* 現れる時：表示 */
     transform: translateY(0);           /* 現れる時：元の位置に戻す */
-    transition-delay: 1.2s;             /* 現れる時：メールアドレスは1.2秒遅れて表示し始める */
+    transition-delay: 0.8s;             /* 現れる時：メールアドレスは0.8秒遅れて表示し始める */
 }
 
 
@@ -380,10 +387,11 @@
 .scroll-txt::after {
     content: "";
     position: absolute;
-    top: 50%;
+    bottom: 50%;
     width: 100%;
     height: var(--border-thin);
     background-color: var(--black);
+    z-index: var(--z-back-content);
     animation: scroll-bar 1.2s infinite ease-out;   /* スクロールバー：1.2秒かけて左から右に線が通過する動きを無限に繰り返す */
 }
 
@@ -412,57 +420,28 @@
         top: var(--work-text-sp-top);
         width: var(--work-text-sp-x);
         height: auto;
-        align-items: flex-start;
     }
 
     .work-text-list {
         position: relative;
     }
 
-    .work-text-item {
-        display: block;
-    }
-
-    .work-info-upper {
-        justify-content: flex-start;
-        gap: var(--space-s);        /* 種類とタイトルの間隔 */
-    }
-
-    .work-text-item.is-active .work-title {
-        transition-delay: 0.45s;    /* 現れる時：タイトルは0.45秒遅れて表示 */
-    }
-
-    .work-description {
-        display: none;
-    }
-
     .work-list {
-        padding-top: var(--space-l);
         -webkit-overflow-scrolling: touch;      /* 指での操作を滑らかにする */
     }
 
-    .catch-copy {
-        padding-bottom: var(--space-l);
+    .work-hover-overlay {
+        display: none;
     }
 
     .copy-jp {
         word-break: keep-all;       /* <wbr>のある場所で改行 */
         overflow-wrap: break-word;  /* 入り切らない時は強制改行 */
         text-align: justify;        /* 両端揃え */
-        margin-bottom: var(--space-s);
-    }
-
-    .copy-en {
-        letter-spacing: 0.2em;
-    }
-
-    .contact-item {
-        padding: var(--space-l);
     }
     
     .contact-item .mail-btn {
         width: 100%;
-        padding-inline: var(--space-m);
         font-size: var(--font-size-m);        
     }
 
@@ -481,11 +460,11 @@
         bottom: var(--space-l);
         transform: translateX(-50%);
         gap: var(--space-s);        /* ドット同士の間隔 */
+        padding-block: var(--space-xs);
     }
 
     .indicator-dot {
-        position: relative;
-        width: var(----indicator-xy);
+        width: var(--indicator-xy);
         height: var(--indicator-xy);
         border-radius: 50%;
         background-color: var(--green);
@@ -495,7 +474,7 @@
     }
 
     .indicator-dot.is-active {
-        background-color: var(--gradient);
+        background-color: var(--blue);
         transform: scale(1.5);
     }
 }
@@ -503,18 +482,28 @@
 
 /* --- 操作方法で判定（PCなどのホバー可能な端末） --- */
 @media (hover:hover) {
-    .work-item.is-active a:hover .work-img,
-    .work-item.is-active button:hover .work-img {
-        transform: scale(1.1);          /* 中央ホバー：少し大きくする */
+    .work-item.is-active .work-item-link:hover .work-img,
+    .work-item.is-active .modal-trigger-button:hover .work-img {
+        transform: scale(1.1);              /* 中央ホバー：少し大きくする */
     }
 
-    .work-item:not(.is-active) a:hover .work-img,
-    .work-item:not(.is-active) button:hover .work-img {
-        transform: scale(0.85);         /* 中央以外ホバー：少し大きくする */
+    .work-item:not(.is-active) .work-item-link:hover .work-img,
+    .work-item:not(.is-active) .modal-trigger-button:hover .work-img {
+        transform: scale(1.1);              /* 中央以外ホバー：少し大きくする */
     }
 
-    .contact-item a:hover .rotating-text {
-        animation-duration: 3s;                         /* ホバー：3秒/周で回転（速くする） */
+    .work-item-link:hover .work-hover-overlay,
+    .modal-trigger-button:hover .work-hover-overlay {
+        opacity: 1;                         /* ホバー：オーバーレイ表示 */
+    }
+
+    .work-item-link:hover .work-hover-text,
+    .modal-trigger-button:hover .work-hover-text {
+        transform: scale(1);                /* ホバー：オーバーレイを元の大きさに戻す（小さくなる） */
+    }
+
+    .contact-item .mail-btn:hover {
+        transition: color 0.5s ease;        /* ホバー：0.5秒かけて文字色を徐々に変化 */
     }
 }
 

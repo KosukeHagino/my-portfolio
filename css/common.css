@@ -1,93 +1,79 @@
 @charset "utf-8";
 
 /**************************************************
-   z-index 管理（重なりの順番）
-**************************************************/
-/* --- 全ページ共通 --- */
-.modal          { z-index: 10000; }     /* モーダルコンテンツ */
-.mask.is-modal  { z-index: 9000; }      /* モーダル表示時の背景マスク */
-
-.loading        { z-index: 8000; }      /* ローディング */
-.cursor         { z-index: 7000; }      /* カスタムカーソル */
-
-header          { z-index: 4000; }      /* ヘッダー */
-    .menu       { z-index: 200; }       /* メニューボタン（ヘッダー内） */
-    .global-nav { z-index: 100; }       /* ナビゲーション（ヘッダー内） */
-
-footer          { z-index: 3000; }      /* フッター */
-.mask           { z-index: 2000; }      /* メニュー表示時の背景マスク */
-
-main            { z-index: 1; }         /* メインコンテンツ */
-
-
-/* --- トップページ --- */
-.scroll-txt::after { z-index: -1; }     /* スクロールバー：テキストの後ろを通過させるため */
-
-
-/* --- スキルページ --- */
-.skill-detail-inner img {z-index: -1;}  /* 各セクション内のロゴ：重なった時に文字より後ろに配置するため */
-
-
-
-/**************************************************
-   共通　Color / Font / Animation Setting
+   Common / Variable Setting
 **************************************************/
 :root {
+    /* --- z-index --- */
+    --z-modal          : 10000;     /* モーダル */
+    --z-mask-is-modal  : 9000;      /* モーダル時の背景マスク */
+    --z-loading        : 8000;      /* ローディング */
+    --z-cursor         : 7000;      /* 追尾カーソル */
+    --z-header         : 5000;      /* ヘッダー */
+        --z-menu       : 200;       /* ヘッダー内メニュー */
+        --z-global-nav : 100;       /* ヘッダー内グローバルナビ */
+    --z-mask           : 4000;      /* ヘッダー開時の背景マスク */
+    --z-pagetop        : 3000;      /* ページトップに戻るボタン */
+    --z-footer         : 2000;      /* フッター */
+    --z-main           : 1;         /* メイン */
+    --z-back-content   : -1;        /* 背面に表示するコンテンツ */
+
+
     /* --- Color --- */
-    --white   : #faffff;
-    --gray    : #e6ecec;
-    --green   : #558890;
-    --blue    : #070638;
-    --black   : #1c1c1c;
-    --gradient: linear-gradient(180deg, #748e91 0%, #465a5d 100%);
+    --white    : #faffff;
+    --gray     : #e6ecec;
+    --green    : #558890;
+    --blue     : #070638;
+    --black    : #1c1c1c;
+    --gradient : linear-gradient(180deg, #748e91 0%, #465a5d 100%);
 
 
     /* --- Font family --- */
-    --base-font  : dnp-shuei-gothic-gin-std, Montserrat, Corbel, source-sans-pro, sans-serif;
-    --accent-font: futura-pt, dnp-shuei-gothic-gin-std, sans-serif;
-    --countup-font: "inter-variable",sans-serif;
+    --base-font    : dnp-shuei-gothic-gin-std, Montserrat, Corbel, source-sans-pro, sans-serif;
+    --accent-font  : futura-pt, dnp-shuei-gothic-gin-std, sans-serif;
+    --countup-font : "inter-variable",sans-serif;
     
 
     /* --- Font size --- */
-    --font-size-s  : clamp(1.0rem, 0.82rem + 0.2vw, 1.2rem);    /* 可変10～12px */
-    --font-size-m  : clamp(1.2rem, 0.85rem + 0.39vw, 1.6rem);   /* 可変12～16px */
-    --font-size-l  : clamp(2.0rem, 1.3rem + 0.78vw, 2.8rem);    /* 可変20～28px */
-    --font-size-xl : clamp(2.6rem, 1.36rem + 1.37vw, 4.0rem);   /* 可変26～40px */
-    --font-size-2xl: clamp(3.0rem, 2.37rem + 1.56vw, 5.0rem);   /* 可変32～64px */
+    --font-size-s   : clamp(1.0rem, 0.82rem + 0.2vw, 1.2rem);    /* 可変10～12px */
+    --font-size-m   : clamp(1.2rem, 0.85rem + 0.39vw, 1.6rem);   /* 可変12～16px */
+    --font-size-l   : clamp(2.0rem, 1.3rem + 0.78vw, 2.8rem);    /* 可変20～28px */
+    --font-size-xl  : clamp(2.6rem, 1.36rem + 1.37vw, 4.0rem);   /* 可変26～40px */
+    --font-size-2xl : clamp(3.0rem, 2.37rem + 1.56vw, 5.0rem);   /* 可変32～64px */
 
 
     /* --- Space --- */
-    --space-2xs: 0.4rem;    /* 固定4px */
-    --space-xs : 0.8rem;    /* 固定8px */
-    --space-s  : clamp(1.6rem, 0.89rem + 0.78vw, 2.4rem);       /* 可変16～24px */
-    --space-m  : clamp(2.4rem, 0.99rem + 1.57vw, 4.0rem);       /* 可変24～40px */
-    --space-l  : clamp(5.6rem, 2.6rem + 3.75vw, 12.0rem);       /* 可変56～120px */
-    --space-xl : clamp(12.0rem, 6.38rem + 7.03vw, 24.0rem);     /* 可変120～240px */
-    --nav-space-top   : 4vw;    /* global-nav 上部余白 可変4vw */
-    --nav-space-bottom: 2vw;    /* global-nav 下部余白 可変2vw */
-    --nav-space-x     : 4vw;    /* global-nav-item a 左右余白 可変4vw */
-    --work-slide-space-x: 25%;  /* (top)work-list 左右余白 可変25% */
-    --work-slide-gap  : 10%;    /* (top)work-list 子要素間余白 可変10% */
-    --catch-space-x   : 50vw;   /* (top)catch-item 右側余白 可変50vw */
-    --contact-space-sp-x: 50vw;   /* (top)contact-item 左側余白 可変50vw */
+    --space-2xs          : 0.4rem;                                      /* 固定4px */
+    --space-xs           : 0.8rem;                                      /* 固定8px */
+    --space-s            : clamp(1.6rem, 0.89rem + 0.78vw, 2.4rem);     /* 可変16～24px */
+    --space-m            : clamp(2.4rem, 0.99rem + 1.57vw, 4.0rem);     /* 可変24～40px */
+    --space-l            : clamp(5.6rem, 2.6rem + 3.75vw, 12.0rem);     /* 可変56～120px */
+    --space-xl           : clamp(12.0rem, 6.38rem + 7.03vw, 24.0rem);   /* 可変120～240px */
+    --nav-space-top      : 4vw;    /* global-nav 上部余白 可変4vw */
+    --nav-space-bottom   : 2vw;    /* global-nav 下部余白 可変2vw */
+    --nav-space-x        : 4vw;    /* global-nav-item a 左右余白 可変4vw */
+    --work-slide-space-x : 25%;    /* (top)work-list 左右余白 可変25% */
+    --work-slide-gap     : 10%;    /* (top)work-list 子要素間余白 可変10% */
+    --catch-space-x      : 50vw;   /* (top)catch-item 右側余白 可変50vw */
+    --contact-space-sp-x : 50vw;   /* (top)contact-item 左側余白 可変50vw */
 
 
     /* --- Width & Height --- */
-    --cursor-xy        : 12px;                                      /* cursor 固定12px */
-    --nav-pc-x         : clamp(20.0rem, 16.0rem + 6.25vw, 28.0rem); /* [PC]global-nav 可変200～280px */
-    --menu-btn-xy      : 24px;                                      /* menu, modal-close 固定24px */
-    --menu-btn-span-y  : 3px;                                       /* menu, modal-close 固定3px */
-    --modal-x          : 70%;                                       /* modal 可変70% */
-    --modal-max-x      : 1000px;                                    /* modal 固定1000px */
-    --container-x      : 90%;                                       /* container 可変90% */
-    --container-max-x  : 1280px;                                    /* container 可変1280px */
-    --work-text-item-y : clamp(3.0rem, 2.5rem + 1.0vw, 4.0rem);     /* (top)work-text-area, work-text-item 可変30～40px(1行)  */
-    --work-text-pc-x   : 55%;                                       /* [PC](top)work-text-area 可変55% */
-    --work-text-sp-x   : 80%;                                       /* [SP](top)work-text-area 可変80% */
-    --work-text-sp-top : 12.5dvh;                                   /* [SP](top)work-text-area 可変12.5dvh */
-    --contact-item-pc-x: 85%;                                       /* [PC](top)contact-item 可変85% */
-    --scroll-x   : clamp(16.0rem, 14.0rem + 5.0vw, 20.0rem);        /* (top)scroll 可変16～20px */
-    --indicator-xy     : 8px;                                       /* [SP](top)indicator 固定8px */
+    --cursor-xy         : 12px;                                      /* cursor 固定12px */
+    --nav-pc-x          : clamp(20.0rem, 16.0rem + 6.25vw, 28.0rem); /* [PC]global-nav 可変200～280px */
+    --menu-btn-xy       : 24px;                                      /* menu, modal-close 固定24px */
+    --menu-btn-span-y   : 3px;                                       /* menu, modal-close 固定3px */
+    --modal-x           : 70%;                                       /* modal 可変70% */
+    --modal-max-x       : 1000px;                                    /* modal 固定1000px */
+    --container-x       : 90%;                                       /* container 可変90% */
+    --container-max-x   : 1280px;                                    /* container 可変1280px */
+    --work-text-item-y  : clamp(3.0rem, 2.5rem + 1.0vw, 4.0rem);     /* (top)work-text-area, work-text-item 可変30～40px(1行)  */
+    --work-text-pc-x    : 50%;                                       /* [PC](top)work-text-area 可変50% */
+    --work-text-sp-x    : 80%;                                       /* [SP](top)work-text-area 可変80% */
+    --work-text-sp-top  : 12.5dvh;                                   /* [SP](top)work-text-area 可変12.5dvh */
+    --contact-item-pc-x : 85%;                                       /* [PC](top)contact-item 可変85% */
+    --scroll-x          : clamp(16.0rem, 14.0rem + 5.0vw, 20.0rem);  /* (top)scroll 可変16～20px */
+    --indicator-xy      : 8px;                                       /* [SP](top)indicator 固定8px */
 
 
     /* --- Border & Radius --- */
@@ -109,7 +95,11 @@ main            { z-index: 1; }         /* メインコンテンツ */
 }
 
 
-/* --- Adobe Fonts 読み込み待ちのちらつき防止 --- */
+
+/**************************************************
+   Common / Adobe Fonts Setting
+**************************************************/
+/* --- 読み込み待ちのちらつき防止 --- */
 .wf-loading body { color: transparent; }
 .wf-active body,
 .wf-inactive body { color: inherit; }
@@ -117,18 +107,7 @@ main            { z-index: 1; }         /* メインコンテンツ */
 
 
 /**************************************************
-   共通　Keyframes
-**************************************************/
-/* --- Contact text rotate --- */
-@keyframes rotate-anim {
-    0%   { transform: rotate(0deg); }
-    100% { transform: rotate(360deg); }
-}
-
-
-
-/**************************************************
-   共通　Selector
+   Common / Selector
 **************************************************/
 html {
     font-size: 62.5%;   /* default 16px * 62.5% = 10px */
@@ -176,7 +155,7 @@ span {
 
 
 /**************************************************
-   共通　Cursor（追尾カーソル）
+   Common / Cursor
 **************************************************/
 .cursor {
     position: fixed;
@@ -187,9 +166,10 @@ span {
     margin-top: calc(var(--space-xs) * -1);
     margin-left: calc(var(--space-xs) * -1);
     border-radius: 50%;
-    pointer-events: none;           /* クリックの邪魔にならないようにする */
-    background-color: var(--blue);  /* 通常：青 */
-    opacity: 0;                     /* ローディング中：非表示 */
+    pointer-events: none;               /* クリックの邪魔にならないようにする */
+    z-index: var(--z-cursor);
+    background-color: var(--blue);      /* 通常：青 */
+    opacity: 0;                         /* ローディング中：非表示 */
     visibility: hidden;
     translate: var(--x, 0px) var(--y, 0px);     /* マウスの現在地をJSから受け取る。それまでは画面左上に配置。 */
     transition:
@@ -200,7 +180,7 @@ span {
 }
 
 body.content-ready .cursor {
-    opacity: 0.7;                   /* ローディング後：表示 */
+    opacity: 0.7;                       /* ローディング後：表示 */
     visibility: visible;
 }
 
@@ -212,13 +192,14 @@ body.content-ready .cursor.cursor-large {
 
 
 /**************************************************
-   共通　Header
+   Common / Header
 **************************************************/
 header {
     position: fixed;
     top: 0;
     left: 0;
     right: 0;
+    z-index: var(--z-header);
 }
 
 .site-title {
@@ -252,6 +233,7 @@ header {
     border-radius: var(--radius-m) 0 0 var(--radius-m);
     padding-top: var(--nav-space-top);
     padding-bottom: var(--nav-space-bottom);
+    z-index: var(--z-global-nav);
     visibility: hidden;                 /* メニュー閉：非表示 */
     transform: translateX(100%);        /* メニュー閉：非表示（画面外にずらす） */
     transition:
@@ -289,6 +271,7 @@ header {
     width: var(--menu-btn-xy);
     height: var(--menu-btn-xy);
     cursor: pointer;
+    z-index: var(--z-menu);
 }
 
 .menu span {
@@ -315,8 +298,12 @@ header {
 
 
 /**************************************************
-   共通　Main
+   Common / Main
 **************************************************/
+main {
+    z-index: var(--z-main);
+}
+
 .wrapper {
     padding-top: var(--space-l);
 }
@@ -359,27 +346,14 @@ header {
 
 
 /* --- Labels --- */
-.label {
-    font-weight: 400;
-    border: 1px solid var(--gradient);
-    border-radius: var(--radius-l);         /* 左右両端を半円にする（要素の高さの半分より大きい値を設定すれば自動的に半円になる） */
-    padding-block: var(--space-2xs);
-    padding-inline: var(--space-s);
-}
-
 .work-type-label {
-    background: var(--gradient);
-    color: var(--white);
+    color: var(--green);
 }
 
-.work-skill-label {
-    background: var(--white);
-    color: var(--blue);
-}
 
 
 /**************************************************
-   Contact
+   Common / Contact
 **************************************************/
 .contact-section {
     margin-bottom: 0;
@@ -446,21 +420,57 @@ header {
     transition: color 0.5s ease;            /* ホバー：0.5秒かけて文字色を徐々に変化 */
 }
 
-.mail-btn:hover {
-    background: var(--gradient);            /* ホバー：緑（グラデーション） */
-    color: var(--white);                    /* ホバー：白 */
+
+
+/**************************************************
+   Common / Pagejump
+**************************************************/
+.pagetop {
+    position: fixed;
+    bottom: var(--space-l);
+    right: 0;
+    z-index: var(--z-pagetop);
+    background-color: var(--green);
+    color: var(--white);
+    padding-block: var(--space-xs);
+    padding-inline: var(--space-s);
+    border: none;
+    border-radius: var(--radius-m) 0 0 var(--radius-m);
+    cursor: pointer;
+    opacity: 0;
+    transform: translateX(100%);
+    transition:
+        background-color 0.3s,
+        padding 0.3s,
+        opacity 0.5s,
+        transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.pagetop.is-show {
+    opacity: 1;
+    transform: translateX(0);
+}
+
+.pagetop-text {
+    display: block;
+    font-family: var(--accent-font);
+    font-size: var(--font-size-m);
+    font-weight: 700;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
 }
 
 
 
 /**************************************************
-   共通　Footer
+   Common / Footer
 **************************************************/
 footer {
     position: fixed;
     bottom: 0;
     width: 100%;
     font-size: var(--font-size-s);
+    z-index: var(--z-footer);
 }
 
 .github-link {
@@ -481,7 +491,7 @@ footer {
 
 
 /**************************************************
-   共通　Modal
+   Common / Modal
 **************************************************/
 .modal {
     position: fixed;
@@ -490,6 +500,7 @@ footer {
     transform: translate(-50%, -50%);
     width: var(--modal-x);
     max-width: var(--modal-max-x);
+    z-index: var(--z-modal);
     opacity: 0;                 /* 通常：非表示 */
     visibility: hidden;
     transition:
@@ -554,12 +565,13 @@ footer {
 
 
 /**************************************************
-   共通　Mask（メニュー表示時・モーダル表示時の背景マスク）
+   Common / Mask
 **************************************************/
 .mask {
     position: fixed;
     inset: 0;
     background-color: var(--black);
+    z-index: var(--z-mask);
     opacity: 0;                 /* メニュー閉：非表示 */
     visibility: hidden;
     transition:
@@ -573,15 +585,19 @@ footer {
     visibility: visible;
 }
 
+.mask.is-modal {
+    z-index: var(--z-mask-is-modal);
+}
+
 
 
 /**************************************************
-   共通　Media Queries
+   Common / Media Queries
 **************************************************/
 /* --- 画面サイズで判定（～768pxのスマホ・タブレット端末を想定） --- */
 @media screen and (max-width:768px) {
     html {
-        scrollbar-gutter: auto;     /* スクロールバーのための隙間をなくす */
+        scrollbar-gutter: auto;             /* スクロールバーのための隙間をなくす */
     }
 
     .global-nav {
@@ -639,8 +655,8 @@ footer {
 /* --- 操作方法で判定（PCなどのホバー可能な端末） --- */
 @media (hover:hover) {
     body.content-ready .cursor.cursor-large {
-        scale: 3;                           /* ホバー：大きくする */
-        background-color: var(--green);     /* ホバー：緑 */
+        scale: 3;                                   /* ホバー：大きくする */
+        background-color: var(--green);             /* ホバー：緑 */
     }
 
     .global-nav-item a:hover {
@@ -653,25 +669,30 @@ footer {
         color: var(--white);
         transition: color 0.5s ease;                /* ホバー：0.5秒かけて文字色を徐々に変化 */
     }
+
+    .pagetop:hover {
+        background-color: var(--blue);
+        padding-right: var(--space-m);              /* 少し左にせり出す */
+    }
 }
 
 
 /* --- 操作方法で判定（iPad + マウスなどの特殊ケースをカバー） --- */
 @media (hover: none), (pointer: coarse) {
     a, button {
-        -webkit-tap-highlight-color: transparent;       /* リンクを長押しした時のシステムのハイライトを消す */
+        -webkit-tap-highlight-color: transparent;   /* リンクを長押しした時のシステムのハイライトを消す */
     }
 
     img, a {
-        -webkit-touch-callout: none;        /* 画像やリンクを長押しした時に「コピー/保存」メニューが出るのを防ぐ */
+        -webkit-touch-callout: none;                /* 画像やリンクを長押しした時に「コピー/保存」メニューが出るのを防ぐ */
     }
 
     .global-nav, .menu {
-        user-select: none;              /* スライド操作中に誤って文字が選択されるのを防ぐ */
+        user-select: none;                          /* スライド操作中に誤って文字が選択されるのを防ぐ */
         -webkit-user-select: none;
     }
 
     .cursor {
-        display: none;              /* カーソルを隠す */
+        display: none;                              /* カーソルを隠す */
     }
 }

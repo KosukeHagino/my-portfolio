@@ -74,35 +74,23 @@
             <!-- work-text-list -->
             <ul class="work-text-list">
                 <li class="work-text-item">
-                    <div class="work-info-upper">
-                        <span class="label work-type-label">website</span>
-                        <h3 class="work-title">Portfolio</h3>
-                    </div>
-                    <p class="work-description">萩野弘祐のポートフォリオです。</p>
+                    <span class="work-type-label">#web</span>
+                    <h3 class="work-title">ポートフォリオ</h3>
                 </li>
 
                 <li class="work-text-item">
-                    <div class="work-info-upper">
-                        <span class="label work-type-label">website</span>
-                        <h3 class="work-title">Cafe site</h3>
-                    </div>
-                    <p class="work-description">架空のカフェのＷｅｂサイト制作例です。</p>
+                    <span class="work-type-label">#web</span>
+                    <h3 class="work-title">【架空】カフェ</h3>
                 </li>
 
                 <li class="work-text-item">
-                    <div class="work-info-upper">
-                        <span class="label work-type-label">banner</span>
-                        <h3 class="work-title">English school banner</h3>
-                    </div>
-                    <p class="work-description">架空の英会話スクールのバナー制作例です。</p>
+                    <span class="work-type-label">#banner</span>
+                    <h3 class="work-title">【架空】英会話スクール</h3>
                 </li>
 
                 <li class="work-text-item">
-                    <div class="work-info-upper">
-                        <span class="label work-type-label">banner</span>
-                        <h3 class="work-title">Job change site banner</h3>
-                    </div>
-                    <p class="work-description">架空の転職サイトのバナー制作例です。</p>
+                    <span class="work-type-label">#banner</span>
+                    <h3 class="work-title">【架空】転職サイト</h3>
                 </li>
             </ul> <!-- work-text-list end -->
 
@@ -118,38 +106,70 @@
             </li>
 
             <li class="work-item first-work">
-                <a href="./index.html" target="_blank">
-                    <picture>
-                        <source srcset="./img/screenshot/portfolio-sp.png" media="(max-width: 768px)">
-                        <img class="work-img" src="./img/screenshot/portfolio-pc.webp" alt="萩野弘祐(はぎのこうすけ)のポートフォリオ">
-                    </picture>
+                <a class="work-item-link" href="./index.html" target="_blank">
+                    <!-- work-img-container -->
+                    <div class="work-img-container">
+                        <picture>
+                            <source srcset="./img/screenshot/portfolio-sp.png" media="(max-width: 768px)">
+                            <img class="work-img" src="./img/screenshot/portfolio-pc.webp" alt="ポートフォリオ">
+                        </picture>
+
+                        <!-- work-hover-overlay -->
+                        <div class="work-hover-overlay">
+                            <span class="work-hover-text">VIEW DETAIL</span>
+                        </div> <!-- work-hover-overlay end -->
+                    </div> <!-- work-img-container end -->
                 </a>
             </li>
 
             <li class="work-item">
-                <a href="../cafe/index.html" target="_blank">
-                    <picture>
-                        <source srcset="./img/screenshot/portfolio-sp.png" media="(max-width: 768px)">
-                        <img class="work-img" src="./img/screenshot/cafe-pc.png" alt="架空のカフェのＷｅｂサイト">
-                    </picture>
+                <a class="work-item-link" href="../cafe/index.html" target="_blank">
+                    <!-- work-img-container -->
+                    <div class="work-img-container">
+                        <picture>
+                            <source srcset="./img/screenshot/portfolio-sp.png" media="(max-width: 768px)">
+                            <img class="work-img" src="./img/screenshot/cafe-pc.png" alt="カフェ">
+                        </picture>
+
+                        <!-- work-hover-overlay -->
+                        <div class="work-hover-overlay">
+                            <span class="work-hover-text">VIEW DETAIL</span>
+                        </div> <!-- work-hover-overlay end -->
+                    </div> <!-- work-img-container end -->
                 </a>
             </li>
 
             <li class="work-item">
                 <button class="modal-trigger-button" data-type="banner">
-                    <picture>
-                        <source srcset="./img/screenshot/portfolio-sp.png" media="(max-width: 768px)">
-                        <img class="work-img" src="./img/screenshot/english_school_banner.png" alt="架空の英会話スクールのバナー">
-                    </picture>
+                    <!-- work-img-container -->
+                    <div class="work-img-container">
+                        <picture>
+                            <source srcset="./img/screenshot/portfolio-sp.png" media="(max-width: 768px)">
+                            <img class="work-img" src="./img/screenshot/english_school_banner.png" alt="英会話スクール">
+                        </picture>
+
+                        <!-- work-hover-overlay -->
+                        <div class="work-hover-overlay">
+                            <span class="work-hover-text">VIEW DETAIL</span>
+                        </div> <!-- work-hover-overlay end -->
+                    </div> <!-- work-img-container end -->
                 </button>
             </li>
 
             <li class="work-item">
                 <button class="modal-trigger-button" type="button" data-type="banner">
-                    <picture>
-                        <source srcset="./img/screenshot/portfolio-sp.png" media="(max-width: 768px)">
-                        <img class="work-img" src="./img/screenshot/jobchange_site_banner.png" alt="架空の転職サイトのバナー">
-                    </picture>
+                    <!-- work-img-container -->
+                    <div class="work-img-container">
+                        <picture>
+                            <source srcset="./img/screenshot/portfolio-sp.png" media="(max-width: 768px)">
+                            <img class="work-img" src="./img/screenshot/jobchange_site_banner.png" alt="転職サイト">
+                        </picture>
+
+                        <!-- work-hover-overlay -->
+                        <div class="work-hover-overlay">
+                            <span class="work-hover-text">VIEW DETAIL</span>
+                        </div> <!-- work-hover-overlay end -->
+                    </div> <!-- work-img-container end -->
                 </button>
             </li>
 
@@ -171,6 +191,11 @@
         <!-- indicator -->
         <div id="indicator" class="indicator"></div> <!-- indicator end -->
     </main>
+
+    <!-- js-pagetop -->
+    <button id="js-pagetop" class="pagetop">
+        <span class="pagetop-text">Page top</span>
+    </button> <!-- js-pagetop end -->
     
     <footer>
         <p class="copy-right">&copy;2026 kosuke hagino</p>

@@ -23,6 +23,7 @@ if (!document.querySelector('#loading')) {
 const initCommon = () => {
     initCustomCursor();     // 追尾カーソルの開始
     initHamburgerMenu();    // メニュー開閉機能の有効化
+    initPageTop();          // ページトップへ戻るボタンの有効化
 };
 
 
@@ -67,7 +68,7 @@ const initCustomCursor = () => {
     // ホバーイベントの設定
     // 特定の要素に乗ったときにカーソルの見た目を変える
     const updateHoverEvents = () => {
-        const hoverElements = document.querySelectorAll('a, button, #menu, .work-item, .process-side');
+        const hoverElements = document.querySelectorAll('a, button, #menu, #js-pagetop, .work-item, .process-side');
         hoverElements.forEach((el) => {
             el.addEventListener('mouseenter', () => cursor.classList.add('cursor-large'));
             el.addEventListener('mouseleave', () => cursor.classList.remove('cursor-large'));
@@ -176,3 +177,44 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 });
+
+
+
+/**************************************************
+   [機能] ページトップへ戻るボタン
+**************************************************/
+const initPageTop = () => {
+    const pageTopBtn = document.querySelector('#js-pagetop');
+    const workList = document.querySelector('.work-list'); // トップの横スクロール要素
+    if (!pageTopBtn) return;
+
+    const handleScroll = () => {
+        // windowの縦スクロール OR workListの横スクロール を合算して判定
+        const scrolledY = window.scrollY;
+        const scrolledX = workList ? workList.scrollLeft : 0;
+
+        if (scrolledY > 300 || scrolledX > 300) {
+            pageTopBtn.classList.add('is-show');
+        } else {
+            pageTopBtn.classList.remove('is-show');
+        }
+    };
+
+    // 縦スクロール（全ページ）を監視
+    window.addEventListener('scroll', handleScroll);
+    
+    // 横スクロール（トップページがあれば）も監視
+    if (workList) {
+        workList.addEventListener('scroll', handleScroll);
+    }
+
+    // クリックイベント
+    pageTopBtn.addEventListener('click', () => {
+        // 縦を戻す
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+        // もしトップページなら横も戻す
+        if (workList) {
+            workList.scrollTo({ left: 0, behavior: 'smooth' });
+        }
+    });
+};
