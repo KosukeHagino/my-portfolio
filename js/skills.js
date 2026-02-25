@@ -4,12 +4,12 @@
    [機能] 各セクションのタブ切り替え
 **************************************************/
 // 各セクション（DESIGN, CODING, ENVIRONMENT）を取得
-const sections = document.querySelectorAll('.section');
+const sections = document.querySelectorAll('.js-section');
 
 sections.forEach(section => {
     // セクション内の「ボタン」と「詳細コンテンツ」を取得
-    const tabBtns = section.querySelectorAll('.skill-tab-item');
-    const contents = section.querySelectorAll('.skill-detail-content');
+    const tabBtns = section.querySelectorAll('.js-skill-tab-item');
+    const contents = section.querySelectorAll('.js-skill-detail-content');
 
     tabBtns.forEach(btn => {
         btn.addEventListener('click', () => {
@@ -39,7 +39,7 @@ sections.forEach(section => {
    [機能] スキルレベル(★)の自動生成
 **************************************************/
 const renderStars = () => {
-    const skillTitles = document.querySelectorAll('.skill-detail-title');
+    const skillTitles = document.querySelectorAll('.js-skill-detail-title');
 
     skillTitles.forEach(title => {
         // data-starの値を取得（数値に変換）

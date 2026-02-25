@@ -30,7 +30,7 @@ window.addEventListener('load', initTopPage);
 
 // スクロール位置の初期化
 const initScrollPosition = () => {
-    const scrollList = document.querySelector('.work-list');
+    const scrollList = document.getElementById('js-work-list');
     if (scrollList) scrollList.scrollLeft = 0;
 };
 
@@ -40,8 +40,8 @@ const initScrollPosition = () => {
    [機能] 制作物スライドの監視と連動
 **************************************************/
 const initWorksScrollObserver = () => {
-    const scrollList = document.querySelector('.work-list');
-    const textList = document.querySelector('.work-text-list');
+    const scrollList = document.getElementById('js-work-list');
+    const textList = document.getElementById('js-work-text-list');
     const workItems = document.querySelectorAll('.work-item');
     const textItems = document.querySelectorAll('.work-text-item');
 
@@ -121,13 +121,13 @@ const initWorksScrollObserver = () => {
    [機能] ローディング演出
 **************************************************/
 const initLoading = () => {
-    const numEl = document.getElementById('loading-num');
+    const numEl = document.getElementById('js-loading-num');
     if (!numEl) return;
 
     // common.js等で管理している「初回訪問フラグ」をチェック
     if (document.documentElement.classList.contains('is-first-visit')) {
         setTimeout(() => {
-            const counterContainer = numEl.closest('.loading-counter');
+            const counterContainer = document.getElementById('js-loading-counter');
             if (counterContainer) counterContainer.classList.add('is-active');
             setTimeout(() => updateCount(numEl, 0), 900); // 0.9秒後にカウント開始
         }, 300);
@@ -160,8 +160,8 @@ const showContentDirectly = () => {
     // これを付けることでCSSの「.content-ready .copy-jp」等が反応してキャッチが出る
     document.body.classList.add('content-ready');
 
-    const workList = document.querySelector('.work-list');
-    const firstWork = document.querySelector('.first-work');
+    const workList = document.getElementById('js-work-list');
+    const firstWork = document.getElementById('js-first-work');
     if (!workList || !firstWork) return;
 
     // キャッチコピーが見える位置（初期位置）へ少し自動スクロールさせる演出
@@ -188,7 +188,7 @@ const showContentDirectly = () => {
 **************************************************/
 const initIndicator = () => {
     const workItems = document.querySelectorAll('.work-item');
-    const indicator = document.getElementById('indicator');
+    const indicator = document.getElementById('js-indicator');
     if (!indicator || workItems.length === 0) return;
 
     indicator.innerHTML = ''; // 読み込み直し時の重複防止

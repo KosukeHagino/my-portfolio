@@ -14,7 +14,7 @@ window.mouseY = 0;
    初期化処理
 **************************************************/
 // ローディング画面がないページ（＝トップページ以外）なら、すぐに表示フラグを立てる
-if (!document.querySelector('#loading')) {
+if (!document.getElementById('js-loading')) {
     document.body.classList.add('content-ready');
 }
 
@@ -37,7 +37,7 @@ window.addEventListener('load', initCommon);
 **************************************************/
 // マウスの動きに滑らかに追従するカスタムカーソルの実装
 const initCustomCursor = () => {
-    const cursor = document.querySelector('#cursor');
+    const cursor = document.getElementById('js-cursor');
     if (!cursor) return;
 
     let cursorX = 0;    // カーソルの現在のX座標
@@ -68,7 +68,7 @@ const initCustomCursor = () => {
     // ホバーイベントの設定
     // 特定の要素に乗ったときにカーソルの見た目を変える
     const updateHoverEvents = () => {
-        const hoverElements = document.querySelectorAll('a, button, #menu, #js-pagetop, .work-item, .process-side');
+        const hoverElements = document.querySelectorAll('a, button, #js-menu, #js-pagetop, #js-work-item, .process-side');
         hoverElements.forEach((el) => {
             el.addEventListener('mouseenter', () => cursor.classList.add('cursor-large'));
             el.addEventListener('mouseleave', () => cursor.classList.remove('cursor-large'));
@@ -84,9 +84,9 @@ const initCustomCursor = () => {
 **************************************************/
 // メニューボタン、背景マスク、ナビ内のリンクをクリックした際の挙動を管理
 const initHamburgerMenu = () => {
-    const menuBtn = document.querySelector('#menu');
-    const globalNav = document.querySelector('#global-nav');
-    const mask = document.querySelector('#mask');
+    const menuBtn = document.getElementById('js-menu');
+    const globalNav = document.getElementById('js-global-nav');
+    const mask = document.getElementById('js-mask');
 
     // 必要な要素が揃っていない場合は処理を中断（エラー防止）
     if (!menuBtn || !globalNav || !mask) return;
@@ -127,28 +127,28 @@ const initHamburgerMenu = () => {
    [機能] モーダル表示制御（バナー拡大など）
 **************************************************/
 document.addEventListener('DOMContentLoaded', () => {
-    const modal = document.getElementById('modal');
-    const modalImg = document.getElementById('modal-img');
-    const mask = document.getElementById('mask');
-    const modalClose = document.querySelector('.modal-close');
+    const modal = document.getElementById('js-modal');
+    const modalImg = document.getElementById('js-modal-img');
+    const mask = document.getElementById('js-mask');
+    const modalClose = document.getElementById('js-modal-close');
     // 全ページ共通で使えるよう、ボタンのクラス名で取得
-    const modalTriggers = document.querySelectorAll('.modal-trigger-button');
+    const modalTriggers = document.querySelectorAll('.js-modal-trigger-button');
 
     // モーダルを開く処理
     modalTriggers.forEach(trigger => {
         trigger.addEventListener('click', () => {
-            // 1. クリックされたボタン内から画像情報を取得
+            // クリックされたボタン内から画像情報を取得
             const img = trigger.querySelector('img');
             if (img) {
                 modalImg.src = img.src;
                 modalImg.alt = img.alt;
             }
 
-            // 2. モーダルとマスクを表示（z-indexはCSSのis-modalで制御）
+            // モーダルとマスクを表示（z-indexはCSSのis-modalで制御）
             mask.classList.add('is-modal');
             modal.classList.add('show');
 
-            // 3. 背景スクロールを禁止（モーダル背後で動かないようにする）
+            // 背景スクロールを禁止（モーダル背後で動かないようにする）
             document.body.style.overflow = 'hidden';
         });
     });
@@ -184,8 +184,8 @@ document.addEventListener('DOMContentLoaded', () => {
    [機能] ページトップへ戻るボタン
 **************************************************/
 const initPageTop = () => {
-    const pageTopBtn = document.querySelector('#js-pagetop');
-    const workList = document.querySelector('.work-list'); // トップの横スクロール要素
+    const pageTopBtn = document.getElementById('js-pagetop');
+    const workList = document.getElementById('js-work-list'); // トップの横スクロール要素
     if (!pageTopBtn) return;
 
     const handleScroll = () => {

@@ -67,7 +67,7 @@
     height: clamp(450px, 35vw, 600px);
 }
 
-.process-item {
+.js-process-item {
     display: flex;
     flex-shrink: 1;
     min-width: 0;
@@ -76,11 +76,11 @@
     transition: flex var(--transition-base) 0.3s;
 }
 
-.process-item:not(.active) {
+.js-process-item:not(.active) {
     flex: 0 0 120px;
 }
 
-.process-item.active {
+.js-process-item.active {
     flex: 1;
 }
 
@@ -215,4 +215,85 @@
     transition:
         opacity 2.4s ease 1.2s,
         transform 0.9s ease 1.2s;
+}
+
+
+
+/**************************************************
+   Common / Media Queries
+**************************************************/
+/*-------------------------------------------------
+   Mobile & Tablet (Layout Switch) 
+   画面サイズに応じたレイアウトの切り替え（ブレイクポイント: 768px）
+-------------------------------------------------*/
+@media screen and (max-width:768px) {
+    .about-container {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .about-photo {
+        width: 100%;
+    }
+
+    .process-list {
+        display: block;
+    }
+
+    .process-section .process-list,
+    .achievement-section .process-list {
+        height: auto;
+    }
+
+    .js-process-item {
+        display: block;
+        margin-bottom: var(--space-l);
+    }
+
+    .process-side {
+        width: 100%;
+        flex-direction: row;
+        padding-block: var(--space-s);
+        border-radius: 10px 10px 0 0;
+    }
+
+    .active .process-side {
+        border-radius: 10px 10px 0 0;
+    }
+
+    .process-title-en {
+        writing-mode: horizontal-tb;
+        font-size: var(--font-size-m);
+        font-style: italic;
+    }
+
+    .process-icon {
+        display: none;
+    }
+
+    .process-body {
+        width: 100%;
+        padding-block: var(--space-l);
+        padding-inline: var(--space-m);
+        border-radius: 0 0 10px 10px;
+    }
+
+    .active .process-body {
+        padding-block: var(--space-l);
+        padding-inline: var(--space-m);
+    }
+
+    .process-body-inner {
+        display: block;
+    }
+
+    .process-title-jp {
+        margin-bottom: var(--space-m);
+    }
+
+    .process-title-jp,
+    .process-description {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }

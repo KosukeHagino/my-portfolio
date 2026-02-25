@@ -29,8 +29,10 @@
 
 
     /* --- Font family --- */
+     /* (common) */
     --base-font    : dnp-shuei-gothic-gin-std, Montserrat, Corbel, source-sans-pro, sans-serif;
     --accent-font  : futura-pt, dnp-shuei-gothic-gin-std, sans-serif;
+     /* (top) */
     --countup-font : "inter-variable",sans-serif;
     
 
@@ -43,7 +45,7 @@
 
 
     /* --- Space --- */
-    /* (base) */
+    /* (common) */
     --space-2xs          : 0.4rem;                                      /* 4px */
     --space-xs           : 0.8rem;                                      /* 8px */
     --space-s            : clamp(1.6rem, 0.89rem + 0.78vw, 2.4rem);     /* 16～24px */
@@ -51,29 +53,28 @@
     --space-l            : clamp(5.6rem, 2.6rem + 3.75vw, 12.0rem);     /* 56～120px */
     --space-xl           : clamp(12.0rem, 6.38rem + 7.03vw, 24.0rem);   /* 120～240px */
     /* (top) */
-    --work-slide-space-x : 25%;     /* work-list 左右余白 25% */
-    --work-slide-gap     : 10%;     /* work-list 子要素間余白 10% */
-    --work-space-x       : 50vw;    /* catch-item,contact-item work-itemとの余白 50vw */
+    --work-text-sp-top   : 12.5dvh;                                 /* work-text 上余白 12.5dvh[SP] */
+    --work-slide-space-x : 25%;                                     /* work-list 左右余白 25% */
+    --work-slide-gap     : 15%;                                     /* work-list 子要素間余白 15% */
+    --work-space-x       : 50vw;                                    /* catch,contact 隣との余白 50vw */
 
 
     /* --- Width & Height --- */
-    /* (base) */
-    --cursor-xy         : 12px;                                      /* cursor 12px[PC] */
-    --nav-x             : clamp(20.0rem, 16.0rem + 6.25vw, 28.0rem); /* global-nav 200～280px[PC] */
-    --menu-btn-xy       : 24px;                                      /* menu, modal-close 24px */
-    --menu-btn-span-y   : 3px;                                       /* menu, modal-close 3px */
-    --modal-x           : 70%;                                       /* modal 70% */
-    --modal-max-x       : 1000px;                                    /* modal 1000px */
-    --section-lead-x    : clamp(50.0rem, 60%, 120.0rem);             /* section-lead 500～1200px */
-    --container-x       : min(90%, 1280px);                          /* container 90%(max1280px) */
+    /* (common) */
+    --cursor-xy         : 12px;                                      /* cursor 直径 12px[PC] */
+    --nav-x             : clamp(20.0rem, 16.0rem + 6.25vw, 28.0rem); /* global-nav 幅 200～280px[PC] */
+    --menu-btn-xy       : 24px;                                      /* menu, modal-close 幅・高さ 24px */
+    --menu-btn-line-y   : 3px;                                       /* menu, modal-close 線の太さ 3px */
+    --modal-x           : min(70%, 1000px);                          /* modal 幅 70%(max1000px) */
+    --section-lead-x    : clamp(50.0rem, 60%, 120.0rem);             /* section-lead 幅 500～1200px */
+    --container-x       : min(90%, 1280px);                          /* container 幅 90%(max1280px) */
     /* (top) */
-    --work-text-item-y  : clamp(3.0rem, 2.5rem + 1.0vw, 4.0rem);     /* work-text-area, work-text-item 30～40px(1行)  */
-    --work-text-pc-x    : 50%;                                       /* [PC]work-text-area 50% */
-    --work-text-sp-x    : 80%;                                       /* [SP]work-text-area 80% */
-    --work-text-sp-top  : 12.5dvh;                                   /* [SP]work-text-area 12.5dvh */
+    --work-text-pc-x    : 50%;                                       /* work-text-area 幅 50%[PC] */
+    --work-text-sp-x    : 80%;                                       /* work-text-area 幅 80%[SP] */
+    --work-text-item-y  : clamp(3.0rem, 2.5rem + 1.0vw, 4.0rem);     /* work-text-area, item 高さ 30～40px(1行)  */
     --contact-item-pc-x : 85%;                                       /* [PC]contact-item 85% */
-    --scroll-x          : clamp(16.0rem, 14.0rem + 5.0vw, 20.0rem);  /* [PC]scroll 16～20px */
-    --indicator-xy      : 8px;                                       /* [SP]indicator 8px */
+    --scroll-x          : clamp(16.0rem, 14.0rem + 5.0vw, 20.0rem);  /* scroll-bar 幅 16～20px[PC] */
+    --indicator-xy      : 8px;                                       /* indicator 直径 8px[SP] */
 
 
     /* --- Border & Radius --- */
@@ -110,7 +111,7 @@
    Common / Selector
 **************************************************/
 html {
-    font-size: 62.5%;   /* default 16px * 62.5% = 10px */
+    font-size: 62.5%;           /* default 16px * 62.5% = 10px */
     width: 100%;
     scrollbar-gutter: stable;   /* スクロールバーの幅を常に確保 */ 
 }
@@ -271,7 +272,7 @@ header {
     display: block;
     position: absolute;
     width: 100%;
-    height: var(--menu-btn-span-y);
+    height: var(--menu-btn-line-y);
     background-color: var(--blue);      /* メニュー閉：青 */
     transition:
         background-color 0.5s,          /* メニュー開閉：0.5秒で色を徐々に変化 */
@@ -493,7 +494,6 @@ footer {
     left: 50%;
     transform: translate(-50%, -50%);
     width: var(--modal-x);
-    max-width: var(--modal-max-x);
     z-index: var(--z-modal);
     opacity: 0;                 /* 通常：非表示 */
     visibility: hidden;
@@ -517,8 +517,8 @@ footer {
 
 .modal-close {
     position: absolute;
-    top: calc(var(--space-m) * 1);
-    right: calc(var(--space-m) * 1);
+    top: var(--space-m);
+    right: var(--space-m);
     width: var(--menu-btn-xy);
     height: var(--menu-btn-xy);
     cursor: pointer;
@@ -538,7 +538,7 @@ footer {
     display: block;
     position: absolute;
     width: 100%;
-    height: var(--menu-btn-span-y);
+    height: var(--menu-btn-line-y);
     background-color: var(--black);
     top: 50%;
 }
@@ -546,7 +546,7 @@ footer {
 .modal-close span:nth-child(1) { transform: rotate(45deg); }    /* 常時：バツ印（表示・非表示は.modal-closeで制御） */
 .modal-close span:nth-child(2) { transform: rotate(-45deg); }
 
-.modal-trigger-button {
+.js-modal-trigger-button {
     background: none;
     border: none;
     padding: 0;
@@ -588,7 +588,10 @@ footer {
 /**************************************************
    Common / Media Queries
 **************************************************/
-/* --- 画面サイズで判定（～768pxのスマホ・タブレット端末を想定） --- */
+/*-------------------------------------------------
+   Mobile & Tablet (Layout Switch) 
+   画面サイズに応じたレイアウトの切り替え（ブレイクポイント: 768px）
+-------------------------------------------------*/
 @media screen and (max-width:768px) {
     html {
         scrollbar-gutter: auto;             /* スクロールバーのための隙間をなくす */
@@ -628,6 +631,87 @@ footer {
         padding-inline: var(--space-l);
     }
 
+    .section {
+        margin-bottom: var(--space-xl);
+    }
+
+    .section-title {
+        margin-bottom: var(--space-m);
+    }
+
+    .section-lead {
+        width: var(--container-x);
+        padding-inline: var(--space-m);
+        margin-bottom: var(--space-m);
+    }
+
+    .contact-section {
+        height: 100vh;
+        margin-bottom: 0;
+        padding-block: 15vh;
+        overflow: hidden;
+    }
+
+    .contact-outer {
+        display: block;
+        padding-inline: var(--space-m);
+    }
+
+    .photo-inner {
+        width: 70%;
+        margin-inline: auto;
+        height: 20vh;
+    }
+
+    .photo-inner img {
+        display: block;
+        position: relative;  
+        width: 40%; 
+    }
+
+    .photo-inner img:nth-child(1) {
+        position: absolute;
+        top: 0;
+        left: 0;
+    }
+
+    .photo-inner img:nth-child(2) {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate3d(-50%, -50%, 0);
+    }
+
+    .photo-inner img:nth-child(3) {
+        position: absolute;
+        bottom: 0;
+        right: 0;
+    }
+
+    .contact-item {
+        flex-basis: 50%;
+        text-align: center;
+        padding-block: var(--space-l);
+    }
+
+    .contact-msg {
+        margin-bottom: var(--space-m);
+    }
+
+    .mail-btn {
+        display: block;
+        padding-block: var(--space-xs);
+        padding-inline: var(--space-m);
+        margin-inline: auto;
+        border: var(--border-base) solid var(--green);
+        border-radius: var(--radius-l);         /* 左右両端を半円にする（要素の高さの半分より大きい値を設定すれば自動的に半円になる） */
+        font-family: var(--accent-font);
+        font-size: var(--font-size-l);
+        color: var(--green);                    /* 通常：緑 */
+        transition: color 0.5s ease;            /* ホバー：0.5秒かけて文字色を徐々に変化 */
+    }
+
+
     .github-link {
         bottom: var(--space-2xs);
     }
@@ -646,7 +730,10 @@ footer {
 }
 
 
-/* --- 操作方法で判定（PCなどのホバー可能な端末） --- */
+/*-------------------------------------------------
+   Desktop & Mouse (Hover Effects)
+   マウス操作が可能なデバイス（PCなど）専用の演出
+-------------------------------------------------*/
 @media (hover:hover) {
     body.content-ready .cursor.cursor-large {
         scale: 3;                                   /* ホバー：大きくする */
@@ -671,7 +758,10 @@ footer {
 }
 
 
-/* --- 操作方法で判定（iPad + マウスなどの特殊ケースをカバー） --- */
+/*-------------------------------------------------
+   Touch Devices (Touch Optimization) --- 
+   タッチ操作メインのデバイス（スマホ・タブレット）専用の最適化
+-------------------------------------------------*/
 @media (hover: none), (pointer: coarse) {
     a, button {
         -webkit-tap-highlight-color: transparent;   /* リンクを長押しした時のシステムのハイライトを消す */

@@ -38,12 +38,12 @@
 </head>
 <body>
     <!-- cursor -->
-    <div id="cursor" class="cursor"></div> <!-- cursor end -->
+    <div id="js-cursor" class="cursor"></div> <!-- cursor end -->
 
     <!-- loading -->
     <div id="loading" class="loading">
-        <p class="loading-counter">
-            <span id="loading-num" class="loading-num">0</span>%
+        <p id="js-loading-counter" class="loading-counter">
+            <span id="js-loading-num" class="loading-num">0</span>%
         </p>
     </div> <!-- loading end -->
 
@@ -51,7 +51,7 @@
         <h1 class="site-title"><a href="./index.html">HAGINO</a></h1>
 
         <!-- global-nav -->
-        <nav id="global-nav" class="global-nav">
+        <nav id="js-global-nav" class="global-nav">
             <ul class="global-nav-list">
                 <li class="global-nav-item"><a class="active" href="./index.html">Top</a></li>
                 <li class="global-nav-item"><a href="./profile.html">Profile</a></li>
@@ -61,7 +61,7 @@
         </nav> <!-- global-nav end -->
 
         <!-- menu -->
-        <div id="menu" class="menu">
+        <div id="js-menu" class="menu">
             <span></span>
             <span></span>
         </div> <!-- menu end -->
@@ -72,7 +72,7 @@
         <div class="work-text-area">
 
             <!-- work-text-list -->
-            <ul class="work-text-list">
+            <ul id="js-work-text-list" class="work-text-list">
                 <li class="work-text-item">
                     <span class="work-type-label">#web</span>
                     <h3 class="work-title">ポートフォリオ</h3>
@@ -97,20 +97,20 @@
         </div> <!-- work-text-area -->
 
         <!-- work-list -->
-        <ul class="work-list">
+        <ul id="js-work-list" class="work-list">
             <li class="work-item catch-item">
                 <h2 class="catch-copy">
-                    <span class="copy-jp">KOSUKE&nbsp;HAGINO</span>
-                    <span class="copy-en">web designer&nbsp;&&nbsp;developer</span>
+                    <span class="copy-jp">KOSUKE HAGINO</span>
+                    <span class="copy-en">web designer & developer</span>
                 </h2>
             </li>
 
-            <li class="work-item first-work">
+            <li id="js-first-work" class="work-item">
                 <a class="work-item-link" href="./index.html" target="_blank">
                     <!-- work-img-container -->
                     <div class="work-img-container">
                         <picture>
-                            <source srcset="./img/screenshot/portfolio-sp.png" media="(max-width: 768px)">
+                            <source srcset="./img/screenshot/portfolio-sp.webp" media="(max-width: 768px)">
                             <img class="work-img" src="./img/screenshot/portfolio-pc.webp" alt="ポートフォリオ">
                         </picture>
 
@@ -127,7 +127,7 @@
                     <!-- work-img-container -->
                     <div class="work-img-container">
                         <picture>
-                            <source srcset="./img/screenshot/portfolio-sp.png" media="(max-width: 768px)">
+                            <source srcset="./img/screenshot/portfolio-sp.webp" media="(max-width: 768px)">
                             <img class="work-img" src="./img/screenshot/cafe-pc.png" alt="カフェ">
                         </picture>
 
@@ -140,11 +140,11 @@
             </li>
 
             <li class="work-item">
-                <button class="modal-trigger-button" data-type="banner">
+                <button class="js-modal-trigger-button" type="button" data-type="banner">
                     <!-- work-img-container -->
                     <div class="work-img-container">
                         <picture>
-                            <source srcset="./img/screenshot/portfolio-sp.png" media="(max-width: 768px)">
+                            <source srcset="./img/screenshot/portfolio-sp.webp" media="(max-width: 768px)">
                             <img class="work-img" src="./img/screenshot/english_school_banner.png" alt="英会話スクール">
                         </picture>
 
@@ -157,11 +157,11 @@
             </li>
 
             <li class="work-item">
-                <button class="modal-trigger-button" type="button" data-type="banner">
+                <button class="js-modal-trigger-button" type="button" data-type="banner">
                     <!-- work-img-container -->
                     <div class="work-img-container">
                         <picture>
-                            <source srcset="./img/screenshot/portfolio-sp.png" media="(max-width: 768px)">
+                            <source srcset="./img/screenshot/portfolio-sp.webp" media="(max-width: 768px)">
                             <img class="work-img" src="./img/screenshot/jobchange_site_banner.png" alt="転職サイト">
                         </picture>
 
@@ -174,7 +174,7 @@
             </li>
 
             <li class="work-item contact-item">
-                <h3 class="section-title">Contact</h3>
+                <h2 class="section-title">Contact</h2>
                 <p class="contact-msg">
                     ご覧いただきありがとうございます。<br>
                     下記のメールアドレスに<span class="sp-br">お気軽にご連絡ください。</span>
@@ -189,7 +189,7 @@
         </div> <!-- scroll end -->
 
         <!-- indicator -->
-        <div id="indicator" class="indicator"></div> <!-- indicator end -->
+        <div id="js-indicator" class="indicator"></div> <!-- indicator end -->
     </main>
 
     <!-- js-pagetop -->
@@ -203,16 +203,16 @@
     </footer>
 
     <!-- modal -->
-    <div id="modal" class="modal">
-        <div class="modal-close">
+    <div id="js-modal" class="modal">
+        <div id="js-modal-close" class="modal-close">
             <span></span>
             <span></span>
         </div>
-        <img id="modal-img" class="modal-img" src="./img/screenshot/portfolio-pc.webp" alt="架空の英会話スクールのバナー">
+        <img id="js-modal-img" class="modal-img" src="" alt="">
     </div> <!-- modal-content end -->
 
     <!-- mask -->
-    <div id="mask" class="mask"></div>
+    <div id="js-mask" class="mask"></div>
     <!-- mask end -->
 </body>
 </html>

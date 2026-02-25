@@ -87,7 +87,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    pointer-events: none;   /* マウス操作を無効化 */
+    pointer-events: none;               /* マウス操作を無効化 */
     font-size: var(--font-size-m);
 }
 
@@ -182,7 +182,7 @@
 }
 
 .work-item-link,
-.modal-trigger-button {
+.js-modal-trigger-button {
     position: relative;                 /* 子要素にabsoluteを指定するため */
     display: block;
     padding: 0;                         /* ボタンの標準パディングを消す */
@@ -404,14 +404,13 @@
 
 
 /**************************************************
-   Media Queries
+   Common / Media Queries
 **************************************************/
-/* --- 画面サイズで判定（～768pxのスマホ・タブレットを想定） --- */
+/*-------------------------------------------------
+   Mobile & Tablet (Layout Switch) 
+   画面サイズに応じたレイアウトの切り替え（ブレイクポイント: 768px）
+-------------------------------------------------*/
 @media screen and (max-width:768px) {
-    html, body {
-        overflow-y: clip;           /* 縦スクロールを無効 */
-    }
-
     .work-text-area {
         left: calc((100% - var(--work-text-sp-x)) / 2);
         top: var(--work-text-sp-top);
@@ -428,7 +427,17 @@
     }
 
     .work-hover-overlay {
-        display: none;
+        inset: auto;
+        width: 100%;
+        bottom: 20px;
+        left: 50%;
+        transform: translateX(-50%);
+        opacity: 1;
+        padding: 0;
+    }
+
+    .work-hover-text {
+        font-size: var(--font-size-s);
     }
 
     .copy-jp {
@@ -448,57 +457,31 @@
     .sp-br {
         display: block;
     }
-
-    .scroll {
-        display: none;
-    }
-
-    .indicator {
-        display: flex;
-        position: fixed;
-        left: 50%;
-        bottom: var(--space-l);
-        transform: translateX(-50%);
-        gap: var(--space-s);        /* ドット同士の間隔 */
-        padding-block: var(--space-xs);
-    }
-
-    .indicator-dot {
-        width: var(--indicator-xy);
-        height: var(--indicator-xy);
-        border-radius: 50%;
-        background-color: var(--green);     /* 通常：緑 */
-        transition:
-            background-color 0.3s ease,     /* インジケーターの切替：0.3秒かけて徐々に色が変化 */
-            transform 0.3s ease;            /* インジケーターの切替：0.3秒かけて徐々に大きさが変化 */
-    }
-
-    .indicator-dot.is-active {
-        background-color: var(--blue);      /* アクティブ：青 */
-        transform: scale(1.5);              /* アクティブ：少し大きくする */
-    }
 }
 
 
-/* --- 操作方法で判定（PCなどのホバー可能な端末） --- */
+/*-------------------------------------------------
+   Desktop & Mouse (Hover Effects) 
+   マウス操作が可能なデバイス（PCなど）専用の演出
+-------------------------------------------------*/
 @media (hover:hover) {
     .work-item.is-active .work-item-link:hover .work-img,
-    .work-item.is-active .modal-trigger-button:hover .work-img {
+    .work-item.is-active .js-modal-trigger-button:hover .work-img {
         transform: scale(1.1);              /* 中央ホバー：少し大きくする */
     }
 
     .work-item:not(.is-active) .work-item-link:hover .work-img,
-    .work-item:not(.is-active) .modal-trigger-button:hover .work-img {
+    .work-item:not(.is-active) .js-modal-trigger-button:hover .work-img {
         transform: scale(1.1);              /* 中央以外ホバー：少し大きくする */
     }
 
     .work-item-link:hover .work-hover-overlay,
-    .modal-trigger-button:hover .work-hover-overlay {
+    .js-modal-trigger-button:hover .work-hover-overlay {
         opacity: 1;                         /* ホバー：オーバーレイ表示 */
     }
 
     .work-item-link:hover .work-hover-text,
-    .modal-trigger-button:hover .work-hover-text {
+    .js-modal-trigger-button:hover .work-hover-text {
         transform: scale(1);                /* ホバー：オーバーレイを元の大きさに戻す（小さくなる） */
     }
 
@@ -508,7 +491,10 @@
 }
 
 
-/* --- 操作方法で判定（iPad + マウスなどの特殊ケースをカバー） --- */
+/*-------------------------------------------------
+   Touch Devices (Touch Optimization) --- 
+   タッチ操作メインのデバイス（スマホ・タブレット）専用の最適化
+-------------------------------------------------*/
 @media (hover: none), (pointer: coarse) {
     .work-item {
         user-select: none;              /* スライド操作中に誤って文字が選択されるのを防止 */
@@ -518,6 +504,18 @@
     .contact-item .mail-btn {
         width: 100%;
         font-size: var(--font-size-m);        
+    }
+}
+
+
+/*-------------------------------------------------
+   Mobile Optimization (Layout & Touch UX) --- 
+   スマホ・タブレット向けの表示切替と、タッチ操作の最適化
+   （画面幅768px以下、またはタッチパネル端末が対象）
+-------------------------------------------------*/
+@media screen and (max-width: 768px), (hover: none), (pointer: coarse) {
+    html, body {
+        overflow-y: clip;           /* 縦スクロールを無効 */
     }
 
     .indicator {

@@ -4,11 +4,11 @@
    [機能] スキル詳細の動的表示（カテゴリ内タブ切替）
 **************************************************/
 // 各セクションを取得
-const sections = document.querySelectorAll('.process-section, .achievement-section');
+const sections = document.querySelectorAll('.js-section');
 
 sections.forEach(section => {
     // セクション内のアイテムだけを取得
-    const Items = section.querySelectorAll('.process-item');
+    const Items = section.querySelectorAll('.js-process-item');
 
     Items.forEach(item => {
         item.addEventListener('click', () => {
