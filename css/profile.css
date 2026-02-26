@@ -255,6 +255,7 @@
         flex-direction: row;
         padding-block: var(--space-s);
         border-radius: 10px 10px 0 0;
+        font-size: var(--font-size-m);
     }
 
     .active .process-side {
@@ -263,7 +264,6 @@
 
     .process-title-en {
         writing-mode: horizontal-tb;
-        font-size: var(--font-size-m);
         font-style: italic;
     }
 
@@ -273,14 +273,12 @@
 
     .process-body {
         width: 100%;
-        padding-block: var(--space-l);
-        padding-inline: var(--space-m);
+        padding: var(--space-m);
         border-radius: 0 0 10px 10px;
     }
 
     .active .process-body {
-        padding-block: var(--space-l);
-        padding-inline: var(--space-m);
+        padding: var(--space-m);
     }
 
     .process-body-inner {
@@ -288,7 +286,7 @@
     }
 
     .process-title-jp {
-        margin-bottom: var(--space-m);
+        margin-bottom: var(--space-s);
     }
 
     .process-title-jp,

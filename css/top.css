@@ -471,10 +471,6 @@
         width: 100%;
         font-size: var(--font-size-m);        
     }
-
-    .sp-br {
-        display: block;
-    }
 }
 
 

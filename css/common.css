@@ -403,7 +403,7 @@ main {
 }
 
 .mail-btn {
-    display: block;
+    display: inline-block;
     padding-block: var(--space-xs);
     padding-inline: var(--space-m);
     margin-inline: auto;
@@ -645,72 +645,51 @@ footer {
         margin-bottom: var(--space-m);
     }
 
+    .container {
+        padding-inline: var(--space-s);
+    }
+
     .contact-section {
         height: 100vh;
         margin-bottom: 0;
-        padding-block: 15vh;
-        overflow: hidden;
+        padding-block: 10vh;
     }
 
     .contact-outer {
         display: block;
-        padding-inline: var(--space-m);
+        height: 80vh;
+        padding-inline: 0;
+        border-radius: var(--radius-m);
     }
 
     .photo-inner {
-        width: 70%;
+        width: 60%;
         margin-inline: auto;
+        margin-bottom: var(--space-s);
         height: 20vh;
     }
 
     .photo-inner img {
-        display: block;
-        position: relative;  
         width: 40%; 
     }
 
-    .photo-inner img:nth-child(1) {
-        position: absolute;
-        top: 0;
-        left: 0;
-    }
-
-    .photo-inner img:nth-child(2) {
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        transform: translate3d(-50%, -50%, 0);
-    }
-
-    .photo-inner img:nth-child(3) {
-        position: absolute;
-        bottom: 0;
-        right: 0;
-    }
-
     .contact-item {
-        flex-basis: 50%;
-        text-align: center;
-        padding-block: var(--space-l);
+        padding: var(--space-m);
     }
 
     .contact-msg {
-        margin-bottom: var(--space-m);
+        font-size: var(--font-size-s);
     }
 
     .mail-btn {
-        display: block;
-        padding-block: var(--space-xs);
+        padding-block: var(--space-2xs);
         padding-inline: var(--space-m);
-        margin-inline: auto;
-        border: var(--border-base) solid var(--green);
-        border-radius: var(--radius-l);         /* 左右両端を半円にする（要素の高さの半分より大きい値を設定すれば自動的に半円になる） */
-        font-family: var(--accent-font);
-        font-size: var(--font-size-l);
-        color: var(--green);                    /* 通常：緑 */
-        transition: color 0.5s ease;            /* ホバー：0.5秒かけて文字色を徐々に変化 */
+        font-size: var(--font-size-m);
     }
 
+    .sp-br {
+        display: block;
+    }
 
     .github-link {
         bottom: var(--space-2xs);
