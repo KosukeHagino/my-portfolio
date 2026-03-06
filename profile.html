@@ -20,7 +20,25 @@
     <link rel="stylesheet" href="./css/common.css">
     <link rel="stylesheet" href="./css/profile.css">
     <!-- 後でファビコン作成 -->
-    <link rel="icon" href="./img/svg/favicon.svg" type="image/svg">    
+    <link rel="icon" href="./img/svg/favicon.svg" type="image/svg"> 
+
+    <!-- スクロールの設定 -->
+    <script src="https://unpkg.com/lenis@1.1.20/dist/lenis.min.js"></script>
+    <script>
+        // 初期化
+        const lenis = new Lenis({
+            lerp: 0.05,         // 慣性の強さ
+            wheelMultiplier: 1, // スクロールの速さ
+        });
+
+        // アニメーションループに組み込む
+        function raf(time) {
+            lenis.raf(time);
+            requestAnimationFrame(raf);
+        }
+        requestAnimationFrame(raf);
+    </script> <!-- スクロールの設定 end -->
+    
     <script src="./js/common.js" defer></script>
     <script src="./js/profile.js" defer></script>
     <title>萩野弘祐のポートフォリオ</title>
@@ -55,14 +73,14 @@
 
             <!-- about-section -->
             <section class="section about-section">
-                <h2 class="section-title">About</h2>
+                <h2 class="section-title"><span class="js-scroll-text">About</span></h2>
 
                 <!-- about-container -->
                 <div class="container about-container">
-                    <img class="about-photo" src="./img/photo/aboutme.jpg" alt="萩野弘祐(はぎのこうすけ)の写真">
+                    <img class="about-photo js-scroll-img delay-600" src="./img/photo/aboutme.jpg" alt="萩野弘祐(はぎのこうすけ)の写真">
 
                     <!-- about-inner -->
-                    <div class="about-inner">
+                    <div class="about-inner js-scroll-text delay-900">
                         <h3 class="about-name">
                             <span class="about-name-jp">萩野 弘祐</span>
                             <span class="about-name-en">KOSUKE HAGINO</span>
@@ -78,11 +96,11 @@
             
             <!-- process-section -->
             <section class="section process-section js-section">
-                <h2 class="section-title">Thought process</h2>
-                <p class="section-lead">Web制作において大切にしているのは、単にコードを書くことではなく「その先にいる誰か」を想像することです。ユーザーの使いやすさや、情報の届け方にこだわり、細かな配慮を積み重ねることで、心地よい体験の提供を目指しています。</p>
+                <h2 class="section-title"><span class="js-scroll-text">Thought process</span></h2>
+                <p class="section-lead js-scroll-text">Web制作において大切にしているのは、単にコードを書くことではなく「その先にいる誰か」を想像することです。ユーザーの使いやすさや、情報の届け方にこだわり、細かな配慮を積み重ねることで、心地よい体験の提供を目指しています。</p>
 
                 <!-- process-list -->
-                <ul class="container process-list">
+                <ul class="container process-list js-scroll-img">
                     <li class="js-process-item active">
                         <!-- process-side -->
                         <div class="process-side">
@@ -162,11 +180,11 @@
 
             <!-- achievement-section -->
             <section class="section achievement-section js-section">
-                <h2 class="section-title">Achievement</h2>
-                <p class="section-lead">前職では厨房設計に従事しながら、特定顧客の修理メンテナンスに関する事務管理も兼任していました。設計業務の枠を超え、現場の課題に対して自分なりの提案を積み重ねたことが、大幅なコスト削減や業務効率化へと繋がりました。</p>
+                <h2 class="section-title"><span class="js-scroll-text">Achievement</span></h2>
+                <p class="section-lead js-scroll-text">前職では厨房設計に従事しながら、特定顧客の修理メンテナンスに関する事務管理も兼任していました。設計業務の枠を超え、現場の課題に対して自分なりの提案を積み重ねたことが、大幅なコスト削減や業務効率化へと繋がりました。</p>
 
                 <!-- process-list -->
-                <ul class="container process-list">
+                <ul class="container process-list js-scroll-img">
                     <li class="js-process-item active">
                         <!-- process-side -->
                         <div class="process-side">
@@ -245,7 +263,19 @@
             </section> <!-- achievement-section end -->
 
             <!-- contact-section -->
-            <section class="section contact-section">
+            <section id="contact" class="section contact-section js-contact-trigger">
+
+                <!-- contact-bg-overlay -->
+                <div class="contact-bg-overlay js-contact-bg">
+                    <!-- contact-marquee -->
+                    <div class="contact-marquee">
+                        <!-- contact-marquee-inner -->
+                        <div class="contact-marquee-inner">
+                            <span>GET IN TOUCH / CONTACT ME / GET IN TOUCH / CONTACT ME /</span>
+                            <span>GET IN TOUCH / CONTACT ME / GET IN TOUCH / CONTACT ME /</span>
+                        </div> <!-- contact-marquee-inner end -->
+                    </div> <!-- contact-marquee end -->
+                </div> <!-- contact-bg-overlay end -->
                 
                 <!-- contact-container -->
                 <div class="container contact-container">
@@ -253,19 +283,22 @@
                     <div class="contact-outer">
                         <!-- photo-inner -->
                         <div class="photo-inner">
-                            <img src="./img/photo/sakura.jpg" alt="">
-                            <img src="./img/photo/taiwan.jpg" alt="">
-                            <img src="./img/photo/sunset.jpg" alt="">
+                            <img class="js-scroll-img" src="./img/photo/sakura.jpg" alt="">
+                            <img class="js-scroll-img delay-300" src="./img/photo/taiwan.jpg" alt="">
+                            <img class="js-scroll-img delay-600" src="./img/photo/sunset.jpg" alt="">
                         </div> <!-- photo-inner end -->
 
                         <!-- contact-item -->
                         <div class="contact-item">
-                            <h2 class="section-title">Contact</h2>
-                            <p class="contact-msg">
-                                ご覧いただきありがとうございます。<br>
-                                下記のメールアドレスにお気軽に<span class="sp-br">ご連絡ください。</span>
-                            </p>
-                            <a class="mail-btn" href="mailto:kosukehagino.web@gmail.com">kosukehagino.web@gmail.com</a>
+                            <h2 class="section-title"><span class="js-scroll-text">Contact</span></h2>
+                            <!-- contact-inner -->
+                            <div class="contact-inner js-scroll-text delay-1500">
+                                <p class="contact-msg">
+                                    ご覧いただきありがとうございます。<br>
+                                    下記のメールアドレスにお気軽に<span class="sp-br">ご連絡ください。</span>
+                                </p>
+                                <a class="mail-btn" href="mailto:kosukehagino.web@gmail.com">kosukehagino.web@gmail.com</a>
+                            </div> <!-- contact-inner end -->
                         </div> <!-- contact-item end -->
                     </div> <!-- contact-outer end -->
                 </div> <!-- contact-container end -->              

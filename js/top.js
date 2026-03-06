@@ -8,8 +8,8 @@
 const TOP_CONFIG = {
     SCROLL_SPEED_RATIO: 2.5,    // マウスホイールの回転を横スクロール量に変換する倍率
     AUTO_SCROLL_DELAY: 3000,    // サイト表示後、自動スクロールが始まるまでの時間
-    OFFSET_INDEX: 1             // 画像1枚目(キャッチ)にはテキストがないためのズレ調整
-}
+    OFFSET_INDEX: 1             // 画像1枚目(プロフィール)にはテキストがないためのズレ調整
+};
 
 let autoScrollTimer;            // 自動スクロールを止めるためのタイマーID保持用
 
@@ -56,9 +56,9 @@ const initWorksScrollObserver = () => {
         if (workItems[index]) workItems[index].classList.add('is-active');
 
         // 画像とテキストのインデックス調整
-        // 画像は [キャッチ, 作品1, 2, 3, 4, Contact] の6枚
+        // 画像は [プロフィール, 作品1, 2, 3, 4, Contact] の6枚
         // テキストは [作品1, 2, 3, 4] の4つ。
-        // キャッチ(index:0)の時は textIndex が -1 になるように計算
+        // プロフィール(index:0)の時は textIndex が -1 になるように計算
         const textIndex = index - TOP_CONFIG.OFFSET_INDEX;
 
         textItems.forEach((item, i) => {
@@ -157,14 +157,14 @@ const endLoading = () => {
 
 // ローディング終了後、または2回目以降の表示処理
 const showContentDirectly = () => {
-    // これを付けることでCSSの「.content-ready .copy-jp」等が反応してキャッチが出る
+    // クラスを付ける
     document.body.classList.add('content-ready');
 
     const workList = document.getElementById('js-work-list');
     const firstWork = document.getElementById('js-first-work');
     if (!workList || !firstWork) return;
 
-    // キャッチコピーが見える位置（初期位置）へ少し自動スクロールさせる演出
+    // プロフィールヘッダーが見える位置（初期位置）へ少し自動スクロールさせる演出
     const offset = firstWork.offsetLeft + (firstWork.clientWidth / 2) - (workList.clientWidth / 2);
     autoScrollTimer = setTimeout(() => {
         workList.scrollTo({ left: offset, behavior: 'smooth' });

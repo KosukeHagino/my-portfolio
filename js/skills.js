@@ -1,37 +1,55 @@
 'use strict';
 
 /**************************************************
-   [機能] 各セクションのタブ切り替え
+   初期化処理
 **************************************************/
-// 各セクション（DESIGN, CODING, ENVIRONMENT）を取得
-const sections = document.querySelectorAll('.js-section');
+// 初期化処理
+const initSkill = () => {
+    initSkillTabs();            // タブ切り替えの有効化
+    renderStars();              // スキルレベル(★)の生成
+    autoSelectFirstTabs();      // 初期表示の設定
+};
 
-sections.forEach(section => {
-    // セクション内の「ボタン」と「詳細コンテンツ」を取得
-    const tabBtns = section.querySelectorAll('.js-skill-tab-item');
-    const contents = section.querySelectorAll('.js-skill-detail-content');
 
-    tabBtns.forEach(btn => {
-        btn.addEventListener('click', () => {
-            // すでに active の場合は何もしない
-            if (btn.classList.contains('active')) return;
+// ページ読み込み完了時に実行
+window.addEventListener('load', initSkill);
 
-            // 同じグループ内のボタンから active を外して、クリックしたものに付ける
-            tabBtns.forEach(el => el.classList.remove('active'));
-            btn.classList.add('active');
 
-            // 一旦すべての詳細コンテンツを非表示にする
-            contents.forEach(content => content.classList.remove('active'));
 
-            // ボタンの data-skill と同じ ID を持つ詳細コンテンツを表示する
-            const targetId = btn.getAttribute('data-skill');
-            const targetContent = section.querySelector(`#${targetId}`);
-            if (targetContent) {
-                targetContent.classList.add('active');
-            }
+/**************************************************
+   [機能] タブ切り替え
+**************************************************/
+const initSkillTabs = () => {
+    // 各セクション（DESIGN, CODING, ENVIRONMENT）を取得
+    const sections = document.querySelectorAll('.js-section');
+
+    sections.forEach(section => {
+        // セクション内の「ボタン」と「詳細コンテンツ」を取得
+        const tabBtns = section.querySelectorAll('.js-skill-tab-item');
+        const contents = section.querySelectorAll('.js-skill-detail-content');
+
+        tabBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                // すでに active の場合は何もしない
+                if (btn.classList.contains('active')) return;
+
+                // 同じグループ内のボタンから active を外して、クリックしたものに付ける
+                tabBtns.forEach(el => el.classList.remove('active'));
+                btn.classList.add('active');
+
+                // 一旦すべての詳細コンテンツを非表示にする
+                contents.forEach(content => content.classList.remove('active'));
+
+                // ボタンの data-skill と同じ ID を持つ詳細コンテンツを表示する
+                const targetId = btn.getAttribute('data-skill');
+                const targetContent = section.querySelector(`#${targetId}`);
+                if (targetContent) {
+                    targetContent.classList.add('active');
+                }
+            });
         });
     });
-});
+};
 
 
 
@@ -68,5 +86,14 @@ const renderStars = () => {
     });
 };
 
-// 実行
-renderStars();
+
+
+/**************************************************
+   [機能] 最初のタブを自動選択
+**************************************************/
+const autoSelectFirstTabs = () => {
+    document.querySelectorAll('.js-section').forEach(section => {
+        const firstTab = section.querySelector('.js-skill-tab-item');
+        if (firstTab) firstTab.click();     // 最初のタブを自動でクリック
+    });
+};

@@ -30,9 +30,7 @@
     z-index: var(--z-loading);
     opacity: 0;                 /* 2回目以降の訪問やローディング終了後：非表示 */
     visibility: hidden;
-    transition:
-        opacity 1.5s ease,      /* ローディング終了：1.5秒かけて透明度を徐々に変えて非表示 */
-        visibility 1.5s ease;
+    transition: all var(--transition-load);     /* ローディング終了：1.5秒かけて透明度を変えて非表示 */
 }
 
 .is-first-visit .loading {
@@ -51,14 +49,11 @@
     font-size: var(--font-size-l);
     color: var(--white);
     letter-spacing: 0.12em;
-    font-variant-numeric: tabular-nums;     /* 数字の幅を等幅（固定幅）にする */
-    opacity: 0;                             /* カウンター表示前：非表示 */
-    filter: blur(15px);                     /* カウンター表示前：少しボカす */
-    transform: scale(1.1);                  /* カウンター表示前：少し大きくする */
-    transition: 
-        opacity var(--transition-base),     /* カウンター表示：0.6秒かけて徐々に透明度を変えて表示 */
-        filter var(--transition-base),      /* カウンター表示：0.6秒かけて徐々にボカしをなくしクリアにする */
-        transform var(--transition-base);   /* カウンター表示：0.6秒かけて徐々に元の大きさに戻す（小さくなる） */
+    font-variant-numeric: tabular-nums;         /* 数字の幅を等幅（固定幅）にする */
+    opacity: 0;                                 /* カウンター表示前：非表示 */
+    filter: blur(15px);                         /* カウンター表示前：少しボカす */
+    transform: scale(1.1);                      /* カウンター表示前：少し大きくする */
+    transition: all var(--transition-base);     /* カウンター表示：0.6秒かけて透明度やクリア、大きさを変えて表示 */
 }
 
 .is-first-visit .loading-counter.is-active {
@@ -77,7 +72,7 @@
 /**************************************************
    Work Text Area
 **************************************************/
-/* --- Layout: テキストの表示枠 --- */
+/* --- work-text-area（テキストの表示エリア） --- */
 .work-text-area {
     position: fixed;
     left: calc((100% - var(--work-text-pc-x)) / 2);    /* (100%-幅)/2で左右中央に配置 */
@@ -106,13 +101,11 @@
     gap: var(--space-m);
 }
 
-/* --- State: 子要素の基本状態（消えている時） --- */
+/* --- 子要素の基本状態（消えている時） --- */
 .work-type-label,
 .work-title {
     opacity: 0;                                 /* 中央に来ていない時：非表示 */
-    transition:
-        opacity var(--transition-base),         /* 現れる時・消える時：0.6秒かけて徐々に透明度を変えて表示・非表示 */
-        transform var(--transition-base);       /* 現れる時・消える時：0.6秒かけて上下に移動 */
+    transition: all var(--transition-base);     /* 現れる時・消える時：0.6秒かけて位置や透明度を変えて表示・非表示 */
     transition-delay: 0s;                       /* 消える時は即座に反応 */
 }
 
@@ -120,7 +113,7 @@
     font-weight: 400;
 }
 
-/* --- State: 待機位置の制御（JS data-index-diff 連動） --- */
+/* --- 待機位置の制御（JS data-index-diff 連動） --- */
 /* --- 下側待機（diff > 0) --- */
 .work-text-item[data-index-diff^="1"] .work-type-label,
 .work-text-item[data-index-diff^="1"] .work-title,
@@ -135,14 +128,14 @@
     transform: translateY(-20px);       /* 前に控える制作物のテキスト：予め20px上で待機（非表示） */
 }
 
-/* --- State: アクティブ状態（中央表示） --- */
+/* --- アクティブ状態（中央表示） --- */
 .work-text-item.is-active .work-type-label,
 .work-text-item.is-active .work-title {
     opacity: 1;
     transform: translateY(0);           /* 中央にきている制作物のテキスト：表示 */
 }
 
-/* --- Appearance: 現れる時の時間差演出 --- */
+/* --- 現れる時の時間差演出 --- */
 .work-text-item.is-active .work-type-label  { transition-delay: 0.3s; }     /* 現れる時：0.3秒遅れて表示 */
 .work-text-item.is-active .work-title       { transition-delay: 0.45s; }    /* 現れる時：0.45秒遅れて表示 */
 
@@ -193,10 +186,8 @@
 .work-img-container {
     overflow: hidden;
     border-radius: var(--radius-s);
-    filter: drop-shadow(0 0 4px #ccc);
-    transition:
-        transform 0.6s ease,        /* 中央への出入り：0.6秒かけて徐々に大きさを変える */
-        opacity 0.6s ease;          /* 中央への出入り：0.6秒かけて徐々に透明度を変える */
+    filter: drop-shadow(var(--shadow-small));
+    transition: all var(--transition-base);     /* 中央への出入り：0.6秒かけて透明度や大きさを変えて表示 */
 }
 
 .work-item.is-active .work-img-container {
@@ -216,8 +207,8 @@
     justify-content: center;
     align-items: center;
     background-color: rgba(0, 0, 0, 0.7);
-    opacity: 0;                         /* 通常：非表示 */
-    transition: opacity 0.6s ease;      /* ホバー：0.6秒かけて徐々に表示 */
+    opacity: 0;                                     /* 通常：非表示 */
+    transition: opacity var(--transition-base);     /* ホバー：0.6秒かけて表示 */
 }
 
 .work-hover-text {
@@ -230,16 +221,14 @@
     border-radius: var(--radius-s);
     padding-block: 1em;
     padding-inline: 1.5em;
-    transform: scale(1.3);              /* 初期：少し大きくする */
-    transition: transform 0.6s ease;    /* ホバー：0.6秒かけて徐々に元の大きさに戻す（小さくなる） */
+    transform: scale(1.2);                              /* 初期：少し大きくする */
+    transition: transform var(--transition-base);       /* ホバー：0.6秒かけて元の大きさに戻す（小さくなる） */
 }
 
 .work-img {
     width: 100%;
     display: block;
-    transition:
-        transform 0.6s ease,        /* 中央への出入り・ホバー：0.5秒かけて大きさを変える */
-        opacity 0.6s ease;          /* 中央への出入り：0.5秒かけて透明度を変える */
+    transition: all var(--transition-base);             /* 中央への出入り・ホバー：0.6秒かけて大きさや透明度を変える */
 }
 
 .work-item.is-active .work-img {
@@ -248,13 +237,13 @@
 }
 
 
-/* --- Catch copy（制作物スライドの先頭） --- */
-.catch-item {
+/* --- Profile item（制作物スライドの先頭） --- */
+.profile-item {
     margin-right: var(--work-space-x);      /* 右側の制作物との距離を空けて制作物を見せないようにする */
     pointer-events: none;                   /* マウス操作を無効化 */
 }
 
-.copy-jp {
+.profile-name {
     display: block;
     margin-bottom: var(--space-s);
     font-family: var(--accent-font);
@@ -264,13 +253,10 @@
     opacity: 0;                         /* ローディング中：非表示 */
     transform: translateY(20px);        /* ローディング中：少し下にずらす */
     filter: blur(10px);                 /* ローディング中：少しボカす */
-    transition:
-        opacity 1.2s ease,                      /* 和文表示：1.2秒かけて透明度を変えて徐々に表示 */
-        transform var(--transition-slide),      /* 和文表示：1.2秒かけて元の位置に戻す（上にずれる） */
-        filter 1.2s ease;                       /* 和文表示：1.2秒かけてボカしをなくしてクリアにする */
+    transition: all var(--transition-slide);    /* 和文表示：1.2秒かけて透明度や位置、ボカしを変えて表示 */
 }
 
-.copy-en {
+.profile-title {
     display: block;
     font-family: var(--accent-font);
     font-size: var(--font-size-l);
@@ -281,14 +267,11 @@
     opacity: 0;                         /* ローディング中：非表示 */
     transform: translateY(10px);        /* ローディング中：少し下にずらす */
     filter: blur(5px);                  /* ローディング中：少しボカす */
-    transition:
-        opacity 1.2s ease 0.6s,                     /* 英文表示：0.6秒待った後1.2秒かけて透明度を変えて徐々に表示 */
-        transform var(--transition-slide) 0.6s;     /* 英文表示：0.6秒待った後1.2秒かけて元の位置に戻す（上にずれる） */
-        filter: 1.2s ease 0.6s;                     /* 英文表示：0.6秒待った後1.2秒かけてボカしをなくしてクリアにする */
+    transition: all var(--transition-slide) 0.6s;   /* 英文表示：0.6秒待った後1.2秒かけて透明度や位置、ボカしを変えて表示 */
 }
 
-.content-ready .copy-jp,
-.content-ready .copy-en {
+.content-ready .profile-name,
+.content-ready .profile-title {
     opacity: 1;                         /* ローディング後：表示 */
     transform: translateY(0);           /* ローディング後：元の位置に戻す（少し上に移動） */
     filter: blur(0);                    /* ローディング後：ボカしをなくしてクリアにする */
@@ -303,27 +286,15 @@
     background-color: var(--white);
     text-align: center;
     border-radius: var(--radius-s);
-    filter: drop-shadow(0 0 4px #ccc);
+    filter: drop-shadow(var(--shadow-small));
     pointer-events: none;                   /* マウス操作を無効化 */
 }
 
 .contact-item .section-title,
-.contact-item .contact-msg,
-.contact-item .mail-btn {
+.contact-item .contact-inner {
     opacity: 0;                         /* 初期：非表示 */
     transform: translateY(20px);        /* 初期：少し下にずらす */
-    transition:
-        opacity var(--transition-base),     /* 表示：0.6秒かけて徐々に表示 */
-        transform var(--transition-base);   /* 表示：0.6秒かけて徐々に元の位置に戻す（少し上にずれる） */
-}
-
-.contact-item .section-title {
-    margin-bottom: var(--space-l);
-}
-
-.contact-item .section-title::after {
-    width: 0;                           /* 初期：0 */
-    transition: width 0.8s ease;        /* 表示：0.8秒かけて徐々に横に広がる */
+    transition: all var(--transition-base);     /* 表示：0.6秒かけて位置を変えて表示 */
 }
 
 .contact-item .mail-btn {
@@ -344,16 +315,10 @@
     transition-delay: 0.2s;             /* 現れる時：タイトルの下線は0.2秒遅れて表示し始める */
 }
 
-.contact-item.is-active .contact-msg {
+.contact-item.is-active .contact-inner {
     opacity: 1;                         /* 現れる時：表示 */
     transform: translateY(0);           /* 現れる時：元の位置に戻す */
     transition-delay: 0.5s;             /* 現れる時：メッセージは0.5秒遅れて表示し始める */
-}
-
-.contact-item.is-active .mail-btn {
-    opacity: 1;                         /* 現れる時：表示 */
-    transform: translateY(0);           /* 現れる時：元の位置に戻す */
-    transition-delay: 0.8s;             /* 現れる時：メールアドレスは0.8秒遅れて表示し始める */
 }
 
 
@@ -436,12 +401,12 @@
         background-color: var(--green);
         border: var(--border-base) solid var(--white);
         border-radius: 50%;
-        transition: opacity var(--transition-base) 0s;
+        transition: opacity var(--transition-base) 0s;      /* 非表示：待ちなしで0.6秒かけて非表示 */
     }
 
     .work-item.is-active .work-hover-overlay {
         opacity: 1;
-        transition: opacity 0.9s ease 0.6s;
+        transition: opacity var(--transition-base) 0.6s;     /* 表示：0.6秒待って0.6秒かけて表示 */
     }
 
     .work-item.is-active .work-hover-text::before {
@@ -458,17 +423,19 @@
         border: none;
     }
 
-    .copy-jp {
+    .profile-name {
         letter-spacing: 0.2em;
     }
 
-    .copy-en {
-        /* font-size: var(--font-size-m); */
+    .profile-title {
         letter-spacing: 0.12em;
     }
     
+    .contact-item {
+        padding-inline: var(--space-m);
+    }
     .contact-item .mail-btn {
-        width: 100%;
+        width: auto;
         font-size: var(--font-size-m);        
     }
 }
@@ -547,9 +514,7 @@
         height: var(--indicator-xy);
         border-radius: 50%;
         background-color: var(--green);     /* 通常：緑 */
-        transition:
-            background-color 0.3s ease,     /* インジケーターの切替：0.3秒かけて徐々に色が変化 */
-            transform 0.3s ease;            /* インジケーターの切替：0.3秒かけて徐々に大きさが変化 */
+        transition: all var(--transition-ease);     /* インジケーターの切替：0.3秒かけて色や大きさを変化 */
     }
 
     .indicator-dot.is-active {
@@ -558,6 +523,6 @@
     }
 
     .scroll {
-        display: none;
+        display: none;              /* スクロールは非表示 */
     }
 }

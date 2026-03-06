@@ -21,6 +21,24 @@
     <link rel="stylesheet" href="./css/works.css">
     <!-- 後でファビコン作成 -->
     <link rel="icon" href="./img/svg/favicon.svg" type="image/svg">  
+
+    <!-- スクロールの設定 -->
+    <script src="https://unpkg.com/lenis@1.1.20/dist/lenis.min.js"></script>
+    <script>
+        // 初期化
+        const lenis = new Lenis({
+            lerp: 0.05,         // 慣性の強さ
+            wheelMultiplier: 1, // スクロールの速さ
+        });
+
+        // アニメーションループに組み込む
+        function raf(time) {
+            lenis.raf(time);
+            requestAnimationFrame(raf);
+        }
+        requestAnimationFrame(raf);
+    </script> <!-- スクロールの設定 end -->
+    
     <script src="./js/common.js" defer></script>
     <script src="./js/works.js" defer></script>
     <title>萩野弘祐のポートフォリオ</title>
@@ -55,28 +73,30 @@
 
             <!-- works-section -->
             <section class="section works-section">
-                <h2 class="section-title">Works</h2>
-                <p class="section-lead">ユーザーの目的を達成するための「見やすさ」と、情報を正しく届けるための「設計」を大切に制作しています。基礎を忠実に再現したWebサイトから、細部まで意図を込めたバナー制作まで、一つひとつの課題に対して真摯に向き合った制作物です。現在は、より実践的なWebサイトの構築や、保守性の高いコーディング技術の向上に注力しており、学んだ技術を形にしながら、公開作品を順次アップデートしてまいります。</p>
+                <h2 class="section-title"><span class="js-scroll-text">Works</span></h2>
+                <p class="section-lead js-scroll-text delay-600">ユーザーの目的を達成するための「見やすさ」と、情報を正しく届けるための「設計」を大切に制作しています。基礎を忠実に再現したWebサイトから、細部まで意図を込めたバナー制作まで、一つひとつの課題に対して真摯に向き合った制作物です。現在は、より実践的なWebサイトの構築や、保守性の高いコーディング技術の向上に注力しており、学んだ技術を形にしながら、公開作品を順次アップデートしてまいります。</p>
 
                 <!-- work-container -->
                 <div class="container work-container">
 
                     <!-- work-filter-list -->
-                    <ul class="work-filter-list">
-                        <li class="work-filter-item">#web</li>
-                        <li class="work-filter-item">#app</li>
-                        <li class="work-filter-item">#banner</li>
+                    <ul class="work-filter-list js-scroll-text delay-900">
+                        <li class="work-filter-item"><a href="#web-item">#web</a></li>
+                        <li class="work-filter-item"><a href="#app-item">#app</a></li>
+                        <li class="work-filter-item"><a href="#banner-item">#banner</a></li>
                     </ul> <!-- work-filter-list -->
 
                     <!-- work-list -->
                     <ul class="work-list">
-                        <li class="work-item">
-                            <img src="./img/screenshot/portfolio.png" alt="ポートフォリオ">
-                            <div class="skill-label">
-                                <span class="label work-type-label">#web</span>
-                                <h3 class="work-title-jp">萩野弘祐のポートフォリオ</h3>
-                            </div>
-                            <p class="work-filter-label">
+                        <li id="web-item" class="work-item">
+                            <a href="#">
+                                <img class="js-scroll-img" src="./img/screenshot/portfolio.png" alt="ポートフォリオ">
+                                <div class="skill-label js-scroll-text">
+                                    <span class="label work-type-label">#web</span>
+                                    <h3 class="work-title-jp">萩野弘祐のポートフォリオ</h3>
+                                </div>
+                            </a>
+                            <p class="work-filter-label js-scroll-text">
                                 <span class="work-skill-label">HTML</span>
                                 <span class="work-skill-label">CSS</span>
                                 <span class="work-skill-label">JavaScript</span>
@@ -86,12 +106,31 @@
                             </p>
                         </li>
                         <li class="work-item">
-                            <img src="./img/screenshot/portfolio.png" alt="ポートフォリオ">
-                            <div class="skill-label">
-                                <span class="label work-type-label">#web</span>
-                                <h3 class="work-title-jp">萩野弘祐のポートフォリオ</h3>
-                            </div>
-                            <p class="work-filter-label">
+                            <a href="#">
+                                <img class="js-scroll-img" src="./img/screenshot/portfolio.png" alt="ポートフォリオ">
+                                <div class="skill-label js-scroll-text">
+                                    <span class="label work-type-label">#web</span>
+                                    <h3 class="work-title-jp">萩野弘祐のポートフォリオ</h3>
+                                </div>
+                            </a>
+                            <p class="work-filter-label js-scroll-text">
+                                <span class="work-skill-label">HTML</span>
+                                <span class="work-skill-label">CSS</span>
+                                <span class="work-skill-label">JavaScript</span>
+                                <span class="work-skill-label">Figma</span>
+                                <span class="work-skill-label">Photoshop</span>
+                                <span class="work-skill-label">Git/Github</span>
+                            </p>
+                        </li>
+                        <li id="app-item" class="work-item">
+                            <a href="#">
+                                <img class="js-scroll-img" src="./img/screenshot/portfolio.png" alt="ポートフォリオ">
+                                <div class="skill-label js-scroll-text">
+                                    <span class="label work-type-label">#app</span>
+                                    <h3 class="work-title-jp">萩野弘祐のポートフォリオ</h3>
+                                </div>
+                            </a>
+                            <p class="work-filter-label js-scroll-text">
                                 <span class="work-skill-label">HTML</span>
                                 <span class="work-skill-label">CSS</span>
                                 <span class="work-skill-label">JavaScript</span>
@@ -101,12 +140,14 @@
                             </p>
                         </li>
                         <li class="work-item">
-                            <img src="./img/screenshot/portfolio.png" alt="ポートフォリオ">
-                            <div class="skill-label">
-                                <span class="label work-type-label">#web</span>
-                                <h3 class="work-title-jp">萩野弘祐のポートフォリオ</h3>
-                            </div>
-                            <p class="work-filter-label">
+                            <a href="#">
+                                <img class="js-scroll-img" src="./img/screenshot/portfolio.png" alt="ポートフォリオ">
+                                <div class="skill-label js-scroll-text">
+                                    <span class="label work-type-label">#app</span>
+                                    <h3 class="work-title-jp">萩野弘祐のポートフォリオ</h3>
+                                </div>
+                            </a>
+                            <p class="work-filter-label js-scroll-text">
                                 <span class="work-skill-label">HTML</span>
                                 <span class="work-skill-label">CSS</span>
                                 <span class="work-skill-label">JavaScript</span>
@@ -115,13 +156,15 @@
                                 <span class="work-skill-label">Git/Github</span>
                             </p>
                         </li>
-                        <li class="work-item">
-                            <img src="./img/screenshot/portfolio.png" alt="ポートフォリオ">
-                            <div class="skill-label">
-                                <span class="label work-type-label">#web</span>
-                                <h3 class="work-title-jp">萩野弘祐のポートフォリオ</h3>
-                            </div>
-                            <p class="work-filter-label">
+                        <li id="banner-item" class="work-item">
+                            <a href="#">
+                                <img class="js-scroll-img" src="./img/screenshot/portfolio.png" alt="ポートフォリオ">
+                                <div class="skill-label js-scroll-text">
+                                    <span class="label work-type-label">#banner</span>
+                                    <h3 class="work-title-jp">萩野弘祐のポートフォリオ</h3>
+                                </div>
+                            </a>
+                            <p class="work-filter-label js-scroll-text">
                                 <span class="work-skill-label">HTML</span>
                                 <span class="work-skill-label">CSS</span>
                                 <span class="work-skill-label">JavaScript</span>
@@ -135,7 +178,19 @@
             </section> <!-- works-section end -->
 
             <!-- contact-section -->
-            <section class="section contact-section">
+            <section id="contact" class="section contact-section js-contact-trigger">
+
+                <!-- contact-bg-overlay -->
+                <div class="contact-bg-overlay js-contact-bg">
+                    <!-- contact-marquee -->
+                    <div class="contact-marquee">
+                        <!-- contact-marquee-inner -->
+                        <div class="contact-marquee-inner">
+                            <span>GET IN TOUCH / CONTACT ME / GET IN TOUCH / CONTACT ME /</span>
+                            <span>GET IN TOUCH / CONTACT ME / GET IN TOUCH / CONTACT ME /</span>
+                        </div> <!-- contact-marquee-inner end -->
+                    </div> <!-- contact-marquee end -->
+                </div> <!-- contact-bg-overlay end -->
                 
                 <!-- contact-container -->
                 <div class="container contact-container">
@@ -143,23 +198,26 @@
                     <div class="contact-outer">
                         <!-- photo-inner -->
                         <div class="photo-inner">
-                            <img src="./img/photo/sakura.jpg" alt="">
-                            <img src="./img/photo/taiwan.jpg" alt="">
-                            <img src="./img/photo/sunset.jpg" alt="">
+                            <img class="js-scroll-img" src="./img/photo/sakura.jpg" alt="">
+                            <img class="js-scroll-img delay-300" src="./img/photo/taiwan.jpg" alt="">
+                            <img class="js-scroll-img delay-600" src="./img/photo/sunset.jpg" alt="">
                         </div> <!-- photo-inner end -->
 
                         <!-- contact-item -->
                         <div class="contact-item">
-                            <h2 class="section-title">Contact</h2>
-                            <p class="contact-msg">
-                                ご覧いただきありがとうございます。<br>
-                                下記のメールアドレスに<span class="sp-br">お気軽にご連絡ください。</span>
-                            </p>
-                            <a class="mail-btn" href="mailto:kosukehagino.web@gmail.com">kosukehagino.web@gmail.com</a>
+                            <h2 class="section-title"><span class="js-scroll-text">Contact</span></h2>
+                            <!-- contact-inner -->
+                            <div class="contact-inner js-scroll-text delay-1500">
+                                <p class="contact-msg">
+                                    ご覧いただきありがとうございます。<br>
+                                    下記のメールアドレスにお気軽に<span class="sp-br">ご連絡ください。</span>
+                                </p>
+                                <a class="mail-btn" href="mailto:kosukehagino.web@gmail.com">kosukehagino.web@gmail.com</a>
+                            </div> <!-- contact-inner end -->
                         </div> <!-- contact-item end -->
                     </div> <!-- contact-outer end -->
                 </div> <!-- contact-container end -->              
-            </section> <!-- contact-section end -->  
+            </section> <!-- contact-section end -->
         </div> <!-- wrapper end -->
     </main>
 

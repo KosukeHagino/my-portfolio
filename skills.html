@@ -21,6 +21,24 @@
     <link rel="stylesheet" href="./css/skills.css">
     <!-- 後でファビコン作成 -->
     <link rel="icon" href="./img/svg/favicon.svg" type="image/svg">    
+
+    <!-- スクロールの設定 -->
+    <script src="https://unpkg.com/lenis@1.1.20/dist/lenis.min.js"></script>
+    <script>
+        // 初期化
+        const lenis = new Lenis({
+            lerp: 0.05,         // 慣性の強さ
+            wheelMultiplier: 1, // スクロールの速さ
+        });
+
+        // アニメーションループに組み込む
+        function raf(time) {
+            lenis.raf(time);
+            requestAnimationFrame(raf);
+        }
+        requestAnimationFrame(raf);
+    </script> <!-- スクロールの設定 end -->
+    
     <script src="./js/common.js" defer></script>
     <script src="./js/skills.js" defer></script>
     <title>萩野弘祐のポートフォリオ</title>
@@ -55,18 +73,18 @@
 
             <!-- design-section -->
             <section class="section design-section js-section">
-                <h2 class="section-title">Design</h2>
-                <p class="section-lead">Webサイトやバナーを制作することができます。デザイン4原則に基づいた、見やすく整理されたレイアウトを基本とし、そこに厨房設計で培った「ユーザー視点」を掛け合わせ、意図が正しく伝わる使い勝手の良いデザインを心がけています。</p>
+                <h2 class="section-title"><span class="js-scroll-text">Design</span></h2>
+                <p class="section-lead js-scroll-text delay-600">Webサイトやバナーを制作することができます。デザイン4原則に基づいた、見やすく整理されたレイアウトを基本とし、そこに厨房設計で培った「ユーザー視点」を掛け合わせ、意図が正しく伝わる使い勝手の良いデザインを心がけています。</p>
 
                 <!-- skill-tab-container -->
-                <div class="container skill-tab-container">
-                    <button class="js-skill-tab-item active" data-skill="figma">Figma</button>
+                <div class="container skill-tab-container js-scroll-img delay-900">
+                    <button class="js-skill-tab-item" data-skill="figma">Figma</button>
                     <button class="js-skill-tab-item" data-skill="ps">Photoshop</button>
                     <button class="js-skill-tab-item" data-skill="ai">Illustrator</button>
                 </div> <!-- skill-tab-container end -->
 
                 <!-- skill-data-container -->
-                <div class="container skill-data-container">
+                <div class="container skill-data-container js-scroll-img delay-900">
                     <!-- figma -->
                     <div id="figma" class="js-skill-detail-content">
                         <h3 class="js-skill-detail-title" data-star="3">Figma</h3>
@@ -98,18 +116,18 @@
 
             <!-- coding-section -->
             <section class="section coding-section js-section">
-                <h2 class="section-title">Coding</h2>
-                <p class="section-lead">設計図を正確に読み取り、デザインを忠実に再現します。後々のメンテナンスを考慮し、規則性のある整ったコードを書くことを大切にしています。</p>
+                <h2 class="section-title"><span class="js-scroll-text">Coding</span></h2>
+                <p class="section-lead js-scroll-text">設計図を正確に読み取り、デザインを忠実に再現します。後々のメンテナンスを考慮し、規則性のある整ったコードを書くことを大切にしています。</p>
 
                 <!-- skill-tab-container -->
-                <div class="container skill-tab-container">
-                    <button class="js-skill-tab-item active" data-skill="htmlcss">HTML/CSS</button>
+                <div class="container skill-tab-container js-scroll-img">
+                    <button class="js-skill-tab-item" data-skill="htmlcss">HTML/CSS</button>
                     <button class="js-skill-tab-item" data-skill="js">JavaScript</button>
                     <button class="js-skill-tab-item" data-skill="phpsql">PHP/SQL</button>
                 </div> <!-- skill-tab-container end -->
 
                 <!-- skill-data-container -->
-                <div class="container skill-data-container">
+                <div class="container skill-data-container js-scroll-img">
                     <!-- htmlcss -->
                     <div id="htmlcss" class="js-skill-detail-content">
                         <h3 class="js-skill-detail-title" data-star="4">HTML / CSS(Sass)</h3>
@@ -146,17 +164,17 @@
 
             <!-- development-section -->
             <section class="section development-section js-section">
-                <h2 class="section-title">Development Environment</h2>
-                <p class="section-lead">チーム開発や効率的な制作を可能にするツールを導入しています。常にモダンな開発フローを意識した環境構築を行っています。</p>
+                <h2 class="section-title"><span class="js-scroll-text">Development Environment</span></h2>
+                <p class="section-lead js-scroll-text">チーム開発や効率的な制作を可能にするツールを導入しています。常にモダンな開発フローを意識した環境構築を行っています。</p>
 
                 <!-- skill-tab-container -->
-                <div class="container skill-tab-container">
-                    <button class="js-skill-tab-item active" data-skill="git">Git/GitHub</button>
+                <div class="container skill-tab-container js-scroll-img">
+                    <button class="js-skill-tab-item" data-skill="git">Git/GitHub</button>
                     <button class="js-skill-tab-item" data-skill="tool">Tools</button>
                 </div> <!-- skill-tab-container end -->
 
                 <!-- skill-data-container -->
-                <div class="container skill-data-container">
+                <div class="container skill-data-container js-scroll-img">
                     <!-- git -->
                     <div id="git" class="js-skill-detail-content">
                         <h3 class="js-skill-detail-title" data-star="2">Git / GitHub</h3>                  
@@ -182,11 +200,11 @@
 
             <!-- license-section -->
             <section class="section license-section">
-                <h2 class="section-title">License</h2>
-                <p class="section-lead">Web制作における専門知識の裏付けとして取得した資格、および現在習得に取り組んでいる認定試験の一覧です。技術の標準化への理解を深めるため、計画的な学習と受験を進めています。</p>
+                <h2 class="section-title"><span class="js-scroll-text">License</span></h2>
+                <p class="section-lead js-scroll-text">Web制作における専門知識の裏付けとして取得した資格、および現在習得に取り組んでいる認定試験の一覧です。技術の標準化への理解を深めるため、計画的な学習と受験を進めています。</p>
 
                 <!-- license-container -->
-                <div class="container license-container">
+                <div class="container license-container js-scroll-text">
                     <ul class="license-list">
                         <li class="license-item">Webデザイン技能士 3級</li>
                         <li class="license-item">HTML5プロフェッショナル認定試験 レベル1（受験予定）</li>
@@ -195,7 +213,19 @@
             </section> <!-- license-section end -->
             
             <!-- contact-section -->
-            <section class="section contact-section">
+            <section id="contact" class="section contact-section js-contact-trigger">
+
+                <!-- contact-bg-overlay -->
+                <div class="contact-bg-overlay js-contact-bg">
+                    <!-- contact-marquee -->
+                    <div class="contact-marquee">
+                        <!-- contact-marquee-inner -->
+                        <div class="contact-marquee-inner">
+                            <span>GET IN TOUCH / CONTACT ME / GET IN TOUCH / CONTACT ME /</span>
+                            <span>GET IN TOUCH / CONTACT ME / GET IN TOUCH / CONTACT ME /</span>
+                        </div> <!-- contact-marquee-inner end -->
+                    </div> <!-- contact-marquee end -->
+                </div> <!-- contact-bg-overlay end -->
                 
                 <!-- contact-container -->
                 <div class="container contact-container">
@@ -203,23 +233,26 @@
                     <div class="contact-outer">
                         <!-- photo-inner -->
                         <div class="photo-inner">
-                            <img src="./img/photo/sakura.jpg" alt="">
-                            <img src="./img/photo/taiwan.jpg" alt="">
-                            <img src="./img/photo/sunset.jpg" alt="">
+                            <img class="js-scroll-img" src="./img/photo/sakura.jpg" alt="">
+                            <img class="js-scroll-img delay-300" src="./img/photo/taiwan.jpg" alt="">
+                            <img class="js-scroll-img delay-600" src="./img/photo/sunset.jpg" alt="">
                         </div> <!-- photo-inner end -->
 
                         <!-- contact-item -->
                         <div class="contact-item">
-                            <h2 class="section-title">Contact</h2>
-                            <p class="contact-msg">
-                                ご覧いただきありがとうございます。<br>
-                                下記のメールアドレスにお気軽に<span class="sp-br">ご連絡ください。</span>
-                            </p>
-                            <a class="mail-btn" href="mailto:kosukehagino.web@gmail.com">kosukehagino.web@gmail.com</a>
+                            <h2 class="section-title"><span class="js-scroll-text">Contact</span></h2>
+                            <!-- contact-inner -->
+                            <div class="contact-inner js-scroll-text delay-1500">
+                                <p class="contact-msg">
+                                    ご覧いただきありがとうございます。<br>
+                                    下記のメールアドレスにお気軽に<span class="sp-br">ご連絡ください。</span>
+                                </p>
+                                <a class="mail-btn" href="mailto:kosukehagino.web@gmail.com">kosukehagino.web@gmail.com</a>
+                            </div> <!-- contact-inner end -->
                         </div> <!-- contact-item end -->
                     </div> <!-- contact-outer end -->
                 </div> <!-- contact-container end -->              
-            </section> <!-- contact-section end -->        
+            </section> <!-- contact-section end -->     
         </div> <!-- wrapper end -->
     </main>
 

@@ -5,7 +5,7 @@
 
 
 /**************************************************
-   Design Section
+   Design Section / Coding Section / Development Section
 **************************************************/
 .skill-tab-container {
    display: flex;
@@ -111,11 +111,21 @@
    width: 120px;
 }
 
+
+
+/**************************************************
+   License Section
+**************************************************/
+.license-section {
+   margin-bottom: var(--space-xl);
+}
+
 .license-list {
    width: var(--section-lead-x);
    margin-inline: auto;
    list-style-type: disc;
 }
+
 
 /* アニメーションをより滑らかにするための設定 */
 @keyframes fadeIn {

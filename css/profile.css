@@ -14,8 +14,7 @@
 }
 
 .about-photo {
-    width: 45%;
-    max-width: 480px;
+    width: min(45%, 480px);
     border: var(--border-thin) solid var(--green);
     border-radius: var(--radius-s);
     object-fit: cover;
@@ -53,6 +52,10 @@
 /**************************************************
    Process Section / Achievement Section
 **************************************************/
+.achievement-section {
+    margin-bottom: var(--space-xl);
+}
+
 .process-list {
     display: flex;
     justify-content: center;
@@ -230,6 +233,7 @@
     .about-container {
         flex-direction: column;
         align-items: center;
+        gap: var(--space-l);
     }
 
     .about-photo {

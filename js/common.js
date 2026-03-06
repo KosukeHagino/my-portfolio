@@ -21,14 +21,17 @@ if (!document.getElementById('js-loading')) {
 
 // 初期化処理
 const initCommon = () => {
-    initCustomCursor();     // 追尾カーソルの開始
-    initHamburgerMenu();    // メニュー開閉機能の有効化
-    initPageTop();          // ページトップへ戻るボタンの有効化
+    initCustomCursor();         // 追尾カーソルの開始
+    initHamburgerMenu();        // メニュー開閉機能の有効化
+    initPageTop();              // ページトップへ戻るボタンの有効化
+    initScrollShow();           // スクロールに応じたコンテンツ表示の有効化
+    initContactAnimation();     // コンタクトセクションのアニメーション（サブページ共通）
 };
 
 
 // ページ読み込み完了時に実行
 window.addEventListener('load', initCommon);
+
 
 
 
@@ -217,4 +220,57 @@ const initPageTop = () => {
             workList.scrollTo({ left: 0, behavior: 'smooth' });
         }
     });
+};
+
+
+
+/**************************************************
+   [機能] スクロールに応じて表示
+**************************************************/
+const initScrollShow = () => {
+    const targets = document.querySelectorAll('.js-scroll-text, .js-scroll-img');
+    
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            // 画面内に入ったら
+            if (entry.isIntersecting) {
+                entry.target.classList.add('is-show');
+                // 一度表示したら監視を止める（パフォーマンス向上）
+                observer.unobserve(entry.target);
+            }
+        });
+    }, {
+        root: null, // ブラウザの画面全体を監視
+        rootMargin: '0px 0px -15% 0px', // 画面の下端から15%入ったところで発動
+        threshold: 0 // 少しでも入ったら反応
+    });
+
+    targets.forEach(target => observer.observe(target));
+};
+
+
+
+/**************************************************
+   [機能] コンタクトセクションのアニメーション
+**************************************************/
+const initContactAnimation = () => {
+    const contactSection = document.querySelector('.contact-section');
+    const marquee = document.querySelector('.contact-marquee');
+    
+    if (!contactSection || !marquee) return;
+
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            // セクションが画面に入ってきたらマーキー（背景の巨大文字）を表示
+            if (entry.isIntersecting) {
+                marquee.classList.add('is-show');
+            } else {
+                marquee.classList.remove('is-show');
+            }
+        });
+    }, {
+        threshold: 0.1 // 10%見えたら発動
+    });
+
+    observer.observe(contactSection);
 };

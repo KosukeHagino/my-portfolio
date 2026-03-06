@@ -1,22 +1,33 @@
 @charset "utf-8";
 
 /**************************************************
+   Common / Adobe Fonts Setting
+**************************************************/
+/* --- 読み込み待ちのちらつき防止 --- */
+.wf-loading body { color: transparent; }
+.wf-active body,
+.wf-inactive body { color: inherit; }
+
+
+
+/**************************************************
    Common / Variable Setting
 **************************************************/
 :root {
     /* --- z-index --- */
-    --z-modal          : 10000;     /* モーダル */
-    --z-mask-is-modal  : 9000;      /* モーダル時の背景マスク */
-    --z-loading        : 8000;      /* ローディング */
-    --z-cursor         : 7000;      /* 追尾カーソル */
-    --z-header         : 5000;      /* ヘッダー */
-        --z-menu       : 200;       /* ヘッダー内メニュー */
-        --z-global-nav : 100;       /* ヘッダー内グローバルナビ */
-    --z-mask           : 4000;      /* ヘッダー開時の背景マスク */
-    --z-pagetop        : 3000;      /* ページトップに戻るボタン */
-    --z-footer         : 2000;      /* フッター */
-    --z-main           : 1;         /* メイン */
-    --z-back-content   : -1;        /* 背面に表示するコンテンツ */
+    --z-modal              : 10000;     /* モーダル */
+    --z-mask-is-modal      : 9000;      /* モーダル時の背景マスク */
+    --z-loading            : 8000;      /* ローディング */
+    --z-cursor             : 7000;      /* 追尾カーソル */
+    --z-header             : 5000;      /* ヘッダー */
+        --z-menu           : 200;           /* ヘッダー内メニュー */
+        --z-global-nav     : 100;           /* ヘッダー内グローバルナビ */
+    --z-mask               : 4000;      /* ヘッダー開時の背景マスク */
+    --z-pagetop            : 3000;      /* ページトップに戻るボタン */
+    --z-footer             : 2000;      /* フッター */
+    --z-main               : 1;         /* メイン */
+        --z-front-content  : 2;             /* メイン内の前面に表示するコンテンツ */
+        --z-back-content   : -1;            /* メイン内の背面に表示するコンテンツ */
 
 
     /* --- Color --- */
@@ -56,7 +67,8 @@
     --work-text-sp-top   : 12.5dvh;                                 /* work-text 上余白 12.5dvh[SP] */
     --work-slide-space-x : 25%;                                     /* work-list 左右余白 25% */
     --work-slide-gap     : 15%;                                     /* work-list 子要素間余白 15% */
-    --work-space-x       : 50vw;                                    /* catch,contact 隣との余白 50vw */
+    --work-space-x       : 50vw;                                    /* profile,contact 隣との余白 50vw */
+    --contact-space-y    : 80px;                                    /* contact-outer 上余白 */ 
 
 
     /* --- Width & Height --- */
@@ -86,24 +98,70 @@
 
 
     /* --- Shadow --- */
-    --shadow-modal : 0 20px 60px rgba(0, 0, 0, 0.5);    /* modal x軸0、y軸20px、ぼかし60px、黒 */
+    --shadow-big   : 0 20px 60px rgba(0, 0, 0, 0.5);
     --shadow-small : 0 0 3px #ccc;
 
 
-    /* --- Animation Setting（全体で動きのトーンを揃えるための変数） --- */
-    --transition-base : 0.6s cubic-bezier(0.22, 1, 0.36, 1);
-    --transition-slide: 1.2s cubic-bezier(0.16, 1, 0.30, 1);
+    /* --- Animation Setting --- */
+    --transition-base   : 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+    --transition-slide  : 1.2s cubic-bezier(0.16, 1, 0.30, 1);
+    --transition-scroll : 0.6s cubic-bezier(0.33, 1, 0.68, 1);
+    --transition-ease   : 0.3s ease;
+    --transition-load   : 1.5s ease;
+    --slide-offset      : 20px;
+    --scale-ratio       : 0.9;
+    --delay-step        : 0.3s;
 }
 
 
 
 /**************************************************
-   Common / Adobe Fonts Setting
+   Common / Keyframes
 **************************************************/
-/* --- 読み込み待ちのちらつき防止 --- */
-.wf-loading body { color: transparent; }
-.wf-active body,
-.wf-inactive body { color: inherit; }
+@keyframes marquee {
+    0%   { transform: translateX(0); }
+    100% { transform: translateX(-50%); }           /* 50%まで動かしてループ */
+}
+
+
+
+/**************************************************
+   Common / Scroll Animation
+**************************************************/
+/* --- text animation --- */
+.js-scroll-text {
+    opacity: 0;                                     /* 初期：非表示 */
+    visibility: hidden;
+    transform: translateY(var(--slide-offset));     /* 初期：少し下にずらしておく */
+    transition: all var(--transition-scroll);       /* 画面内：0.6秒かけて少し上に移動しながら表示 */
+}
+
+.js-scroll-text.is-show {
+    opacity: 1;                                     /* 画面内：表示 */
+    visibility: visible;
+    transform: translateY(0);                       /* 画面内：元の位置に戻す（少し上にずれる） */
+}
+
+/* --- img animation --- */
+.js-scroll-img {
+    opacity: 0;                                     /* 初期：非表示 */
+    visibility: hidden;
+    transform: scale(var(--scale-ratio));           /* 初期：少し小さくしておく */
+    transition: all var(--transition-scroll);       /* 画面内：0.6秒かけて少し大きくなりながら表示 */
+}
+
+.js-scroll-img.is-show {
+    opacity: 1;                                     /* 画面内：表示 */
+    visibility: visible;
+    transform: scale(1);                            /* 画面内：元の大きさに戻す（少し大きくなる） */
+}
+
+/* --- delay --- */
+.delay-300  { transition-delay: var(--delay-step); }
+.delay-600  { transition-delay: calc(var(--delay-step) * 2); }
+.delay-900  { transition-delay: calc(var(--delay-step) * 3); }
+.delay-1200 { transition-delay: calc(var(--delay-step) * 4); }
+.delay-1500 { transition-delay: calc(var(--delay-step) * 5); }
 
 
 
@@ -114,6 +172,7 @@ html {
     font-size: 62.5%;           /* default 16px * 62.5% = 10px */
     width: 100%;
     scrollbar-gutter: stable;   /* スクロールバーの幅を常に確保 */ 
+    scroll-behavior: smooth;    /* ページ内リンクをクリックした時、スクロールを滑らかにする */
 }
 
 *, *::before, *::after {
@@ -174,14 +233,14 @@ span {
     visibility: hidden;
     translate: var(--x, 0px) var(--y, 0px);     /* マウスの現在地をJSから受け取る。それまでは画面左上に配置。 */
     transition:
-        translate 0.1s ease-out,        /* 元のカーソルから0.1秒遅れて追従 */
-        opacity   0.3s ease,            /* 0.3秒で透明度を変化させて徐々に表示（ローディング後） */
-        scale     0.3s ease,            /* 0.3秒で大きさを徐々に変化（ホバー時） */
-        background-color 0.3s ease;     /* 0.3秒で色を徐々に変化（ホバー時） */
+        translate 0.1s ease-out,                    /* 元のカーソルから0.1秒遅れて追従 */
+        opacity var(--transition-ease),             /* ホバー：0.3秒かけて透明度を変化させて表示 */
+        scale var(--transition-ease),               /* ホバー：0.3秒かけて大きさを変化 */
+        background-color var(--transition-ease);    /* ホバー：0.3秒かけて色を変化 */
 }
 
 body.content-ready .cursor {
-    opacity: 0.7;                       /* ローディング後：表示 */
+    opacity: 0.7;                       /* ローディング後：表示（ホバー時に対象が見えるように半透明） */
     visibility: visible;
 }
 
@@ -230,16 +289,14 @@ header {
     padding-top: calc(var(--space-m) * 3);
     padding-bottom: calc(var(--space-m) * 2);
     z-index: var(--z-global-nav);
-    visibility: hidden;                 /* メニュー閉：非表示 */
-    transform: translateX(100%);        /* メニュー閉：非表示（画面外にずらす） */
-    transition:
-        transform 0.3s ease,            /* メニュー開閉：0.3秒かけてメニューをスライドして表示・非表示 */
-        visibility 0.3s;                /* メニュー開閉：0.3秒後に表示・非表示 */
+    visibility: hidden;                         /* メニュー閉：非表示 */
+    transform: translateX(100%);                /* メニュー閉：非表示（画面外にずらす） */
+    transition: all var(--transition-ease);     /* メニュー開閉：0.3秒かけてメニューをスライドして表示・非表示 */
 }
 
 .global-nav.show {
-    visibility: visible;                /* メニュー開：表示 */
-    transform: translateX(0);           /* メニュー開：表示（画面内に戻す） */
+    visibility: visible;                        /* メニュー開：表示 */
+    transform: translateX(0);                   /* メニュー開：表示（画面内に戻す） */
 }
 
 .global-nav-item a {
@@ -273,20 +330,18 @@ header {
     position: absolute;
     width: 100%;
     height: var(--menu-btn-line-y);
-    background-color: var(--blue);      /* メニュー閉：青 */
-    transition:
-        background-color 0.5s,          /* メニュー開閉：0.5秒で色を徐々に変化 */
-        transform 0.5s;                 /* メニュー開閉：0.5秒で二本線・バツ印を徐々に変化 */
+    background-color: var(--blue);              /* メニュー閉：青 */
+    transition: all var(--transition-base);     /* メニュー開閉：0.6秒かけて色を変化させながら二本線・バツ印に変化 */
 }
 
 .menu.show span {
-    background-color: var(--white);     /* メニュー開：白 */
+    background-color: var(--white);             /* メニュー開：白 */
 }
 
-.menu span:nth-child(1) { transform: translateY(7px); }             /* メニュー閉：二本線 */
+.menu span:nth-child(1) { transform: translateY(7px); }                         /* メニュー閉：二本線 */
 .menu span:nth-child(2) { transform: translateY(17px); }
 
-.menu.show span:nth-child(1) { transform: translateY(12px) rotate(45deg); }      /* メニュー開：バツ印 */
+.menu.show span:nth-child(1) { transform: translateY(12px) rotate(45deg); }     /* メニュー開：バツ印 */
 .menu.show span:nth-child(2) { transform: translateY(12px) rotate(-45deg); }
 
 
@@ -307,12 +362,19 @@ main {
 }
 
 .section-title {
+    position: relative;
     font-family: var(--accent-font);
     font-weight: 700;
     font-size: var(--font-size-2xl);
     letter-spacing: 0.2em;
     text-align: center;
+    padding-bottom: var(--space-2xs);
     margin-bottom: var(--space-l);
+}
+
+.section-title .js-scroll-text {
+    display: inline-block;
+    transition: all var(--transition-scroll);       /* 画面内：0.6秒かけて上に移動しながら表示 */
 }
 
 .section-title::after {
@@ -320,9 +382,16 @@ main {
     position: absolute;
     bottom: 0;
     left: 50%;
+    width: 0;                           /* 初期：0 */
     height: var(--border-thin);
     background-color: var(--green);
     transform: translateX(-50%);
+    transition: width var(--transition-scroll);     /* 表示：0.6秒かけて横に広がる */
+}
+
+.section-title:has(.is-show)::after {
+    width: 100%;                                    /* 画面内：100% */
+    transition-delay: var(--delay-step);            /* 画面内：0.3秒遅れて表示し始める */
 }
 
 .section-lead {
@@ -349,28 +418,75 @@ main {
    Common / Contact
 **************************************************/
 .contact-section {
+    position: relative;
+    height: 200vh;                  /* 100vh(背景固定分) + 100vh(コンテンツの移動分) */
+    background: transparent;
     margin-bottom: 0;
-    padding-top: 100vh;
+}
+
+/* --- background（gradient） --- */
+.contact-section::before {
+    content: "";
+    position: sticky;               /* 背景色が画面全体に表示されたら固定 */
+    top: 0;
+    display: block;
+    width: 100%;
+    height: 100vh;
     background: var(--gradient);
 }
 
+.contact-marquee {
+    position: absolute;
+    top: 50%;
+    left: 0;
+    width: 100%;
+    transform: translateY(-50%);
+    overflow: hidden;
+    pointer-events: none;       /* クリックを邪魔しない */
+    opacity: 0;                 /* 初期：非表示 */
+    transition: opacity var(--transition-base);
+}
+
+.contact-marquee.is-show {
+    opacity: 1;
+}
+
+.contact-marquee-inner {
+    display: flex;
+    white-space: nowrap;
+}
+
+.contact-marquee-inner span {
+    font-size: clamp(5rem, 20vw, 15rem);        /* 画面幅に合わせて巨大化 */
+    font-weight: 700;
+    color: rgba(255, 255, 255, 0.08);         /* 薄い白（透かす） */
+    padding-right: 50px;
+    animation: marquee 20s linear infinite;
+}
+
 .contact-outer {
+    position: sticky;               /* contact-outerが全て表示されたら固定 */
+    top: var(--contact-space-y);
+    height: calc(100vh - var(--contact-space-y));
+    margin-inline: auto;
+    margin-top: var(--contact-space-y);
+    background-color: var(--white);
+    border-radius: var(--radius-m) var(--radius-m) 0 0;
     display: flex;
     justify-content: space-between;
     padding: var(--space-l);
-    background-color: var(--white);
-    border-radius: var(--radius-m) var(--radius-m) 0 0;
-    filter: drop-shadow(0 0 4px var(--blue));
+    filter: drop-shadow(var(--shadow-big));
+    z-index: var(--z-front-content);
 }
 
 .photo-inner {
-    flex-basis: 45%;
+    flex-basis: 40%;
     position: relative;
 }
 
 .photo-inner img {
     display: block;
-    position: absolute;  
+    position: absolute; 
     width: 50%; 
     border: var(--border-base) solid var(--white);
     border-radius: var(--radius-s);
@@ -382,9 +498,8 @@ main {
 }
 
 .photo-inner img:nth-child(2) {
-    top: 50%;
-    left: 50%;
-    transform: translate3d(-50%, -50%, 0);
+    inset: 0;
+    margin: auto;
 }
 
 .photo-inner img:nth-child(3) {
@@ -395,7 +510,15 @@ main {
 .contact-item {
     flex-basis: 50%;
     text-align: center;
-    padding-block: var(--space-l);
+    padding-top: var(--space-m);
+}
+
+.contact-item .section-title .js-scroll-text {
+    transition-delay: calc(var(--delay-step) * 3);      /* 画面内：0.9秒遅れて表示し始める */
+}
+
+.contact-item .section-title::after {
+    transition-delay: calc(var(--delay-step) * 4);      /* 画面内：1.2秒遅れて表示し始める */
 }
 
 .contact-msg {
@@ -408,11 +531,11 @@ main {
     padding-inline: var(--space-m);
     margin-inline: auto;
     border: var(--border-base) solid var(--green);
-    border-radius: var(--radius-l);         /* 左右両端を半円にする（要素の高さの半分より大きい値を設定すれば自動的に半円になる） */
+    border-radius: var(--radius-l);                 /* 左右両端を半円 */
     font-family: var(--accent-font);
     font-size: var(--font-size-l);
-    color: var(--green);                    /* 通常：緑 */
-    transition: color 0.5s ease;            /* ホバー：0.5秒かけて文字色を徐々に変化 */
+    color: var(--green);                            /* 通常：緑 */
+    transition: color var(--transition-base);       /* ホバー：0.6秒かけて文字色を変化 */
 }
 
 
@@ -434,11 +557,7 @@ main {
     cursor: pointer;
     opacity: 0;
     transform: translateX(100%);
-    transition:
-        background-color 0.3s,
-        padding 0.3s,
-        opacity 0.5s,
-        transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+    transition: all var(--transition-base);         /* ホバー：0.6秒かけて左に少し伸びながら背景を変化 */
 }
 
 .pagetop.is-show {
@@ -497,9 +616,7 @@ footer {
     z-index: var(--z-modal);
     opacity: 0;                 /* 通常：非表示 */
     visibility: hidden;
-    transition:
-        opacity 0.4s ease,      /* モーダル表示：0.4秒かけて徐々に表示 */
-        visibility 0.4s;
+    transition: all var(--transition-base);     /* モーダル：0.6秒かけて表示 */
 }
 
 .modal.show {
@@ -512,7 +629,7 @@ footer {
     height: auto;
     display: block;
     border-radius: var(--radius-s);
-    box-shadow: var(--shadow-modal);
+    box-shadow: var(--shadow-big);
 }
 
 .modal-close {
@@ -524,13 +641,11 @@ footer {
     cursor: pointer;
     opacity: 0;                 /* 通常：閉じるボタン非表示 */
     visibility: hidden;
-    transition:
-        opacity 0.4s ease,      /* モーダル表示・非表示：0.4秒かけて徐々に表示・非表示 */
-        visibility 0.4s;
+    transition: all var(--transition-base);     /* モーダル：0.6秒かけて表示・非表示 */
 }
 
 .modal.show .modal-close {
-    opacity: 1;                 /* モーダル表示：閉じるボタン表示 */
+    opacity: 1;                 /* モーダル：閉じるボタン表示 */
     visibility: visible;
 }
 
@@ -566,16 +681,14 @@ footer {
     inset: 0;
     background-color: var(--black);
     z-index: var(--z-mask);
-    opacity: 0;                 /* メニュー閉：非表示 */
+    opacity: 0;                 /* メニュー閉：背景マスク非表示 */
     visibility: hidden;
-    transition:
-        opacity 0.3s,           /* メニュー開閉：0.3秒かけて透明度を徐々に変えて背景マスクを表示・非表示 */
-        visibility 0.3s;
+    transition: all var(--transition-ease);     /* メニュー・モーダル開閉：0.3秒かけて透明度を変えて背景マスクを表示・非表示 */
 }
 
 .mask.show,
 .mask.is-modal {
-    opacity: 0.8;               /* メニュー開・モーダル：表示 */
+    opacity: 0.8;               /* メニュー・モーダル開：背景マスク表示 */
     visibility: visible;
 }
 
@@ -606,9 +719,9 @@ footer {
         transform: translateY(-100dvh);     /* メニュー閉：非表示（画面外にずらす） */
         visibility: hidden;
         transition:
-            transform 0.6s ease,            /* メニュー開閉：0.6秒かけてメニューをスライドして表示・非表示 */
-            visibility 0.6s,                /* メニュー開閉：0.6秒後にメニューを表示・非表示 */
-            clip-path 0.9s ease 0.3s;       /* メニュー開閉：0.3秒遅れて0.9秒かけて切り取り実行・解除 */
+            transform var(--transition-base),                       /* メニュー開閉：0.6秒かけてメニューをスライドして表示・非表示 */
+            visibility var(--transition-base),                      /* メニュー開閉：0.6秒後にメニューを表示・非表示 */
+            clip-path var(--transition-base) var(--delay-step);     /* メニュー開閉：0.3秒遅れて0.6秒かけて切り取り実行・解除 */
     }
 
     .global-nav.show {
@@ -633,10 +746,6 @@ footer {
 
     .section {
         margin-bottom: var(--space-xl);
-    }
-
-    .section-title {
-        margin-bottom: var(--space-m);
     }
 
     .section-lead {
@@ -674,7 +783,8 @@ footer {
     }
 
     .contact-item {
-        padding: var(--space-m);
+        padding-top: var(--space-s);
+        padding-inline: var(--space-m);
     }
 
     .contact-msg {
@@ -683,7 +793,7 @@ footer {
 
     .mail-btn {
         padding-block: var(--space-2xs);
-        padding-inline: var(--space-m);
+        padding-inline: var(--space-s);
         font-size: var(--font-size-m);
     }
 
@@ -720,19 +830,19 @@ footer {
     }
 
     .global-nav-item a:hover {
-        background-color: var(--blue);              /* ホバー：背景色を青 */
-        transition: background-color 0.8s ease;     /* ホバー：0.8秒かけて背景色を徐々に変化 */
+        background-color: var(--blue);                          /* ホバー：背景色を青 */
+        transition: background-color var(--transition-base);    /* ホバー：0.6秒かけて背景色を変化 */
     }
 
     .mail-btn:hover {
         background: var(--gradient);
         color: var(--white);
-        transition: color 0.5s ease;                /* ホバー：0.5秒かけて文字色を徐々に変化 */
+        transition: color var(--transition-base);               /* ホバー：0.6秒かけて文字色を変化 */
     }
 
     .pagetop:hover {
         background-color: var(--blue);
-        padding-right: var(--space-m);              /* 少し左にせり出す */
+        padding-right: var(--space-m);              /* 少し左にせり出させる */
     }
 }
 
